@@ -6,7 +6,10 @@ import {
   GraphQLInt,
   GraphQLFloat,
   GraphQLNonNull,
+  GraphQLList,
 } from 'graphql';
+
+import { listings } from './mocklistings';
 
 const Listing = new GraphQLObjectType({
   name: 'Listing',
@@ -26,7 +29,10 @@ const Listing = new GraphQLObjectType({
 const query = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    hello: { type: GraphQLString, resolve: () => 'Hello from the Query!' },
+    listings: {
+      type: GraphQLNonNull(GraphQLList(GraphQLNonNull(Listing))),
+      resolve: () => listings,
+    },
   },
 });
 const mutation = new GraphQLObjectType({

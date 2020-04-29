@@ -5,8 +5,8 @@ import { ObjectID } from 'mongodb';
 export const listingResolvers: IResolvers = {
   Query: {
     listings: async (
-      root: undefined,
-      args: {},
+      _root: undefined,
+      _args: {},
       context: { db: Database }
     ): Promise<Listing[]> => {
       const { db } = context;
@@ -15,7 +15,7 @@ export const listingResolvers: IResolvers = {
   },
   Mutation: {
     deleteListing: async (
-      root: undefined,
+      _root: undefined,
       args: { id: string },
       context: { db: Database }
     ): Promise<Listing> => {

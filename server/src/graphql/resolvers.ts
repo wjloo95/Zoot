@@ -4,7 +4,11 @@ import { ObjectID } from 'mongodb';
 
 export const resolvers: IResolvers = {
   Query: {
-    listings: async (root: undefined, args: {}, context: { db: Database }) => {
+    listings: async (
+      root: undefined,
+      args: {},
+      context: { db: Database }
+    ): Promise<Listing[]> => {
       const { db } = context;
       return await db.listings.find({}).toArray();
     },
@@ -14,7 +18,7 @@ export const resolvers: IResolvers = {
       root: undefined,
       args: { id: string },
       context: { db: Database }
-    ) => {
+    ): Promise<Listing> => {
       const { id } = args;
       const { db } = context;
 
@@ -40,7 +44,7 @@ export const resolvers: IResolvers = {
       numOfBaths: (listing: Listing) => listing.numOfBaths,
       rating: (listing: Listing) => listing.rating,
       */
-      id: (listing: Listing) => listing._id.toString(),
+      id: (listing: Listing): string => listing._id.toString(),
     },
   },
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { List, Avatar, Button, Spin } from 'antd';
+import { ListingsSkeleton } from './children';
 import './style.css';
 
 import { Listings as ListingsData } from './__generated__/Listings';
@@ -89,7 +90,9 @@ export const Listings = ({ title }: IProps) => {
   ) : null;
 
   return loading ? (
-    <h2>Loading...</h2>
+    <div className="listings">
+      <ListingsSkeleton />
+    </div>
   ) : (
     <div className="listings">
       <Spin spinning={deleteListingLoading}>

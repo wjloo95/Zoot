@@ -41,6 +41,10 @@ export const Listings = ({ title }: IProps) => {
     { loading: deleteListingLoading, error: deleteListingError },
   ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING);
 
+  const handleDeleteListing = async (id: string) => {
+    await deleteListing({ id });
+    refetch();
+  };
   if (error) {
     return <h2>Uh Oh! Something went wrong - please try again later</h2>;
   }
@@ -49,10 +53,25 @@ export const Listings = ({ title }: IProps) => {
 
   const listingsList = listings ? (
     <ul>
-      {listings.map((listing) => {
-        return <li key={listing.id}>{listing.title} </li>;
-      })}
+      {listings.map((listing) => (
+        <li key={listing.id}>
+          {listing.title}{' '}
+          <button onClick={() => handleDeleteListing(listing.id)}>
+            Delete
+          </button>
+        </li>
+      ))}
     </ul>
+  ) : null;
+
+  const deleteListingLoadingMessage = deleteListingLoading ? (
+    <h4>Deletion in progress...</h4>
+  ) : null;
+
+  const deleteListingErrorMessage = deleteListingError ? (
+    <h4>
+      Uh oh! Something went wrong with deleting :(. Please try again soon.
+    </h4>
   ) : null;
 
   return loading ? (
@@ -61,6 +80,8 @@ export const Listings = ({ title }: IProps) => {
     <>
       <h2>{title}</h2>
       {listingsList}
+      {deleteListingLoadingMessage}
+      {deleteListingErrorMessage}
     </>
   );
 };

@@ -1,19 +1,7 @@
-import { useState, useReducer } from 'react';
+import { useReducer } from 'react';
 import { server } from '../server';
-import { State, MutationTuple, Action } from './types';
-
-const reducer = <TData>() => (state: State<TData>, action: Action<TData>) => {
-  switch (action.type) {
-    case 'FETCH':
-      return { ...state, loading: true };
-    case 'FETCH_SUCCESS':
-      return { ...state, loading: false, data: action.payload, error: false };
-    case 'FETCH':
-      return { ...state, loading: false, error: true };
-    default:
-      throw new Error();
-  }
-};
+import { MutationTuple } from './types';
+import { reducer } from './reducers';
 
 export const useMutation = <TData = any, TVariables = any>(
   query: string

@@ -1,9 +1,9 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { List, Avatar, Button, Spin } from 'antd';
+import { List, Avatar, Button, Spin, Alert } from 'antd';
 import { ListingsSkeleton } from './children';
-import './style.css';
+import './Listings.css';
 
 import { Listings as ListingsData } from './__generated__/Listings';
 import {
@@ -80,10 +80,12 @@ export const Listings = ({ title }: IProps) => {
     />
   ) : null;
 
-  const deleteListingErrorMessage = deleteListingError ? (
-    <h4>
-      Uh oh! Something went wrong with deleting :(. Please try again soon.
-    </h4>
+  const deleteListingErrorAlert = deleteListingError ? (
+    <Alert
+      type="error"
+      message="Uh Oh! Something went wrong...Please try again later :( "
+      className="listings__alert"
+    />
   ) : null;
 
   if (error) {
@@ -100,10 +102,10 @@ export const Listings = ({ title }: IProps) => {
     </div>
   ) : (
     <div className="listings">
+      {deleteListingErrorAlert}
       <Spin spinning={deleteListingLoading}>
         <h2>{title}</h2>
         {listingsList}
-        {deleteListingErrorMessage}
       </Spin>
     </div>
   );

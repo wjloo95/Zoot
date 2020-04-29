@@ -91,7 +91,7 @@ export const Listings = ({ title }: IProps) => {
 
   return loading ? (
     <div className="listings">
-      <ListingsSkeleton />
+      <ListingsSkeleton title={title} />
     </div>
   ) : (
     <div className="listings">

@@ -1,6 +1,7 @@
+import { IResolvers } from 'apollo-server-express';
 import { listings } from '../mockListings';
 
-export const resolvers = {
+export const resolvers: IResolvers = {
   Query: {
     listings: () => {
       return listings;

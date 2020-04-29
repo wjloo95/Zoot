@@ -1,6 +1,8 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { List } from 'antd';
+
 import { Listings as ListingsData } from './__generated__/Listings';
 import {
   DeleteListing as DeleteListingData,
@@ -53,16 +55,19 @@ export const Listings = ({ title }: IProps) => {
   const listings = data ? data.listings : null;
 
   const listingsList = listings ? (
-    <ul>
-      {listings.map((listing) => (
-        <li key={listing.id}>
-          {listing.title}{' '}
+    <List
+      header="Our Listings"
+      dataSource={listings}
+      itemLayout="horizontal"
+      renderItem={(listing) => (
+        <List.Item>
+          <List.Item.Meta title={listing.title} />
           <button onClick={() => handleDeleteListing(listing.id)}>
             Delete
           </button>
-        </li>
-      ))}
-    </ul>
+        </List.Item>
+      )}
+    />
   ) : null;
 
   const deleteListingLoadingMessage = deleteListingLoading ? (

@@ -1,11 +1,11 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
+import { Listings as ListingsData } from './__generated__/Listings';
 import {
-  DeleteListingData,
+  DeleteListing as DeleteListingData,
   DeleteListingVariables,
-  ListingsData,
-} from './types';
+} from './__generated__/DeleteListing';
 
 const LISTINGS = gql`
   query Listings {

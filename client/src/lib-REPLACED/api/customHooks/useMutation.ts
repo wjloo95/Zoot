@@ -3,6 +3,8 @@ import { server } from '../server';
 import { MutationTuple } from './types';
 import { reducer } from './reducers';
 
+// From Scratch implementation of @apollo/react-hooks useMutation, only difference is how query is passed in
+// This expects a string, while actual one expects a tree from gql``
 export const useMutation = <TData = any, TVariables = any>(
   query: string
 ): MutationTuple<TData, TVariables> => {

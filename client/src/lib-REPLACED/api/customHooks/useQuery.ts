@@ -3,6 +3,8 @@ import { server } from '../server';
 import { QueryResult } from './types';
 import { reducer } from './reducers';
 
+// From Scratch implementation of @apollo/react-hooks useQuery, only difference is how query is passed in
+// This expects a string, while actual one expects a tree from gql``
 export const useQuery = <TData = any>(query: string): QueryResult<TData> => {
   const fetchReducer = reducer<TData>();
   const [state, dispatch] = useReducer(fetchReducer, {

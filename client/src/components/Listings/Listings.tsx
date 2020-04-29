@@ -38,27 +38,40 @@ export const Listings = () => {
 
   const fetchListings = async () => {
     const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
-    console.log(data);
+    setListings(data.listings);
   };
 
-  const deleteListing = async () => {
+  const deleteListing = async (id: string) => {
     const { data } = await server.fetch<
       DeleteListingData,
       DeleteListingVariables
     >({
       query: DELETE_LISTING,
       variables: {
-        id: '5d4507a9cf295034813b35c2', // hardcoded id variable,
+        id, // hardcoded id variable,
       },
     });
-    console.log(data); // check the console to see the result of the mutation!
+    fetchListings();
   };
+
+  const listingsList = listings ? (
+    <ul>
+      {listings.map((listing) => {
+        return (
+          <li key={listing.id}>
+            {listing.title}{' '}
+            <button onClick={() => deleteListing(listing.id)}>Delete</button>
+          </li>
+        );
+      })}
+    </ul>
+  ) : null;
 
   return (
     <>
       <h2>Tiny House Listings</h2>
+      {listingsList}
       <button onClick={fetchListings}>Get our Listings!</button>
-      <button onClick={deleteListing}>Delete a Listing!</button>
     </>
   );
 };

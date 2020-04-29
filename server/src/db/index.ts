@@ -1,7 +1,7 @@
 import { MongoClient } from 'mongodb';
+require('dotenv').config();
 
-const url = `mongodb+srv://${process.env.USER}:${process.env.USER_PWD}@${process.env.CLUSTER}.mongodb.net`;
-
+const url = `mongodb+srv://${process.env.USER}:${process.env.USER_PWD}@${process.env.CLUSTER}.mongodb.net/test?retryWrites=true&w=majority`;
 export const connectDatabase = async () => {
   const client = await MongoClient.connect(url, {
     useNewUrlParser: true,

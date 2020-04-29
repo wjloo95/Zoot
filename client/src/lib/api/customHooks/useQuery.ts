@@ -1,20 +1,6 @@
 import { useState, useEffect, useCallback, useReducer } from 'react';
 import { server } from '../server';
-
-interface State<TData> {
-  data: TData | null;
-  loading: boolean;
-  error: boolean;
-}
-
-interface QueryResult<TData> extends State<TData> {
-  refetch: () => void;
-}
-
-type Action<TData> =
-  | { type: 'FETCH' }
-  | { type: 'FETCH_SUCCESS'; payload: TData }
-  | { type: 'FETCH_ERROR' };
+import { State, QueryResult, Action } from './types';
 
 const reducer = <TData>() => (state: State<TData>, action: Action<TData>) => {
   switch (action.type) {

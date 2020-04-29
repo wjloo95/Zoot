@@ -1,21 +1,6 @@
 import { useState, useReducer } from 'react';
 import { server } from '../server';
-
-interface State<TData> {
-  data: TData | null;
-  loading: boolean;
-  error: boolean;
-}
-
-type MutationTuple<TData, TVariables> = [
-  (variables?: TVariables | undefined) => Promise<void>,
-  State<TData>
-];
-
-type Action<TData> =
-  | { type: 'FETCH' }
-  | { type: 'FETCH_SUCCESS'; payload: TData }
-  | { type: 'FETCH_ERROR' };
+import { State, MutationTuple, Action } from './types';
 
 const reducer = <TData>() => (state: State<TData>, action: Action<TData>) => {
   switch (action.type) {

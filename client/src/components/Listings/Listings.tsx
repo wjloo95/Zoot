@@ -50,9 +50,6 @@ export const Listings = ({ title }: IProps) => {
     await deleteListing({ variables: { id } });
     refetch();
   };
-  if (error) {
-    return <h2>Uh Oh! Something went wrong - please try again later</h2>;
-  }
 
   const listings = data ? data.listings : null;
 
@@ -88,6 +85,14 @@ export const Listings = ({ title }: IProps) => {
       Uh oh! Something went wrong with deleting :(. Please try again soon.
     </h4>
   ) : null;
+
+  if (error) {
+    return (
+      <div className="listings">
+        <ListingsSkeleton title={title} error />
+      </div>
+    );
+  }
 
   return loading ? (
     <div className="listings">

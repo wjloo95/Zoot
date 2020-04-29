@@ -1,5 +1,5 @@
 import React from 'react';
-import { server, useQuery } from '../../lib/api';
+import { useQuery, useMutation } from '../../lib/api';
 import {
   DeleteListingData,
   DeleteListingVariables,
@@ -36,16 +36,10 @@ interface IProps {
 
 export const Listings = ({ title }: IProps) => {
   const { data, refetch, loading, error } = useQuery<ListingsData>(LISTINGS);
-
-  const deleteListing = async (id: string) => {
-    await server.fetch<DeleteListingData, DeleteListingVariables>({
-      query: DELETE_LISTING,
-      variables: {
-        id, // hardcoded id variable,
-      },
-    });
-    refetch();
-  };
+  const [
+    deleteListing,
+    { loading: deleteListingLoading, error: deleteListingError },
+  ] = useMutation<DeleteListingData, DeleteListingVariables>(DELETE_LISTING);
 
   if (error) {
     return <h2>Uh Oh! Something went wrong - please try again later</h2>;
@@ -56,12 +50,7 @@ export const Listings = ({ title }: IProps) => {
   const listingsList = listings ? (
     <ul>
       {listings.map((listing) => {
-        return (
-          <li key={listing.id}>
-            {listing.title}{' '}
-            <button onClick={() => deleteListing(listing.id)}>Delete</button>
-          </li>
-        );
+        return <li key={listing.id}>{listing.title} </li>;
       })}
     </ul>
   ) : null;

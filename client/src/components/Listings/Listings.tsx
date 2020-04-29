@@ -31,10 +31,16 @@ const DELETE_LISTING = `
   }
 `;
 
-interface IProps {}
+interface IProps {
+  title: string;
+}
 
-export const Listings = () => {
+export const Listings = ({ title }: IProps) => {
   const [listings, setListings] = useState<Listing[] | null>(null);
+
+  useEffect(() => {
+    fetchListings();
+  }, []);
 
   const fetchListings = async () => {
     const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
@@ -69,9 +75,8 @@ export const Listings = () => {
 
   return (
     <>
-      <h2>Tiny House Listings</h2>
+      <h2>{title}</h2>
       {listingsList}
-      <button onClick={fetchListings}>Get our Listings!</button>
     </>
   );
 };

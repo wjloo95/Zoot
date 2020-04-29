@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { server } from '../../lib/api';
+import { server, useQuery } from '../../lib/api';
 import {
   DeleteListingData,
   DeleteListingVariables,
   ListingsData,
-  Listing,
 } from './types';
 
 const LISTINGS = `
@@ -36,16 +35,7 @@ interface IProps {
 }
 
 export const Listings = ({ title }: IProps) => {
-  const [listings, setListings] = useState<Listing[] | null>(null);
-
-  useEffect(() => {
-    fetchListings();
-  }, []);
-
-  const fetchListings = async () => {
-    const { data } = await server.fetch<ListingsData>({ query: LISTINGS });
-    setListings(data.listings);
-  };
+  const { data } = useQuery<ListingsData>(LISTINGS);
 
   const deleteListing = async (id: string) => {
     const { data } = await server.fetch<
@@ -57,8 +47,9 @@ export const Listings = ({ title }: IProps) => {
         id, // hardcoded id variable,
       },
     });
-    fetchListings();
   };
+
+  const listings = data ? data.listings : null;
 
   const listingsList = listings ? (
     <ul>

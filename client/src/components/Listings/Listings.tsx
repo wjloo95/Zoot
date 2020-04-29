@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { List, Avatar, Button } from 'antd';
+import { List, Avatar, Button, Spin } from 'antd';
 import './style.css';
 
 import { Listings as ListingsData } from './__generated__/Listings';
@@ -82,10 +82,6 @@ export const Listings = ({ title }: IProps) => {
     />
   ) : null;
 
-  const deleteListingLoadingMessage = deleteListingLoading ? (
-    <h4>Deletion in progress...</h4>
-  ) : null;
-
   const deleteListingErrorMessage = deleteListingError ? (
     <h4>
       Uh oh! Something went wrong with deleting :(. Please try again soon.
@@ -96,10 +92,11 @@ export const Listings = ({ title }: IProps) => {
     <h2>Loading...</h2>
   ) : (
     <div className="listings">
-      <h2>{title}</h2>
-      {listingsList}
-      {deleteListingLoadingMessage}
-      {deleteListingErrorMessage}
+      <Spin spinning={deleteListingLoading}>
+        <h2>{title}</h2>
+        {listingsList}
+        {deleteListingErrorMessage}
+      </Spin>
     </div>
   );
 };

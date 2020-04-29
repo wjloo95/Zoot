@@ -32,19 +32,19 @@ export const resolvers: IResolvers = {
 
       return deletedListing.value;
     },
-    Listing: {
-      // Trivial resolvers since they just return a value with the same key, so they aren't necessary
-      /*
-      title: (listing: Listing) => listing.title,
-      image: (listing: Listing) => listing.image,
-      address: (listing: Listing) => listing.address,
-      price: (listing: Listing) => listing.price,
-      numOfGuests: (listing: Listing) => listing.numOfGuests,
-      numOfBeds: (listing: Listing) => listing.numOfBeds,
-      numOfBaths: (listing: Listing) => listing.numOfBaths,
-      rating: (listing: Listing) => listing.rating,
-      */
-      id: (listing: Listing): string => listing._id.toString(),
-    },
+  },
+  Listing: {
+    // Trivial resolvers since they just return a value with the same key, so they aren't necessary
+    /*
+    title: (listing: Listing) => listing.title,
+    image: (listing: Listing) => listing.image,
+    address: (listing: Listing) => listing.address,
+    price: (listing: Listing) => listing.price,
+    numOfGuests: (listing: Listing) => listing.numOfGuests,
+    numOfBeds: (listing: Listing) => listing.numOfBeds,
+    numOfBaths: (listing: Listing) => listing.numOfBaths,
+    rating: (listing: Listing) => listing.rating,
+    */
+    id: (listing: Listing): string => listing._id.toString(),
   },
 };

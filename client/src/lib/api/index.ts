@@ -1,3 +1,3 @@
 export * from './server';
-export * from './useQuery';
-export * from './useMutation';
+export * from './customHooks/useQuery';
+export * from './customHooks/useMutation';

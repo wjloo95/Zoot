@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { server } from './server';
+import { server } from '../server';
 
 interface State<TData> {
   data: TData | null;

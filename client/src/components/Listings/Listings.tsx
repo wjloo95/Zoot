@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { server, useQuery } from '../../lib/api';
 import {
   DeleteListingData,
@@ -38,10 +38,7 @@ export const Listings = ({ title }: IProps) => {
   const { data, refetch, loading } = useQuery<ListingsData>(LISTINGS);
 
   const deleteListing = async (id: string) => {
-    const { data } = await server.fetch<
-      DeleteListingData,
-      DeleteListingVariables
-    >({
+    await server.fetch<DeleteListingData, DeleteListingVariables>({
       query: DELETE_LISTING,
       variables: {
         id, // hardcoded id variable,

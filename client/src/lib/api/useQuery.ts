@@ -14,7 +14,7 @@ export const useQuery = <TData = any>(query: string) => {
 
   const fetch = useCallback(() => {
     const fetchApi = async () => {
-      setState({ ...state, loading: true });
+      setState({ data: null, loading: true });
       const { data } = await server.fetch<TData>({
         query,
       });

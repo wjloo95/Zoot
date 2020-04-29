@@ -1,7 +1,7 @@
 import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
-import { List } from 'antd';
+import { List, Avatar, Button } from 'antd';
 import './style.css';
 
 import { Listings as ListingsData } from './__generated__/Listings';
@@ -61,11 +61,22 @@ export const Listings = ({ title }: IProps) => {
       dataSource={listings}
       itemLayout="horizontal"
       renderItem={(listing) => (
-        <List.Item>
-          <List.Item.Meta title={listing.title} />
-          <button onClick={() => handleDeleteListing(listing.id)}>
-            Delete
-          </button>
+        <List.Item
+          actions={[
+            <Button
+              type="primary"
+              onClick={() => handleDeleteListing(listing.id)}
+            >
+              {' '}
+              Delete
+            </Button>,
+          ]}
+        >
+          <List.Item.Meta
+            title={listing.title}
+            description={listing.address}
+            avatar={<Avatar src={listing.image} size={48} shape="square" />}
+          />
         </List.Item>
       )}
     />

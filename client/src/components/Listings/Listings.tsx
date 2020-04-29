@@ -2,6 +2,7 @@ import React from 'react';
 import { gql } from 'apollo-boost';
 import { useQuery, useMutation } from '@apollo/react-hooks';
 import { List } from 'antd';
+import './style.css';
 
 import { Listings as ListingsData } from './__generated__/Listings';
 import {
@@ -83,11 +84,11 @@ export const Listings = ({ title }: IProps) => {
   return loading ? (
     <h2>Loading...</h2>
   ) : (
-    <>
+    <div className="listings">
       <h2>{title}</h2>
       {listingsList}
       {deleteListingLoadingMessage}
       {deleteListingErrorMessage}
-    </>
+    </div>
   );
 };

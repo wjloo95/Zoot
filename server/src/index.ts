@@ -2,6 +2,8 @@ import express from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import { typeDefs, resolvers } from './graphql';
 
+require('dotenv').config();
+
 const app = express();
 
 const PORT_NUMBER = 9000;

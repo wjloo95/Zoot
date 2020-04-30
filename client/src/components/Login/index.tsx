@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Layout, Typography } from 'antd';
+import './Login.css';
 
 // Image Assets
 import googleLogo from './assets/google_logo.jpg';

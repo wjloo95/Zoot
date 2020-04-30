@@ -14,4 +14,10 @@ export const viewerResolvers: IResolvers = {
       return 'Mutation.logOut';
     },
   },
+  Viewer: {
+    id: (viewer) => viewer._id,
+    hasWallet: (viewer) => {
+      return !!viewer.walletID;
+    },
+  },
 };

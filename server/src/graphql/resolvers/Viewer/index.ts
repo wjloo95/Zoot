@@ -1,6 +1,5 @@
 import { IResolvers } from 'apollo-server-express';
 import { Google } from '../../../lib/api';
-import { LogInArgs } from './types';
 
 export const viewerResolvers: IResolvers = {
   Query: {
@@ -13,7 +12,7 @@ export const viewerResolvers: IResolvers = {
     },
   },
   Mutation: {
-    logIn: (type: LogInArgs) => {
+    logIn: () => {
       return 'Mutation.logIn';
     },
     logOut: () => {

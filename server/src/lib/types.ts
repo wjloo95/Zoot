@@ -12,6 +12,16 @@ export interface Listing {
   rating: number;
 }
 
+export interface User {
+  _id: ObjectID;
+}
+
+export interface Booking {
+  _id: ObjectID;
+}
+
 export interface Database {
   listings: Collection<Listing>;
+  users: Collection<User>;
+  bookings: Collection<Booking>;
 }

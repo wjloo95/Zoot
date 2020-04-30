@@ -5,11 +5,16 @@ import './Login.css';
 // Image Assets
 import googleLogo from './assets/google_logo.jpg';
 import facebookLogo from './assets/f_logo_RGB-White_58.png';
+import { Viewer } from '../../lib/types';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
 
-export const Login = () => {
+interface IProps {
+  setViewer: (viewer: Viewer) => void;
+}
+
+export const Login = ({ setViewer }: IProps) => {
   return (
     <Content className="log-in">
       <Card className="log-in-card">

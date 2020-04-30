@@ -3,6 +3,7 @@ import { Card, Layout, Typography } from 'antd';
 
 // Image Assets
 import googleLogo from './assets/google_logo.jpg';
+import facebookLogo from './assets/f_logo_RGB-White_58.png';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -22,19 +23,29 @@ export const Login = () => {
           </Title>
           <Text>Sign in to get started on your next adventure!</Text>
         </div>
-        <button className="log-in-card__google-button">
+        <button className="log-in-card-button log-in-card__facebook-button">
+          <img
+            src={facebookLogo}
+            alt="Facebook Logo"
+            className="log-in-card-button-logo log-in-card__facebook-button-logo"
+          />
+          <span className="log-in-card-button-text log-in-card__facebook-button-text">
+            Continue with Facebook
+          </span>
+        </button>
+        <button className="log-in-card-button log-in-card__google-button">
           <img
             src={googleLogo}
             alt="Google Logo"
-            className="log-in-card__google-button-logo"
+            className="log-in-card-button-logo log-in-card__google-button-logo"
           />
-          <span className="log-in-card__google-button-text">
+          <span className="log-in-card-button-text log-in-card__google-button-text">
             Sign in with Google
           </span>
         </button>
         <Text type="secondary">
-          Note: By signing in, you will be redirected to Google's consent form
-          to sign in with your Google account.
+          Note: By signing in, you will be redirected to the selected host's
+          consent form to sign in through their portal.
         </Text>
       </Card>
     </Content>

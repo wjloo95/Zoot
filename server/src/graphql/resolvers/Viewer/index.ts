@@ -1,6 +1,6 @@
 import { IResolvers } from 'apollo-server-express';
 
-export const userResolvers: IResolvers = {
+export const viewerResolvers: IResolvers = {
   Query: {
     authUrl: () => {
       return 'Query.authUrl';

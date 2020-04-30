@@ -1,12 +1,16 @@
 import { gql } from 'apollo-server-express';
 
 export const typeDefs = gql`
+  input LogInInput {
+    code: String!
+  }
+
   type Query {
     authUrl: String!
   }
 
   type Mutation {
-    logIn: String!
-    logOut: String!
+    logIn(type: LogInInput): User!
+    logOut: User!
   }
 `;

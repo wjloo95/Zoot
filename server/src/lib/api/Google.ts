@@ -1,13 +1,13 @@
 import { google } from 'googleapis';
 
-const auth = new google.auth.OAuth2(
+const authClient = new google.auth.OAuth2(
   process.env.G_CLIENT_ID,
   process.env.G_CLIENT_SECRET,
   `${process.env.PUBLIC_URL}/login`
 );
 
 export const Google = {
-  authUrl: auth.generateAuthUrl({
+  authUrl: authClient.generateAuthUrl({
     access_type: 'online',
     scope: [
       'https://www.googleapis.com/auth/userinfo.email',
@@ -15,14 +15,16 @@ export const Google = {
     ],
   }),
   logIn: async (code: string) => {
-    const { tokens } = await auth.getToken(code);
+    const { tokens } = await authClient.getToken(code);
 
-    auth.setCredentials(tokens);
+    authClient.setCredentials(tokens);
 
-    const { data } = await google.people({ version: 'v1', auth }).people.get({
-      resourceName: 'people/me',
-      personFields: 'emailAddresses,names,photos',
-    });
+    const { data } = await google
+      .people({ version: 'v1', auth: authClient })
+      .people.get({
+        resourceName: 'people/me',
+        personFields: 'emailAddresses,names,photos',
+      });
 
     return { user: data };
   },

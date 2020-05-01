@@ -34,7 +34,6 @@ export const Login = ({ setViewer }: IProps) => {
     { data: logInData, loading: logInLoading, error: logInError },
   ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
     onCompleted: (data) => {
-      console.log(data);
       if (data && data.logIn) {
         setViewer(data.logIn);
         displaySuccessNotification("Login Successful! Let's Get Started 👋");

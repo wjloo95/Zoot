@@ -9,7 +9,17 @@ import * as serviceWorker from './serviceWorker';
 import App from './components/App';
 import './styles/index.css';
 
-const client = new ApolloClient({ uri: '/api' });
+const client = new ApolloClient({
+  uri: '/api',
+  request: async (operation) => {
+    const token = sessionStorage.getItem('token');
+    operation.setContext({
+      headers: {
+        'X-CSRF-TOKEN': token || '',
+      },
+    });
+  },
+});
 
 render(
   <ApolloProvider client={client}>

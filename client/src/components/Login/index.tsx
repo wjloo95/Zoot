@@ -36,6 +36,9 @@ export const Login = ({ setViewer }: IProps) => {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
+        if (data.logIn.token) {
+          sessionStorage.setItem('token', data.logIn.token);
+        }
         displaySuccessNotification("Login Successful! Let's Get Started 👋");
       }
     },

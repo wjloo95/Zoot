@@ -43,7 +43,7 @@ const App = () => {
       <Layout className="app-skeleton">
         <AppHeaderSkeleton />
         <div className="app-skeleton__spin-section">
-          <Spin size="large" tip="Launching Tinyhouse" />
+          <Spin size="large" tip="Getting Set Up" />
         </div>
       </Layout>
     );

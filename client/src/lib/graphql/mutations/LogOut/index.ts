@@ -5,6 +5,7 @@ export const LOG_OUT = gql`
     logOut {
       id
       token
+      name
       avatar
       hasWallet
       didRequest

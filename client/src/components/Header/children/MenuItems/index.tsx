@@ -41,7 +41,7 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
 
   const subMenuLogin =
     viewer.id && viewer.avatar ? (
-      <SubMenu title={<Avatar src={viewer.avatar} />}>
+      <SubMenu title={`${viewer.name}`} icon={<Avatar src={viewer.avatar} />}>
         <Item key={`/user/${viewer.id}`}>
           <Link to={`/useru/${viewer.id}`}>
             <UserOutlined />

@@ -42,6 +42,7 @@ export const viewerResolvers: IResolvers = {
       return {
         _id: viewer._id,
         token: viewer.token,
+        name: viewer.name,
         avatar: viewer.avatar,
         walletId: viewer.walletId,
         didRequest: true,

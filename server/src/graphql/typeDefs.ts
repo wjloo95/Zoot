@@ -4,6 +4,7 @@ export const typeDefs = gql`
   type Viewer {
     id: ID
     token: String
+    name: String
     avatar: String
     hasWallet: Boolean
     didRequest: Boolean!

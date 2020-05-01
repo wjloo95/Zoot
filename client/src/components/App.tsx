@@ -17,6 +17,7 @@ import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
 const initialViewer: Viewer = {
   id: null,
   token: null,
+  name: null,
   avatar: null,
   hasWallet: null,
   didRequest: false,

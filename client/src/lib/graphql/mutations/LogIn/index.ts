@@ -5,6 +5,7 @@ export const LOG_IN = gql`
     logIn(input: $input) {
       id
       token
+      name
       avatar
       hasWallet
       didRequest

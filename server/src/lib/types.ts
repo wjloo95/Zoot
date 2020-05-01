@@ -63,6 +63,7 @@ export interface Database {
 export interface Viewer {
   _id?: string;
   token?: string;
+  name?: string;
   avatar?: string;
   walletId?: string;
   didRequest: boolean;

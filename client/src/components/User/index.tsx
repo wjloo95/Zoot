@@ -62,7 +62,14 @@ export const User = ({ viewer }: IProps) => {
       limit={PAGE_LIMIT}
       setListingsPage={setListingsPage}
     />
-  ) : null;
+  ) : (
+    <div className="user-listings">
+      <Paragraph className="user-listings__description">
+        This section highlights the listings this user currently hosts and has
+        made available for bookings.
+      </Paragraph>
+    </div>
+  );
 
   const userBookingsElement = userBookings ? (
     <UserBookings

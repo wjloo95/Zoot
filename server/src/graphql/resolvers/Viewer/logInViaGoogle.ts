@@ -53,6 +53,8 @@ export const logInViaGoogle = async (
         name: userName,
         avatar: userAvatar,
         contact: userEmail,
+        bookings: [],
+        listings: [],
         token,
       },
     },

@@ -41,6 +41,7 @@ export const UserListings = ({ id, limit }: IProps) => {
 
   const total = userListings ? userListings.total : null;
   const result = userListings ? userListings.result : null;
+
   const userListingsList = userListings ? (
     <List
       grid={{

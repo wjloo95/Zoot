@@ -59,7 +59,7 @@ export const User = ({ viewer }: IProps) => {
               <UserListings id={id} limit={PAGE_LIMIT} />
             </TabPane>
             <TabPane tab="Bookings" key="2">
-              {/* <UserBookings id={id} limit={PAGE_LIMIT} /> */}
+              <UserBookings id={id} limit={PAGE_LIMIT} />
             </TabPane>
           </Tabs>
         </Col>

@@ -1,14 +1,18 @@
-import React from 'react';
-import { useApolloClient } from '@apollo/react-hooks';
+import React, { useEffect, useRef } from 'react';
+import { useApolloClient, useMutation } from '@apollo/react-hooks';
 
 // Image Assets
 import googleLogo from './assets/google_logo.jpg';
 import facebookLogo from './assets/f_logo_RGB-White_58.png';
-import './Login.css';
 
 import { Viewer } from '../../lib/types';
 import { AuthUrl as AuthUrlData } from '../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl';
+import {
+  LogIn as LogInData,
+  LogInVariables,
+} from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl';
+import { LOG_IN } from '../../lib/graphql/mutations/LogIn';
 
 import { Card, Layout, Typography } from 'antd';
 const { Content } = Layout;
@@ -19,6 +23,11 @@ interface IProps {
 
 export const Login = ({ setViewer }: IProps) => {
   const client = useApolloClient();
+  const [
+    logIn,
+    { data: logInData, loading: logInLoading, error: logInError },
+  ] = useMutation<LogInData, LogInVariables>(LOG_IN);
+  const logInRef = useRef(logIn);
 
   const handleAuthorize = async () => {
     try {
@@ -28,6 +37,17 @@ export const Login = ({ setViewer }: IProps) => {
       window.location.href = data.authUrl;
     } catch {}
   };
+
+  useEffect(() => {
+    const code = new URL(window.location.href).searchParams.get('code');
+    if (code) {
+      logInRef.current({
+        variables: {
+          input: { code },
+        },
+      });
+    }
+  }, []);
 
   return (
     <Content className="log-in">

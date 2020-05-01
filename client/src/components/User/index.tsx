@@ -10,6 +10,7 @@ import {
 import { useParams } from 'react-router-dom';
 import { UserProfile } from './children';
 import { Viewer } from '../../lib/types';
+import { ErrorBanner, PageSkeleton } from '../../lib/components';
 
 const { Content } = Layout;
 
@@ -26,13 +27,26 @@ export const User = ({ viewer }: IProps) => {
     },
   });
 
+  if (error) {
+    return (
+      <Content className="user">
+        <ErrorBanner description="This user may not exist or we've encountered an error. Please try again soon." />
+        <PageSkeleton />
+      </Content>
+    );
+  }
+
   const user = data ? data.user : null;
   const isViewer = viewer.id === id;
   const userProfileElement = user ? (
     <UserProfile user={user} isViewer={isViewer} />
   ) : null;
 
-  return (
+  return loading ? (
+    <Content className="user">
+      <PageSkeleton />
+    </Content>
+  ) : (
     <Content className="user">
       <Row gutter={12} justify="start">
         <Col xs={24}>{userProfileElement}</Col>

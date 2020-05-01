@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Col, Layout, Row, Tabs, Typography } from 'antd';
 
@@ -14,7 +14,6 @@ import { ErrorBanner, PageSkeleton } from '../../lib/components';
 
 const { Content } = Layout;
 const { TabPane } = Tabs;
-const { Paragraph } = Typography;
 
 interface IProps {
   viewer: Viewer;
@@ -25,15 +24,9 @@ const PAGE_LIMIT = 4;
 export const User = ({ viewer }: IProps) => {
   const { id } = useParams();
 
-  const [listingsPage, setListingsPage] = useState(1);
-  const [bookingsPage, setBookingsPage] = useState(1);
-
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
     variables: {
       id,
-      bookingsPage,
-      listingsPage,
-      limit: PAGE_LIMIT,
     },
   });
 
@@ -52,41 +45,6 @@ export const User = ({ viewer }: IProps) => {
     <UserProfile user={user} isViewer={isViewer} />
   ) : null;
 
-  const userListings = user ? user.listings : null;
-  const userBookings = user ? user.bookings : null;
-
-  const userListingsElement = userListings ? (
-    <UserListings
-      userListings={userListings}
-      listingsPage={listingsPage}
-      limit={PAGE_LIMIT}
-      setListingsPage={setListingsPage}
-    />
-  ) : (
-    <div className="user-listings">
-      <Paragraph className="user-listings__description">
-        This section highlights the listings this user currently hosts and has
-        made available for bookings.
-      </Paragraph>
-    </div>
-  );
-
-  const userBookingsElement = userBookings ? (
-    <UserBookings
-      userBookings={userBookings}
-      bookingsPage={bookingsPage}
-      limit={PAGE_LIMIT}
-      setBookingsPage={setBookingsPage}
-    />
-  ) : (
-    <UserBookings
-      userBookings={null}
-      bookingsPage={bookingsPage}
-      limit={PAGE_LIMIT}
-      setBookingsPage={setBookingsPage}
-    />
-  );
-
   return loading ? (
     <Content className="user">
       <PageSkeleton />
@@ -98,10 +56,10 @@ export const User = ({ viewer }: IProps) => {
         <Col xs={24}>
           <Tabs defaultActiveKey="1">
             <TabPane tab="Listings" key="1">
-              {userListingsElement}
+              <UserListings id={id} limit={PAGE_LIMIT} />
             </TabPane>
             <TabPane tab="Bookings" key="2">
-              {userBookingsElement}
+              {/* <UserBookings id={id} limit={PAGE_LIMIT} /> */}
             </TabPane>
           </Tabs>
         </Col>

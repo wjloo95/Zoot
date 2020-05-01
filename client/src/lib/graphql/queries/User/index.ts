@@ -1,7 +1,7 @@
 import { gql } from 'apollo-boost';
 
 export const USER = gql`
-  query User($id: ID!, $bookingsPage: Int!, $listingsPage: Int!, $limit: Int!) {
+  query User($id: ID!) {
     user(id: $id) {
       id
       name
@@ -9,6 +9,14 @@ export const USER = gql`
       contact
       hasWallet
       income
+    }
+  }
+`;
+
+export const USER_BOOKINGS = gql`
+  query UserBookings($id: ID!, $bookingsPage: Int!, $limit: Int!) {
+    user(id: $id) {
+      id
       bookings(limit: $limit, page: $bookingsPage) {
         total
         result {
@@ -25,6 +33,14 @@ export const USER = gql`
           checkOut
         }
       }
+    }
+  }
+`;
+
+export const USER_LISTINGS = gql`
+  query UserListings($id: ID!, $listingsPage: Int!, $limit: Int!) {
+    user(id: $id) {
+      id
       listings(limit: $limit, page: $listingsPage) {
         total
         result {

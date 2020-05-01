@@ -1,13 +1,7 @@
 import { Database, User } from '../../../lib/types';
 import { Google } from '../../../lib/api';
 import { Response } from 'express';
-
-const cookieOptions = {
-  httpOnly: true,
-  sameSite: true,
-  signed: true,
-  secure: process.env.NODE_ENV === 'development' ? false : true,
-};
+import { cookieOptions } from './index';
 
 export const logInViaGoogle = async (
   code: string,

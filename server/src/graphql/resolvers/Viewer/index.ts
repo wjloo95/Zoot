@@ -4,8 +4,9 @@ import { LogInArgs } from './types';
 import { Database, Viewer, User } from '../../../lib/types';
 import { logInViaGoogle } from './logInViaGoogle';
 import crypto from 'crypto';
+import { Response } from 'express';
 
-const cookieOptions = {
+export const cookieOptions = {
   httpOnly: true,
   sameSite: true,
   signed: true,
@@ -26,13 +27,13 @@ export const viewerResolvers: IResolvers = {
     logIn: async (
       _root: undefined,
       { input }: LogInArgs,
-      { db }: { db: Database }
+      { db, res }: { db: Database; res: Response }
     ): Promise<Viewer> => {
       const code = input ? input.code : null;
       const token = crypto.randomBytes(16).toString('hex');
 
       const viewer: User | undefined = code
-        ? await logInViaGoogle(code, token, db)
+        ? await logInViaGoogle(code, token, db, res)
         : undefined;
 
       if (!viewer) return { didRequest: true };
@@ -45,8 +46,13 @@ export const viewerResolvers: IResolvers = {
         didRequest: true,
       };
     },
-    logOut: (): Viewer => {
+    logOut: (
+      _root: undefined,
+      args: {},
+      { res }: { res: Response }
+    ): Viewer => {
       try {
+        res.clearCookie('viewer', cookieOptions);
         return { didRequest: true };
       } catch (error) {
         throw new Error(`Failed to log out: ${error}`);

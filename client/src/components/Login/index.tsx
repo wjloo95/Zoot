@@ -13,8 +13,14 @@ import {
 } from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl';
 import { LOG_IN } from '../../lib/graphql/mutations/LogIn';
+import {
+  displayErrorMessage,
+  displaySuccessNotification,
+} from '../../lib/utils/';
 
 import { Card, Layout, Typography, Spin } from 'antd';
+import { ErrorBanner } from '../../lib/components';
+import { Redirect } from 'react-router-dom';
 const { Content } = Layout;
 const { Text, Title } = Typography;
 interface IProps {
@@ -31,6 +37,7 @@ export const Login = ({ setViewer }: IProps) => {
       console.log(data);
       if (data && data.logIn) {
         setViewer(data.logIn);
+        displaySuccessNotification("Login Successful! Let's Get Started 👋");
       }
     },
   });
@@ -42,7 +49,11 @@ export const Login = ({ setViewer }: IProps) => {
         query: AUTH_URL,
       });
       window.location.href = data.authUrl;
-    } catch {}
+    } catch {
+      displayErrorMessage(
+        "Sorry! We weren't able to log you in. Please try again later!"
+      );
+    }
   };
 
   useEffect(() => {
@@ -64,8 +75,18 @@ export const Login = ({ setViewer }: IProps) => {
     );
   }
 
+  if (logInData && logInData.logIn) {
+    const { id: viewerId } = logInData.logIn;
+    return <Redirect to={`/user/${viewerId}`} />;
+  }
+
+  const logInErrorBanner = logInError ? (
+    <ErrorBanner description="We weren't able to log you in. Please try again soon." />
+  ) : null;
+
   return (
     <Content className="log-in">
+      {logInErrorBanner}
       <Card className="log-in-card">
         <div className="log-in-card__intro">
           <Title level={1} className="log-in-card__intro-title">

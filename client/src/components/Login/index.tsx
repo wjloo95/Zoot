@@ -11,7 +11,7 @@ import {
   LogIn as LogInData,
   LogInVariables,
 } from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
-import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl';
+import { AUTH_URL } from '../../lib/graphql/queries';
 import { LOG_IN } from '../../lib/graphql/mutations/LogIn';
 import {
   displayErrorMessage,
@@ -36,6 +36,9 @@ export const Login = ({ setViewer }: IProps) => {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
+        if (data.logIn.token) {
+          sessionStorage.setItem('token', data.logIn.token);
+        }
         displaySuccessNotification("Login Successful! Let's Get Started 👋");
       }
     },

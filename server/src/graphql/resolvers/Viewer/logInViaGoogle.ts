@@ -1,10 +1,13 @@
 import { Database, User } from '../../../lib/types';
 import { Google } from '../../../lib/api';
+import { Response } from 'express';
+import { cookieOptions } from '.';
 
 export const logInViaGoogle = async (
   code: string,
   token: string,
-  db: Database
+  db: Database,
+  res: Response
 ): Promise<User | undefined> => {
   const { user } = await Google.logIn(code);
 
@@ -50,6 +53,8 @@ export const logInViaGoogle = async (
         name: userName,
         avatar: userAvatar,
         contact: userEmail,
+        bookings: [],
+        listings: [],
         token,
       },
     },
@@ -58,20 +63,10 @@ export const logInViaGoogle = async (
 
   let viewer = updateRes.value;
 
-  //   if (!viewer) {
-  //     const insertResult = await db.users.insertOne({
-  //       _id: userId,
-  //       token,
-  //       name: userName,
-  //       avatar: userAvatar,
-  //       contact: userEmail,
-  //       income: 0,
-  //       bookings: [],
-  //       listings: [],
-  //     });
-
-  //     viewer = insertResult.ops[0];
-  //   }
+  res.cookie('viewer', userId, {
+    ...cookieOptions,
+    maxAge: 365 * 24 * 60 * 60 * 1000,
+  });
 
   return viewer;
 };

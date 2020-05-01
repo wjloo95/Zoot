@@ -4,6 +4,15 @@ import { LogInArgs } from './types';
 import { Database, Viewer, User } from '../../../lib/types';
 import { logInViaGoogle } from './logInViaGoogle';
 import crypto from 'crypto';
+import { Response, Request } from 'express';
+import { logInViaCookie } from './logInViaCookie';
+
+export const cookieOptions = {
+  httpOnly: true,
+  sameSite: true,
+  signed: true,
+  secure: process.env.NODE_ENV === 'development' ? false : true,
+};
 
 export const viewerResolvers: IResolvers = {
   Query: {
@@ -19,14 +28,14 @@ export const viewerResolvers: IResolvers = {
     logIn: async (
       _root: undefined,
       { input }: LogInArgs,
-      { db }: { db: Database }
+      { db, req, res }: { db: Database; req: Request; res: Response }
     ): Promise<Viewer> => {
       const code = input ? input.code : null;
       const token = crypto.randomBytes(16).toString('hex');
 
       const viewer: User | undefined = code
-        ? await logInViaGoogle(code, token, db)
-        : undefined;
+        ? await logInViaGoogle(code, token, db, res)
+        : await logInViaCookie(token, db, req, res);
 
       if (!viewer) return { didRequest: true };
 
@@ -38,8 +47,13 @@ export const viewerResolvers: IResolvers = {
         didRequest: true,
       };
     },
-    logOut: (): Viewer => {
+    logOut: (
+      _root: undefined,
+      args: {},
+      { res }: { res: Response }
+    ): Viewer => {
       try {
+        res.clearCookie('viewer', cookieOptions);
         return { didRequest: true };
       } catch (error) {
         throw new Error(`Failed to log out: ${error}`);

@@ -106,7 +106,7 @@
   right: 0;
 }
 .listing-card__description {
-  padding-bottom: 20px;
+  padding-bottom: 12px;
 }
 .listing-card__price.ant-typography {
   color: #1d226c;
@@ -127,11 +127,10 @@
 .listing-card__dimensions span {
   color: #bfbfbf;
 }
-.listing-card__dimensions--guests {
-  float: right;
-}
-.listing-card__dimensions--guests span {
-  padding-right: 0;
+.listing-card__dimensions {
+  /* float: right; */
+  display: flex;
+  justify-content: space-between;
 }
 @media (max-width: 75em) {
   .listing-card__dimensions--guests {

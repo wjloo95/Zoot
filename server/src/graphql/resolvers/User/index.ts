@@ -29,4 +29,11 @@ export const userResolvers: IResolvers = {
       }
     },
   },
+  User: {
+    id: (user: User) => user._id,
+    hasWallet: (user: User) => !!user.walletId,
+    income: (user: User) => (user.authorized ? user.income : null),
+    bookings: () => {},
+    listings: () => {},
+  },
 };

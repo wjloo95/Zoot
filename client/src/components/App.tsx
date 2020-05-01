@@ -22,7 +22,7 @@ const App = () => {
     <Router>
       <Layout id="app">
         <Affix offsetTop={0} className="app__affix-header">
-          <Header />
+          <Header viewer={viewer} />
         </Affix>
         <Switch>
           <Route exact path="/" component={Home} />

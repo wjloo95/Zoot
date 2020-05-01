@@ -3,8 +3,9 @@ import { Home, Host, Listing, Listings, NotFound, User, Login } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Layout } from 'antd';
+import { Layout, Affix } from 'antd';
 import { Viewer } from '../lib/types';
+import { Header } from './Header';
 
 const initialViewer: Viewer = {
   id: null,
@@ -20,6 +21,9 @@ const App = () => {
   return (
     <Router>
       <Layout id="app">
+        <Affix offsetTop={0} className="app__affix-header">
+          <Header />
+        </Affix>
         <Switch>
           <Route exact path="/" component={Home} />
           {/* <Route

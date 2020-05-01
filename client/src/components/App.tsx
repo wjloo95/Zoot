@@ -73,7 +73,7 @@ const App = () => {
             path="/login"
             render={(props) => <Login {...props} setViewer={setViewer} />}
           /> */}
-          <Route>
+          <Route exact path="/login">
             <Login setViewer={setViewer} />
           </Route>
           <Route exact path="/host" component={Host} />

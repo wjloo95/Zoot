@@ -1,29 +1,15 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import * as serviceWorker from './serviceWorker';
 
-import { Home, Host, Listing, Listings, NotFound, User } from './components';
+import App from './components/App';
 import './styles/index.css';
 
 const client = new ApolloClient({ uri: '/api' });
-
-const App = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/host" component={Host} />
-      <Route exact path="/listing/:id" component={Listing} />
-      <Route exact path="/listings/:location?" component={Listings} />
-      <Route exact path="/user/:id" component={User} />
-      <Route component={NotFound} />
-    </Switch>
-  </Router>
-);
 
 render(
   <ApolloProvider client={client}>

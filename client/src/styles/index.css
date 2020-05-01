@@ -1,5 +1,13 @@
 @import '~antd/dist/antd.css';
 @import url(https://fonts.googleapis.com/css?family=Sacramento);
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  --main-bg-color: #fff;
+  --main-header-bg-color: #fff;
+  --listings-bg-color: #fff;
+}
+
 .menu {
   width: 100%;
   padding: 0 20px;
@@ -13,7 +21,7 @@
 }
 .app-header {
   display: flex;
-  background: #fff;
+  background: var(--main-header-bg-color);
   box-shadow: 0 2px 8px #f0f1f2;
   padding: 0;
 }
@@ -49,7 +57,7 @@
 }
 .app-header-skeleton {
   display: flex;
-  background: #fff;
+  background: var(--main-header-bg-color);
   box-shadow: 0 2px 8px #f0f1f2;
   padding: 0;
 }
@@ -476,52 +484,13 @@
   font-size: 15px;
 }
 .listings__affix {
-  background: #fff;
+  background: var(--listings-bg-color);
   padding: 10px 0;
 }
 .listings__title.ant-typography {
   color: #1d226c;
 }
-.log-in {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.log-in-card {
-  width: 450px;
-  text-align: center;
-  padding: 10px 0 20px;
-}
-.log-in-card__intro-title.ant-typography,
-.log-in-card__intro-title.ant-typography + h3.ant-typography {
-  margin-top: 5px;
-}
-.log-in-card__google-button {
-  margin: 40px auto;
-  border-radius: 2px;
-  background-color: #4285f4;
-  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12);
-  border: none;
-  display: flex;
-  align-items: center;
-  padding: 1px;
-  color: #fff;
-  cursor: pointer;
-}
-.log-in-card__google-button:hover {
-  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
-}
-.log-in-card__google-button:active {
-  background: #3367d6;
-}
-.log-in-card__google-button-logo {
-  height: 43px;
-}
-.log-in-card__google-button-text {
-  text-align: left;
-  white-space: nowrap;
-  padding: 10px;
-}
+
 .not-found {
   display: flex;
   flex-direction: column;
@@ -626,12 +595,12 @@ html {
 }
 #app {
   position: relative;
-  background: #fff;
+  background: var(--main-bg-color);
   min-height: 100vh;
 }
 .app-skeleton {
   height: 100%;
-  background: #fff;
+  background: var(--main-bg-color);
   display: flex;
 }
 .app-skeleton__spin-section {
@@ -653,4 +622,70 @@ html {
   .app__affix-footer {
     display: none;
   }
+}
+
+/* Login Styles */
+.log-in {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url(https://www.publicdomainpictures.net/pictures/190000/velka/travel-background-1469438406Duy.jpg);
+}
+.log-in-card {
+  width: 400px;
+  text-align: center;
+  padding: 10px 0 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border-radius: 15%;
+}
+.log-in-card__intro-title.ant-typography,
+.log-in-card__intro-title.ant-typography + h3.ant-typography {
+  margin-top: 5px;
+}
+.log-in-card-button {
+  margin: 20px auto;
+  border-radius: 1%;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24), 0 0 1px 0 rgba(0, 0, 0, 0.12);
+  border: none;
+  display: flex;
+  align-items: center;
+  padding: 1px;
+  color: #fff;
+  cursor: pointer;
+}
+.log-in-card-button:hover {
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.24), 0 0 2px 0 rgba(0, 0, 0, 0.12);
+}
+.log-in-card-button-logo {
+  height: 33px;
+  margin: 5px;
+}
+.log-in-card-button-text {
+  text-align: left;
+  white-space: nowrap;
+  padding: 10px;
+  padding-right: 15px;
+  font-family: 'Roboto', sans-serif;
+}
+
+.log-in-card__facebook-button {
+  background-color: #4267b2;
+}
+.log-in-card__facebook-button:active {
+  background: #3367d6;
+}
+
+.log-in-card__google-button {
+  background-color: #fff;
+}
+.log-in-card__google-button:active {
+  background: #4285f4;
+}
+
+.log-in-card__google-button-text {
+  color: darkslategray;
+}
+
+.log-in-card__google-button-text:active {
+  color: #fff;
 }

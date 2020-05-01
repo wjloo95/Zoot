@@ -14,9 +14,8 @@ export const userResolvers: IResolvers = {
 
         if (!user) {
           throw new Error("User can't be found");
-        } else {
-          return user;
         }
+        return user;
       } catch (error) {
         throw new Error(`Failed to find user: ${error}`);
       }

@@ -1,7 +1,7 @@
 import { Database, User } from '../../../lib/types';
 import { Google } from '../../../lib/api';
 import { Response } from 'express';
-import { cookieOptions } from './index';
+import { cookieOptions } from '.';
 
 export const logInViaGoogle = async (
   code: string,

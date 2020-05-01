@@ -4,7 +4,8 @@ import { LogInArgs } from './types';
 import { Database, Viewer, User } from '../../../lib/types';
 import { logInViaGoogle } from './logInViaGoogle';
 import crypto from 'crypto';
-import { Response } from 'express';
+import { Response, Request } from 'express';
+import { logInViaCookie } from './logInViaCookie';
 
 export const cookieOptions = {
   httpOnly: true,
@@ -27,14 +28,14 @@ export const viewerResolvers: IResolvers = {
     logIn: async (
       _root: undefined,
       { input }: LogInArgs,
-      { db, res }: { db: Database; res: Response }
+      { db, req, res }: { db: Database; req: Request; res: Response }
     ): Promise<Viewer> => {
       const code = input ? input.code : null;
       const token = crypto.randomBytes(16).toString('hex');
 
       const viewer: User | undefined = code
         ? await logInViaGoogle(code, token, db, res)
-        : undefined;
+        : await logInViaCookie(token, db, req, res);
 
       if (!viewer) return { didRequest: true };
 

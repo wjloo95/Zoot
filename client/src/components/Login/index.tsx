@@ -14,7 +14,7 @@ import {
 import { AUTH_URL } from '../../lib/graphql/queries/AuthUrl';
 import { LOG_IN } from '../../lib/graphql/mutations/LogIn';
 
-import { Card, Layout, Typography } from 'antd';
+import { Card, Layout, Typography, Spin } from 'antd';
 const { Content } = Layout;
 const { Text, Title } = Typography;
 interface IProps {
@@ -26,7 +26,14 @@ export const Login = ({ setViewer }: IProps) => {
   const [
     logIn,
     { data: logInData, loading: logInLoading, error: logInError },
-  ] = useMutation<LogInData, LogInVariables>(LOG_IN);
+  ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
+    onCompleted: (data) => {
+      console.log(data);
+      if (data && data.logIn) {
+        setViewer(data.logIn);
+      }
+    },
+  });
   const logInRef = useRef(logIn);
 
   const handleAuthorize = async () => {
@@ -48,6 +55,14 @@ export const Login = ({ setViewer }: IProps) => {
       });
     }
   }, []);
+
+  if (logInLoading) {
+    return (
+      <Content className="log-in">
+        <Spin size="large" tip="Logging you in..." />
+      </Content>
+    );
+  }
 
   return (
     <Content className="log-in">

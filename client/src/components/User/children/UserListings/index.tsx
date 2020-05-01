@@ -49,9 +49,6 @@ export const UserListings = ({
 
   return (
     <div className="user-listings">
-      <Title level={4} className="user-listings__title">
-        Listings
-      </Title>
       <Paragraph className="user-listings__description">
         This section highlights the listings this user currently hosts and has
         made available for bookings.

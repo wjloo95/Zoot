@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Col, Layout, Row } from 'antd';
+import { Col, Layout, Row, Tabs, Typography } from 'antd';
 
 import { USER } from '../../lib/graphql/queries';
 import {
@@ -13,6 +13,8 @@ import { Viewer } from '../../lib/types';
 import { ErrorBanner, PageSkeleton } from '../../lib/components';
 
 const { Content } = Layout;
+const { TabPane } = Tabs;
+const { Paragraph } = Typography;
 
 interface IProps {
   viewer: Viewer;
@@ -53,6 +55,30 @@ export const User = ({ viewer }: IProps) => {
   const userListings = user ? user.listings : null;
   const userBookings = user ? user.bookings : null;
 
+  const userListingsElement = userListings ? (
+    <UserListings
+      userListings={userListings}
+      listingsPage={listingsPage}
+      limit={PAGE_LIMIT}
+      setListingsPage={setListingsPage}
+    />
+  ) : null;
+
+  const userBookingsElement = userBookings ? (
+    <UserBookings
+      userBookings={userBookings}
+      bookingsPage={bookingsPage}
+      limit={PAGE_LIMIT}
+      setBookingsPage={setBookingsPage}
+    />
+  ) : (
+    <div className="user-bookings">
+      <Paragraph className="user-bookings__description">
+        This user has not booked any listings.
+      </Paragraph>
+    </div>
+  );
+
   return loading ? (
     <Content className="user">
       <PageSkeleton />
@@ -61,6 +87,16 @@ export const User = ({ viewer }: IProps) => {
     <Content className="user">
       <Row gutter={12} justify="start">
         <Col xs={24}>{userProfileElement}</Col>
+        <Col xs={24}>
+          <Tabs defaultActiveKey="1">
+            <TabPane tab="Listings" key="1">
+              {userListingsElement}
+            </TabPane>
+            <TabPane tab="Bookings" key="2">
+              {userBookingsElement}
+            </TabPane>
+          </Tabs>
+        </Col>
       </Row>
     </Content>
   );

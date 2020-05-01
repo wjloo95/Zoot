@@ -31,7 +31,7 @@ export const ListingCard = ({ listing }: IProps) => {
       <div className="listing-card__details">
         <div className="listing-card__description">
           <Title level={4} className="listing-card__price">
-            {price}
+            {'$' + price.toLocaleString('en')}
             <span>/day</span>
           </Title>
           <Text strong ellipsis className="listing-card__title">

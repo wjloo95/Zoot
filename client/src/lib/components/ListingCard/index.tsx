@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
+import { UserOutlined, CompassOutlined } from '@ant-design/icons';
 
 interface IProps {
   listing: {
@@ -37,13 +37,16 @@ export const ListingCard = ({ listing }: IProps) => {
           <Text strong ellipsis className="listing-card__title">
             {title}
           </Text>
-          <Text ellipsis className="listing-card__address">
-            {address}
-          </Text>
         </div>
-        <div className="listing-card__dimensions listing-card__dimensions--guests">
-          <UserOutlined />
-          <Text>{numOfGuests} guests</Text>
+        <div className="listing-card__dimensions">
+          <div>
+            <CompassOutlined />
+            <Text ellipsis>{address}</Text>
+          </div>
+          <div>
+            <UserOutlined />
+            <Text>{numOfGuests} guests</Text>
+          </div>
         </div>
       </div>
     </Card>

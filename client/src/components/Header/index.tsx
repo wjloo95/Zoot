@@ -8,9 +8,10 @@ const { Header: AntHeader } = Layout;
 
 interface IProps {
   viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
-export const Header = ({ viewer }: IProps) => {
+export const Header = ({ viewer, setViewer }: IProps) => {
   return (
     <AntHeader className="app-header">
       <div className="app-header__logo-search-section">
@@ -19,7 +20,7 @@ export const Header = ({ viewer }: IProps) => {
         </div>
       </div>
       <div className="app-header__menu-section">
-        <MenuItems viewer={viewer} />
+        <MenuItems viewer={viewer} setViewer={setViewer} />
       </div>
     </AntHeader>
   );

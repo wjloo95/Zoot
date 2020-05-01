@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { Col, Layout, Row } from 'antd';
 
@@ -8,7 +8,7 @@ import {
   UserVariables,
 } from '../../lib/graphql/queries/User/__generated__/User';
 import { useParams } from 'react-router-dom';
-import { UserProfile } from './children';
+import { UserProfile, UserBookings, UserListings } from './children';
 import { Viewer } from '../../lib/types';
 import { ErrorBanner, PageSkeleton } from '../../lib/components';
 
@@ -18,12 +18,20 @@ interface IProps {
   viewer: Viewer;
 }
 
+const PAGE_LIMIT = 4;
+
 export const User = ({ viewer }: IProps) => {
   const { id } = useParams();
+
+  const [listingsPage, setListingsPage] = useState(1);
+  const [bookingsPage, setBookingsPage] = useState(1);
 
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
     variables: {
       id,
+      bookingsPage,
+      listingsPage,
+      limit: PAGE_LIMIT,
     },
   });
 
@@ -41,6 +49,9 @@ export const User = ({ viewer }: IProps) => {
   const userProfileElement = user ? (
     <UserProfile user={user} isViewer={isViewer} />
   ) : null;
+
+  const userListings = user ? user.listings : null;
+  const userBookings = user ? user.bookings : null;
 
   return loading ? (
     <Content className="user">

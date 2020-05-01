@@ -68,18 +68,15 @@ const App = () => {
         </Affix>
         <Switch>
           <Route exact path="/" component={Home} />
-          {/* <Route
-            exact
-            path="/login"
-            render={(props) => <Login {...props} setViewer={setViewer} />}
-          /> */}
           <Route exact path="/login">
             <Login setViewer={setViewer} />
           </Route>
           <Route exact path="/host" component={Host} />
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/user/:id" component={User} />
+          <Route exact path="/user/:id">
+            <User viewer={viewer} />
+          </Route>
           <Route component={NotFound} />
         </Switch>
       </Layout>

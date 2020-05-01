@@ -10,7 +10,7 @@ interface Props {
   setBookingsPage: (page: number) => void;
 }
 
-const { Paragraph, Text, Title } = Typography;
+const { Paragraph, Text } = Typography;
 
 export const UserBookings = ({
   userBookings,
@@ -18,10 +18,13 @@ export const UserBookings = ({
   limit,
   setBookingsPage,
 }: Props) => {
-  const total = userBookings ? userBookings.total : null;
-  const result = userBookings ? userBookings.result : null;
+  const checkUserBookings = userBookings
+    ? userBookings
+    : { total: 0, result: [] };
 
-  const userBookingsList = userBookings ? (
+  const { total, result } = checkUserBookings;
+
+  const userBookingsList = (
     <List
       grid={{
         gutter: 8,
@@ -29,8 +32,8 @@ export const UserBookings = ({
         sm: 2,
         lg: 4,
       }}
-      dataSource={result ? result : undefined}
-      locale={{ emptyText: "You haven't made any bookings!" }}
+      dataSource={result}
+      locale={{ emptyText: 'This user has not made any bookings!' }}
       pagination={{
         position: 'top',
         current: bookingsPage,
@@ -60,7 +63,7 @@ export const UserBookings = ({
         );
       }}
     />
-  ) : null;
+  );
 
   const userBookingsElement = userBookingsList ? (
     <div className="user-bookings">

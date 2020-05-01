@@ -79,11 +79,12 @@ export const User = ({ viewer }: IProps) => {
       setBookingsPage={setBookingsPage}
     />
   ) : (
-    <div className="user-bookings">
-      <Paragraph className="user-bookings__description">
-        This user has not booked any listings.
-      </Paragraph>
-    </div>
+    <UserBookings
+      userBookings={null}
+      bookingsPage={bookingsPage}
+      limit={PAGE_LIMIT}
+      setBookingsPage={setBookingsPage}
+    />
   );
 
   return loading ? (

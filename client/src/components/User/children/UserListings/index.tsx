@@ -10,7 +10,7 @@ interface Props {
   setListingsPage: (page: number) => void;
 }
 
-const { Paragraph, Title } = Typography;
+const { Paragraph } = Typography;
 
 export const UserListings = ({
   userListings,
@@ -19,6 +19,7 @@ export const UserListings = ({
   setListingsPage,
 }: Props) => {
   const { total, result } = userListings;
+  console.log(userListings);
 
   const userListingsList = (
     <List
@@ -29,7 +30,7 @@ export const UserListings = ({
         lg: 4,
       }}
       dataSource={result}
-      locale={{ emptyText: "User doesn't have any listings yet!" }}
+      locale={{ emptyText: 'This user has not listed a property!' }}
       pagination={{
         position: 'top',
         current: listingsPage,

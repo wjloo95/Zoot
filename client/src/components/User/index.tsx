@@ -19,7 +19,7 @@ interface IProps {
   viewer: Viewer;
 }
 
-const PAGE_LIMIT = 4;
+const PAGE_LIMIT = 3;
 
 export const User = ({ viewer }: IProps) => {
   const { id } = useParams();

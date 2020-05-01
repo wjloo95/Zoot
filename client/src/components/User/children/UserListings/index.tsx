@@ -47,7 +47,8 @@ export const UserListings = ({ id, limit }: IProps) => {
   const userListingsList = userListings ? (
     <List
       grid={{
-        gutter: 12,
+        column: 3,
+        gutter: 8,
         xs: 1,
         sm: 2,
         lg: 4,

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Col, Layout, Row, Tabs, Typography } from 'antd';
+import { Col, Layout, Row, Tabs } from 'antd';
 
 import { USER } from '../../lib/graphql/queries';
 import {

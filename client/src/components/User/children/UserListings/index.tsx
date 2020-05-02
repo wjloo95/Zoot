@@ -109,7 +109,7 @@ export const UserListings = ({ id, limit }: IProps) => {
         hasMore={!loading && total > result.length}
         loadMore={fetchMoreListings}
         loader={
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
+          <div key={id} style={{ display: 'flex', justifyContent: 'center' }}>
             <Spin
               indicator={<HomeOutlined spin />}
               tip="Loading more listings..."

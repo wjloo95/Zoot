@@ -12,6 +12,8 @@ import {
   UserListingsVariables,
 } from '../../../../lib/graphql/queries/User/__generated__/UserListings';
 import InfiniteScroll from 'react-infinite-scroller';
+import { HomeOutlined } from '@ant-design/icons';
+import Title from 'antd/lib/typography/Title';
 
 const { Content } = Layout;
 const { Paragraph } = Typography;
@@ -44,8 +46,42 @@ export const UserListings = ({ id, limit }: IProps) => {
   const total = userListings ? userListings.total : 0;
   const result = userListings ? userListings.result : [];
 
+  const fetchMoreListings = () => {
+    fetchMore({
+      variables: { id, listingsPage: result.length / limit + 1, limit },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+
+        return {
+          ...fetchMoreResult,
+          user: {
+            ...fetchMoreResult.user,
+            listings: {
+              ...fetchMoreResult.user.listings,
+              result: [
+                ...prev.user.listings.result,
+                ...fetchMoreResult.user.listings.result,
+              ],
+            },
+          },
+        };
+      },
+    });
+  };
+
   const userListingsList = userListings ? (
     <List
+      header={
+        <>
+          {total > 0 && (
+            <Title level={2} underline>{`${total} Total Listings`}</Title>
+          )}
+          <Paragraph className="user-listings__description">
+            This section highlights the listings this user currently hosts and
+            has made available for bookings.
+          </Paragraph>
+        </>
+      }
       grid={{
         column: 3,
         gutter: 8,
@@ -69,34 +105,17 @@ export const UserListings = ({ id, limit }: IProps) => {
     </Content>
   ) : (
     <div className="user-listings">
-      <Paragraph className="user-listings__description">
-        This section highlights the listings this user currently hosts and has
-        made available for bookings.
-      </Paragraph>
       <InfiniteScroll
         hasMore={!loading && total > result.length}
-        loadMore={() => {
-          fetchMore({
-            variables: { id, listingsPage: result.length / limit + 1, limit },
-            updateQuery: (prev, { fetchMoreResult }) => {
-              if (!fetchMoreResult) return prev;
-
-              return {
-                ...fetchMoreResult,
-                user: {
-                  ...fetchMoreResult.user,
-                  listings: {
-                    ...fetchMoreResult.user.listings,
-                    result: [
-                      ...prev.user.listings.result,
-                      ...fetchMoreResult.user.listings.result,
-                    ],
-                  },
-                },
-              };
-            },
-          });
-        }}
+        loadMore={fetchMoreListings}
+        loader={
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Spin
+              indicator={<HomeOutlined spin />}
+              tip="Loading more listings..."
+            />
+          </div>
+        }
       >
         {userListingsList}
       </InfiniteScroll>

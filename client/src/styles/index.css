@@ -516,7 +516,7 @@
   justify-content: center;
 }
 .user-bookings {
-  padding-top: 40px;
+  padding-top: 10px;
 }
 .user-bookings__title.ant-typography {
   color: #1d226c;
@@ -542,7 +542,7 @@
   font-size: 13px;
 }
 .user-listings {
-  padding-top: 40px;
+  padding-top: 10px;
 }
 .user-listings__title.ant-typography {
   color: #1d226c;

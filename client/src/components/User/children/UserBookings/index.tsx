@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { List, Typography, Layout } from 'antd';
+import { List, Typography, Layout, Spin } from 'antd';
 import {
   ListingCard,
   ErrorBanner,
@@ -12,6 +12,8 @@ import {
   UserBookingsVariables,
 } from '../../../../lib/graphql/queries/User/__generated__/UserBookings';
 import { USER_BOOKINGS } from '../../../../lib/graphql/queries';
+import { HomeOutlined } from '@ant-design/icons';
+import Title from 'antd/lib/typography/Title';
 
 const { Content } = Layout;
 const { Paragraph, Text } = Typography;
@@ -42,8 +44,45 @@ export const UserBookings = ({ id, limit }: IProps) => {
   const total = userBookings ? userBookings.total : 0;
   const result = userBookings ? userBookings.result : [];
 
+  const fetchMoreBookings = () => {
+    fetchMore({
+      variables: { id, bookingsPage: result.length / limit + 1, limit },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+
+        return {
+          ...fetchMoreResult,
+          user: {
+            ...fetchMoreResult.user,
+            listings: {
+              ...fetchMoreResult.user.bookings,
+              result:
+                prev.user.bookings && fetchMoreResult.user.bookings
+                  ? [
+                      ...prev.user.bookings.result,
+                      ...fetchMoreResult.user.bookings.result,
+                    ]
+                  : [],
+            },
+          },
+        };
+      },
+    });
+  };
+
   const userBookingsList = (
     <List
+      header={
+        <>
+          {total > 0 && (
+            <Title level={2} underline>{`${total} Total Bookings`}</Title>
+          )}
+          <Paragraph className="user-bookings__description">
+            This section highlights the bookings you've made, and the
+            check-in/check-out dates associated with said bookings.
+          </Paragraph>
+        </>
+      }
       grid={{
         column: 3,
         gutter: 8,
@@ -81,37 +120,17 @@ export const UserBookings = ({ id, limit }: IProps) => {
     </Content>
   ) : (
     <div className="user-bookings">
-      <Paragraph className="user-bookings__description">
-        This section highlights the bookings you've made, and the
-        check-in/check-out dates associated with said bookings.
-      </Paragraph>
       <InfiniteScroll
         hasMore={!loading && total > result.length}
-        loadMore={() => {
-          fetchMore({
-            variables: { id, bookingsPage: result.length / limit + 1, limit },
-            updateQuery: (prev, { fetchMoreResult }) => {
-              if (!fetchMoreResult) return prev;
-
-              return {
-                ...fetchMoreResult,
-                user: {
-                  ...fetchMoreResult.user,
-                  listings: {
-                    ...fetchMoreResult.user.bookings,
-                    result:
-                      prev.user.bookings && fetchMoreResult.user.bookings
-                        ? [
-                            ...prev.user.bookings.result,
-                            ...fetchMoreResult.user.bookings.result,
-                          ]
-                        : [],
-                  },
-                },
-              };
-            },
-          });
-        }}
+        loadMore={fetchMoreBookings}
+        loader={
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Spin
+              indicator={<HomeOutlined spin />}
+              tip="Loading more bookings..."
+            />
+          </div>
+        }
       >
         {userBookingsList}
       </InfiniteScroll>

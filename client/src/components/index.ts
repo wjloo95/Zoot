@@ -1,4 +1,4 @@
-export * from './Home';
+export * from './ListingsHome';
 export * from './Host';
 export * from './Listing';
 export * from './Listings';

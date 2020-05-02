@@ -1,5 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Home, Host, Listing, Listings, NotFound, User, Login } from './index';
+import {
+  ListingsHome,
+  Host,
+  Listing,
+  Listings,
+  NotFound,
+  User,
+  Login,
+} from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -67,7 +75,7 @@ const App = () => {
           <Header viewer={viewer} setViewer={setViewer} />
         </Affix>
         <Switch>
-          <Route exact path="/" component={Home} />
+          <Route exact path="/listings" component={ListingsHome} />
           <Route exact path="/login">
             <Login setViewer={setViewer} />
           </Route>

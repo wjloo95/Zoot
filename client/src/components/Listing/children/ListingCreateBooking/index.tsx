@@ -25,17 +25,17 @@ export const ListingCreateBooking = ({ price }: IProps) => {
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check In</Paragraph>
             <DatePicker
-              value={checkInDate ? checkInDate : undefined}
-              format={'YYYY/MM/DD'}
-              onChange={(dateValue) => setCheckInDate(dateValue)}
+            // value={checkInDate ? checkInDate : undefined}
+            // format={'YYYY/MM/DD'}
+            // onChange={(dateValue) => setCheckInDate(dateValue)}
             />
           </div>
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check Out</Paragraph>
             <DatePicker
-              value={checkOutDate ? checkOutDate : undefined}
-              format={'YYYY/MM/DD'}
-              onChange={(dateValue) => setCheckOutDate(dateValue)}
+            // value={checkOutDate ? checkOutDate : undefined}
+            // format={'YYYY/MM/DD'}
+            // onChange={(dateValue) => setCheckOutDate(dateValue)}
             />
           </div>
         </div>

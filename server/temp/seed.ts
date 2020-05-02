@@ -787,7 +787,7 @@ const seed = async () => {
 
     console.log('Seed : Success!');
   } catch (error) {
-    throw new Error('Failed to seed database');
+    throw new Error(`Failed to seed database: ${error}`);
   }
 };
 

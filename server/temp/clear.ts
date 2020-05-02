@@ -29,3 +29,5 @@ const clear = async () => {
     throw new Error('Failed to clear database');
   }
 };
+
+clear();

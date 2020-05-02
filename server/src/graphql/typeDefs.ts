@@ -63,10 +63,16 @@ export const typeDefs = gql`
     code: String!
   }
 
+  enum ListingsSort {
+    PRICE_LOW_TO_HIGH
+    PRICE_HIGH_TO_LOW
+  }
+
   type Query {
     authUrl: String!
     user(id: ID!): User!
     listing(id: ID!): Listing!
+    listings(sort: ListingsSort!, limit: Int!, page: Int!): Listings!
   }
 
   type Mutation {

@@ -46,6 +46,10 @@ export const Listing = () => {
     <ListingBookings listingBookings={listingBookings} limit={PAGE_LIMIT} />
   ) : null;
 
+  const ListingCreateBookingElement = listing ? (
+    <ListingCreateBooking price={listing.price} />
+  ) : null;
+
   return loading ? (
     <Content className="listing">
       <PageSkeleton />
@@ -65,7 +69,7 @@ export const Listing = () => {
             {listingBookingsElement}
           </Col>
           <Col xs={24} lg={10}>
-            <ListingCreateBooking />
+            {ListingCreateBookingElement}
           </Col>
         </Row>
       </Content>

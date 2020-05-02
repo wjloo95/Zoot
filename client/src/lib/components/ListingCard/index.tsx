@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, Typography } from 'antd';
 import { UserOutlined, CompassOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+import { formatPrice } from '../../utils';
 
 interface IProps {
   listing: {
@@ -15,10 +16,8 @@ interface IProps {
 }
 
 const { Text, Title, Paragraph } = Typography;
-
 export const ListingCard = ({ listing }: IProps) => {
   const { id, title, image, address, price, numOfGuests } = listing;
-
   return (
     <Link to={`/listing/${id}`}>
       <Card
@@ -33,7 +32,7 @@ export const ListingCard = ({ listing }: IProps) => {
         <div className="listing-card__details">
           <div className="listing-card__description">
             <Title level={4} className="listing-card__price">
-              {'$' + price.toLocaleString('en')}
+              {`${formatPrice(price)}`}
               <span>/day</span>
             </Title>
             <Text strong ellipsis className="listing-card__title">

@@ -63,10 +63,10 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
 
   return (
     <Menu mode="horizontal" selectable={false} className="menu">
-      <Item key="/host">
-        <Link to="/host">
+      <Item key="/listings">
+        <Link to="/listings">
           <HomeOutlined />
-          Host
+          Listings
         </Link>
       </Item>
       {subMenuLogin}

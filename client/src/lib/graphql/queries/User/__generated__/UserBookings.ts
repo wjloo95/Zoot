@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface UserBookings_user_bookings_result_listing {
-  __typename: 'Listing';
+  __typename: "Listing";
   id: string;
   title: string;
   image: string;
@@ -18,7 +18,7 @@ export interface UserBookings_user_bookings_result_listing {
 }
 
 export interface UserBookings_user_bookings_result {
-  __typename: 'Booking';
+  __typename: "Booking";
   id: string;
   listing: UserBookings_user_bookings_result_listing;
   checkIn: string;
@@ -26,13 +26,13 @@ export interface UserBookings_user_bookings_result {
 }
 
 export interface UserBookings_user_bookings {
-  __typename: 'Bookings';
+  __typename: "Bookings";
   total: number;
   result: UserBookings_user_bookings_result[];
 }
 
 export interface UserBookings_user {
-  __typename: 'User';
+  __typename: "User";
   id: string;
   bookings: UserBookings_user_bookings | null;
 }

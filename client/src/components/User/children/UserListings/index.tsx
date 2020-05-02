@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { List, Typography, Layout } from 'antd';
+import React from 'react';
+import { List, Typography, Layout, Spin } from 'antd';
 import {
   ListingCard,
   ErrorBanner,
@@ -11,6 +11,9 @@ import {
   UserListings as UserListingsData,
   UserListingsVariables,
 } from '../../../../lib/graphql/queries/User/__generated__/UserListings';
+import InfiniteScroll from 'react-infinite-scroller';
+import { HomeOutlined } from '@ant-design/icons';
+import Title from 'antd/lib/typography/Title';
 
 const { Content } = Layout;
 const { Paragraph } = Typography;
@@ -21,11 +24,12 @@ interface IProps {
 }
 
 export const UserListings = ({ id, limit }: IProps) => {
-  const [listingsPage, setListingsPage] = useState(1);
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, fetchMore } = useQuery<
     UserListingsData,
     UserListingsVariables
-  >(USER_LISTINGS, { variables: { id, listingsPage, limit } });
+  >(USER_LISTINGS, {
+    variables: { id, listingsPage: 0, limit },
+  });
 
   if (error) {
     return (
@@ -39,12 +43,47 @@ export const UserListings = ({ id, limit }: IProps) => {
   const user = data ? data.user : null;
   const userListings = user ? user.listings : null;
 
-  const total = userListings ? userListings.total : null;
-  const result = userListings ? userListings.result : null;
+  const total = userListings ? userListings.total : 0;
+  const result = userListings ? userListings.result : [];
+
+  const fetchMoreListings = () => {
+    fetchMore({
+      variables: { id, listingsPage: result.length / limit + 1, limit },
+      updateQuery: (prev, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return prev;
+
+        return {
+          ...fetchMoreResult,
+          user: {
+            ...fetchMoreResult.user,
+            listings: {
+              ...fetchMoreResult.user.listings,
+              result: [
+                ...prev.user.listings.result,
+                ...fetchMoreResult.user.listings.result,
+              ],
+            },
+          },
+        };
+      },
+    });
+  };
 
   const userListingsList = userListings ? (
     <List
+      header={
+        <>
+          {total > 0 && (
+            <Title level={2} underline>{`${total} Total Listings`}</Title>
+          )}
+          <Paragraph className="user-listings__description">
+            This section highlights the listings this user currently hosts and
+            has made available for bookings.
+          </Paragraph>
+        </>
+      }
       grid={{
+        column: 3,
         gutter: 8,
         xs: 1,
         sm: 2,
@@ -52,15 +91,6 @@ export const UserListings = ({ id, limit }: IProps) => {
       }}
       dataSource={result ? result : undefined}
       locale={{ emptyText: 'This user has not listed a property!' }}
-      pagination={{
-        position: 'top',
-        current: listingsPage,
-        total: total ? total : undefined,
-        defaultPageSize: limit,
-        hideOnSinglePage: true,
-        showLessItems: true,
-        onChange: (page: number) => setListingsPage(page),
-      }}
       renderItem={(userListing) => (
         <List.Item>
           <ListingCard listing={userListing} />
@@ -75,11 +105,20 @@ export const UserListings = ({ id, limit }: IProps) => {
     </Content>
   ) : (
     <div className="user-listings">
-      <Paragraph className="user-listings__description">
-        This section highlights the listings this user currently hosts and has
-        made available for bookings.
-      </Paragraph>
-      {userListingsList}
+      <InfiniteScroll
+        hasMore={!loading && total > result.length}
+        loadMore={fetchMoreListings}
+        loader={
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <Spin
+              indicator={<HomeOutlined spin />}
+              tip="Loading more listings..."
+            />
+          </div>
+        }
+      >
+        {userListingsList}
+      </InfiniteScroll>
     </div>
   );
 };

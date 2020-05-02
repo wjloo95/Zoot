@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { List, Typography, Layout, Spin } from 'antd';
 import {
   ListingCard,

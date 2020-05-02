@@ -119,27 +119,44 @@
 .listing-card__address.ant-typography {
   display: block;
 }
-.listing-card__dimensions i,
-.listing-card__dimensions span {
-  padding-right: 10px;
+.listing-card-bottom i,
+.listing-card-bottom span {
+  padding-right: 5px;
   font-size: 13px;
 }
-.listing-card__dimensions span {
+
+.listing-card-bottom svg {
+  margin-top: 25%;
+}
+.listing-card-bottom span {
   color: #bfbfbf;
 }
-.listing-card__dimensions {
-  /* float: right; */
+.listing-card-bottom {
   display: flex;
   justify-content: space-between;
 }
+
+.listing-card-bottom-address {
+  display: flex;
+  width: 70%;
+  white-space: nowrap;
+  float: left;
+}
+
+.listing-card-bottom-guests {
+  display: flex;
+  width: 30%;
+  white-space: nowrap;
+  justify-content: flex-end;
+}
 @media (max-width: 75em) {
-  .listing-card__dimensions--guests {
+  .listing-card-bottom-guests {
     float: none;
     padding-bottom: 5px;
   }
 }
 @media (max-width: 48em) {
-  .listing-card__dimensions--guests {
+  .listing-card-bottom-guests {
     float: right;
     padding-bottom: 0;
   }

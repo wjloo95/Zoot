@@ -14,7 +14,7 @@ interface IProps {
   };
 }
 
-const { Text, Title } = Typography;
+const { Text, Title, Paragraph } = Typography;
 
 export const ListingCard = ({ listing }: IProps) => {
   const { id, title, image, address, price, numOfGuests } = listing;
@@ -40,12 +40,12 @@ export const ListingCard = ({ listing }: IProps) => {
               {title}
             </Text>
           </div>
-          <div className="listing-card__dimensions">
-            <div>
+          <div className="listing-card-bottom">
+            <div className="listing-card-bottom-address">
               <CompassOutlined />
               <Text ellipsis>{address}</Text>
             </div>
-            <div>
+            <div className="listing-card-bottom-guests">
               <UserOutlined />
               <Text>{numOfGuests} guests</Text>
             </div>

@@ -3,6 +3,7 @@ import { ObjectID, Collection } from 'mongodb';
 export enum ListingType {
   Apartment = 'APARTMENT',
   House = 'HOUSE',
+  Hotel = 'HOTEL',
 }
 
 interface BookingsIndexMonth {

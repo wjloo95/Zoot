@@ -8,7 +8,11 @@ import {
 import { useParams } from 'react-router-dom';
 import { Layout, Col, Row } from 'antd';
 import { PageSkeleton, ErrorBanner } from '../../lib/components';
-import { ListingDetails, ListingBookings } from './children';
+import {
+  ListingDetails,
+  ListingBookings,
+  ListingCreateBooking,
+} from './children';
 import { listingBookings } from './children/ListingBookings/mockBookings';
 
 const { Content } = Layout;
@@ -43,20 +47,25 @@ export const Listing = () => {
   ) : null;
 
   return loading ? (
-    <Content className="listings">
+    <Content className="listing">
       <PageSkeleton />
     </Content>
   ) : (
     <div className="listing-container">
-      <div
-        style={{ backgroundImage: `url(${image})` }}
-        className="listing-details__image"
-      />
+      <div style={{ position: 'relative' }}>
+        <div
+          style={{ backgroundImage: `url(${image})` }}
+          className="listing-details__image"
+        />
+      </div>
       <Content className="listing">
         <Row gutter={24} justify="space-between">
           <Col xs={24} lg={14}>
             {listingDetailsElement}
             {listingBookingsElement}
+          </Col>
+          <Col xs={24} lg={10}>
+            <ListingCreateBooking />
           </Col>
         </Row>
       </Content>

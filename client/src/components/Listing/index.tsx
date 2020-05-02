@@ -6,8 +6,9 @@ import {
   ListingVariables,
 } from '../../lib/graphql/queries/Listing/__generated__/Listing';
 import { useParams } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Col, Row } from 'antd';
 import { PageSkeleton, ErrorBanner } from '../../lib/components';
+import { ListingDetails } from './children';
 
 const { Content } = Layout;
 
@@ -28,11 +29,29 @@ export const Listing = () => {
     );
   }
 
+  const listing = data ? data.listing : null;
+  const listingBookings = listing ? listing.bookings : null;
+
+  const listingDetailsElement = listing ? (
+    <div className="listing-container">
+      <div
+        style={{ backgroundImage: `url(${listing.image})` }}
+        className="listing-details__image"
+      />
+      <Content className="listing">
+        <Row gutter={24} justify="space-between">
+          <Col xs={24} lg={14}>
+            <ListingDetails listing={listing} />
+          </Col>
+        </Row>
+      </Content>
+    </div>
+  ) : null;
   return loading ? (
     <Content className="listings">
       <PageSkeleton />
     </Content>
   ) : (
-    <h2>Listing</h2>
+    <>{listingDetailsElement}</>
   );
 };

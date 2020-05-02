@@ -14,7 +14,6 @@ export const ListingDetails = ({ listing }: IProps) => {
   const {
     title,
     description,
-    image,
     type,
     address,
     city,

@@ -37,29 +37,11 @@ export const ListingsHome = () => {
     }
   );
 
-  // const topListingsSection = loading ? (
-  //   <HomeListingsSkeleton />
-  // ) : data ? (
-  //   <HomeListings title="Premium Listings" listings={data.listings.result} />
-  // ) : null;
-
-  const renderListingsSection = () => {
-    console.log('why');
-    if (loading) {
-      return <HomeListingsSkeleton />;
-    }
-
-    if (data) {
-      return (
-        <HomeListings
-          title="Premium Listings"
-          listings={data.listings.result}
-        />
-      );
-    }
-
-    return null;
-  };
+  const topListingsSection = loading ? (
+    <HomeListingsSkeleton />
+  ) : data ? (
+    <HomeListings title="Premium Listings" listings={data.listings.result} />
+  ) : null;
 
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();
@@ -91,7 +73,7 @@ export const ListingsHome = () => {
           </Link>
         </Button>
       </div>
-      {renderListingsSection()}
+      {topListingsSection}
       <div className="home__listings">
         <Title level={4} className="home__listings-title">
           Listings of any kind

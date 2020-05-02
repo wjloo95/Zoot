@@ -397,6 +397,7 @@
   background-size: cover;
   background-position: 50%;
   margin-bottom: 20px;
+  /* box-shadow: 0 -10px 10px -10px white inset; */
 }
 @media (max-width: 75em) {
   .listing-details__image {

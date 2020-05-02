@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Moment } from 'moment';
 import { Button, Card, Divider, Typography, DatePicker } from 'antd';
 import { formatPrice } from '../../../../lib/utils';
 const { Paragraph, Title } = Typography;
@@ -8,6 +9,8 @@ interface IProps {
 }
 
 export const ListingCreateBooking = ({ price }: IProps) => {
+  const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
+  const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
   return (
     <div className="listing-create-booking listing-booking">
       <Card className="listing-booking__card">
@@ -21,11 +24,19 @@ export const ListingCreateBooking = ({ price }: IProps) => {
           <Divider />
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check In</Paragraph>
-            <DatePicker />
+            <DatePicker
+              value={checkInDate ? checkInDate : undefined}
+              format={'YYYY/MM/DD'}
+              onChange={(dateValue) => setCheckInDate(dateValue)}
+            />
           </div>
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check Out</Paragraph>
-            <DatePicker />
+            <DatePicker
+              value={checkOutDate ? checkOutDate : undefined}
+              format={'YYYY/MM/DD'}
+              onChange={(dateValue) => setCheckOutDate(dateValue)}
+            />
           </div>
         </div>
         <Divider />

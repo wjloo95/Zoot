@@ -1,9 +1,14 @@
 import { IResolvers } from 'apollo-server-express';
 import { Listing, Database, User } from '../../../lib/types';
-import { ListingArgs, ListingBookingsArgs, ListingBookingsData } from './types';
+import {
+  ListingArgs,
+  ListingBookingsArgs,
+  ListingBookingsData,
+  HostListingArgs,
+} from './types';
 import { Request } from 'express';
 import { ObjectID } from 'mongodb';
-import { authorize } from '../../../lib/utils';
+import { authorize, verifyHostListingInput } from '../../../lib/utils';
 
 export const listingResolvers: IResolvers = {
   Query: {
@@ -32,7 +37,12 @@ export const listingResolvers: IResolvers = {
     },
   },
   Mutation: {
-    hostListing: () => {
+    hostListing: async (
+      _root: undefined,
+      { input }: HostListingArgs,
+      { db, req }: { db: Database; req: Request }
+    ) => {
+      verifyHostListingInput(input);
       return 'lol';
     },
   },

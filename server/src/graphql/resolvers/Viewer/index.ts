@@ -1,11 +1,12 @@
 import { IResolvers } from 'apollo-server-express';
-import { Google } from '../../../lib/api';
-import { LogInArgs } from './types';
+import { Google, Stripe } from '../../../lib/api';
+import { LogInArgs, ConnectStripeArgs } from './types';
 import { Database, Viewer, User } from '../../../lib/types';
 import { logInViaGoogle } from './logInViaGoogle';
 import crypto from 'crypto';
 import { Response, Request } from 'express';
 import { logInViaCookie } from './logInViaCookie';
+import { authorize } from '../../../lib/utils';
 
 export const cookieOptions = {
   httpOnly: true,
@@ -59,8 +60,46 @@ export const viewerResolvers: IResolvers = {
         throw new Error(`Failed to log out: ${error}`);
       }
     },
-    connectStripe: async (code: string): Promise<Viewer> => {
-      return { didRequest: true };
+    connectStripe: async (
+      _root: undefined,
+      { input }: ConnectStripeArgs,
+      { db, req }: { db: Database; req: Request }
+    ): Promise<Viewer> => {
+      try {
+        const { code } = input;
+
+        const viewer = await authorize(db, req);
+
+        if (!viewer) {
+          throw new Error('Could not find viewer');
+        }
+
+        const wallet = await Stripe.connect(code);
+
+        if (!wallet) {
+          throw new Error('Stripe Connection Error');
+        }
+
+        const updateRes = await db.users.findOneAndUpdate(
+          { _id: viewer._id },
+          { $set: { walletId: wallet.stripe_user_id } },
+          { returnOriginal: false }
+        );
+
+        if (!updateRes.value) {
+          throw new Error('Viewer could not be updated');
+        }
+
+        return {
+          _id: updateRes.value._id,
+          token: updateRes.value.token,
+          avatar: updateRes.value.avatar,
+          walletId: updateRes.value.walletId,
+          didRequest: true,
+        };
+      } catch (error) {
+        throw new Error('Failed to connect to Stripe');
+      }
     },
     disconnectStripe: async (): Promise<Viewer> => {
       return { didRequest: true };

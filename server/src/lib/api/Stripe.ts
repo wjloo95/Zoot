@@ -6,5 +6,11 @@ const client = new StripeClient(`${process.env.S_SECRET_KEY}`, {
 });
 
 export const Stripe = {
-  connect: async (code: string) => {},
+  connect: async (code: string) => {
+    const res = await client.oauth.token({
+      grant_type: 'authorization_code',
+      code,
+    });
+    return res;
+  },
 };

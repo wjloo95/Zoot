@@ -98,11 +98,40 @@ export const viewerResolvers: IResolvers = {
           didRequest: true,
         };
       } catch (error) {
-        throw new Error('Failed to connect to Stripe');
+        throw new Error(`Failed to connect to Stripe: ${error}`);
       }
     },
-    disconnectStripe: async (): Promise<Viewer> => {
-      return { didRequest: true };
+    disconnectStripe: async (
+      _root: undefined,
+      args: {},
+      { db, req }: { db: Database; req: Request }
+    ): Promise<Viewer> => {
+      try {
+        const viewer = await authorize(db, req);
+
+        if (!viewer) {
+          throw new Error('Could not find viewer');
+        }
+        const updateRes = await db.users.findOneAndUpdate(
+          { _id: viewer._id },
+          { $set: { walletId: undefined } },
+          { returnOriginal: false }
+        );
+
+        if (!updateRes.value) {
+          throw new Error('Viewer could not be updated');
+        }
+
+        return {
+          _id: updateRes.value._id,
+          token: updateRes.value.token,
+          avatar: updateRes.value.avatar,
+          walletId: updateRes.value.walletId,
+          didRequest: true,
+        };
+      } catch (error) {
+        throw new Error(`Failed to disconnect from Stripe: ${error}`);
+      }
     },
   },
   Viewer: {

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { List, Affix } from 'antd';
 import { ListingCard, ErrorBanner } from '../../../../lib/components';
 import {
@@ -34,6 +34,10 @@ export const ListingsSection = () => {
       },
     }
   );
+
+  useEffect(() => {
+    setPage(1);
+  }, [location]);
 
   if (error) {
     return (

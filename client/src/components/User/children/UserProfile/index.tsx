@@ -16,13 +16,20 @@ interface IProps {
   isViewer: boolean;
   viewer: Viewer;
   setViewer: (viewer: Viewer) => void;
+  handleRefetch: () => void;
 }
 
 const { Paragraph, Text, Title } = Typography;
 
 const STRIPE_URL = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
 
-export const UserProfile = ({ user, isViewer, viewer, setViewer }: IProps) => {
+export const UserProfile = ({
+  user,
+  isViewer,
+  viewer,
+  setViewer,
+  handleRefetch,
+}: IProps) => {
   const [disconnectStripe, { loading }] = useMutation<DisconnectStripeData>(
     DISCONNECT_STRIPE,
     {
@@ -33,6 +40,7 @@ export const UserProfile = ({ user, isViewer, viewer, setViewer }: IProps) => {
             "You've successfully disconnected from Stripe!",
             "You'll have to reconnect with Stripe to continue to create listings."
           );
+          handleRefetch();
         }
       },
       onError: () => {
@@ -56,7 +64,11 @@ export const UserProfile = ({ user, isViewer, viewer, setViewer }: IProps) => {
         Income Earned:{' '}
         <Text strong>{user.income ? formatPrice(user.income) : `$0`}</Text>
       </Paragraph>
-      <Button type="primary" className="user-profile__details-cta">
+      <Button
+        type="primary"
+        className="user-profile__details-cta"
+        onClick={() => disconnectStripe()}
+      >
         Disconnect Stripe
       </Button>
       <Paragraph type="secondary">

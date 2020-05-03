@@ -25,11 +25,14 @@ const PAGE_LIMIT = 3;
 export const User = ({ viewer, setViewer }: IProps) => {
   const { id, stripe_error } = useParams();
 
-  const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
-    variables: {
-      id,
-    },
-  });
+  const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(
+    USER,
+    {
+      variables: {
+        id,
+      },
+    }
+  );
 
   if (error) {
     return (
@@ -40,6 +43,10 @@ export const User = ({ viewer, setViewer }: IProps) => {
     );
   }
 
+  const handleRefetch = async () => {
+    await refetch();
+  };
+
   const user = data ? data.user : null;
   const isViewer = viewer.id === id;
   const userProfileElement = user ? (
@@ -48,6 +55,7 @@ export const User = ({ viewer, setViewer }: IProps) => {
       isViewer={isViewer}
       viewer={viewer}
       setViewer={setViewer}
+      handleRefetch={handleRefetch}
     />
   ) : null;
   const stripeErrorBanner = stripe_error ? (

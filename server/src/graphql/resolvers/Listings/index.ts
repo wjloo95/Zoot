@@ -19,6 +19,7 @@ export const listingsResolvers: IResolvers = {
         const query: ListingsQuery = {};
 
         const data: ListingsData = {
+          region: null,
           total: 0,
           result: [],
         };
@@ -33,6 +34,10 @@ export const listingsResolvers: IResolvers = {
           } else {
             throw new Error('No Country Found');
           }
+
+          const cityText = city ? `${city}, ` : '';
+          const adminText = admin ? `${admin}, ` : '';
+          data.region = `${cityText}${adminText}${country}`;
         }
 
         let cursor = await db.listings.find(query);

@@ -46,6 +46,7 @@ export const typeDefs = gql`
   }
 
   type Listings {
+    region: String
     total: Int!
     result: [Listing!]!
   }

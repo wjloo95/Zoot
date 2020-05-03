@@ -1,9 +1,10 @@
-import { gql } from 'apollo-boost';
+// import { gql } from 'apollo-boost';
 
-export const DISCONNECT_STRIPE = gql`
-  mutation DisconnectStripe($input: ConnectStripeInput!) {
-    disconnectStripe(input: $input) {
-      hasWallet
-    }
-  }
-`;
+export const DISCONNECT_STRIPE = '';
+// gql`
+//   mutation DisconnectStripe($input: ConnectStripeInput!) {
+//     disconnectStripe(input: $input) {
+//       hasWallet
+//     }
+//   }
+// `;

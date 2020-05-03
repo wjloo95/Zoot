@@ -37,6 +37,8 @@ export const typeDefs = gql`
     type: ListingType!
     address: String!
     city: String!
+    admin: String!
+    country: String!
     bookings(limit: Int!, page: Int!): Bookings
     bookingsIndex: String!
     price: Int!
@@ -44,6 +46,7 @@ export const typeDefs = gql`
   }
 
   type Listings {
+    region: String
     total: Int!
     result: [Listing!]!
   }
@@ -63,10 +66,21 @@ export const typeDefs = gql`
     code: String!
   }
 
+  enum ListingsSort {
+    PRICE_LOW_TO_HIGH
+    PRICE_HIGH_TO_LOW
+  }
+
   type Query {
     authUrl: String!
     user(id: ID!): User!
     listing(id: ID!): Listing!
+    listings(
+      location: String
+      sort: ListingsSort!
+      limit: Int!
+      page: Int!
+    ): Listings!
   }
 
   type Mutation {

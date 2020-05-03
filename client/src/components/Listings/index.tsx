@@ -1,5 +1,14 @@
 import React from 'react';
+import { Layout } from 'antd';
+import { ListingsSection } from './children';
+
+const { Content } = Layout;
 
 export const Listings = () => {
-  return <h2>Listings</h2>;
+  return (
+    <Content className="listings">
+      <ListingsSection />
+      <div className="map"></div>
+    </Content>
+  );
 };

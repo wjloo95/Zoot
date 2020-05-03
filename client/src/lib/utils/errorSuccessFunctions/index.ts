@@ -15,5 +15,9 @@ export const displaySuccessNotification = (
 };
 
 export const displayErrorMessage = (error: string) => {
-  return message.error(error);
+  return message.error(error, 1);
+};
+
+export const displayWarningMessage = (warning: string) => {
+  return message.warning(warning, 1);
 };

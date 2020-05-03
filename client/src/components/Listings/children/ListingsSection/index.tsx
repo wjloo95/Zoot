@@ -13,6 +13,7 @@ import { NoListings } from '../NoListings';
 import Title from 'antd/lib/typography/Title';
 import { ListingsSortSection } from '../ListingsSortSection';
 import { ListingsPagination } from '../ListingsPagination';
+import { ListingsSkeleton } from '../ListingsSkeleton';
 
 const { Item } = List;
 
@@ -34,12 +35,20 @@ export const ListingsSection = () => {
     }
   );
 
+  if (loading) {
+    return (
+      <div className="listings-section">
+        <ListingsSkeleton />
+      </div>
+    );
+  }
+
   const listings = data ? data.listings : null;
   const listingsRegion = listings ? listings.region : null;
 
   const listingsSectionElement =
     listings && listings.result.length ? (
-      <div className="listings-section">
+      <div>
         <Affix offsetTop={64}>
           <ListingsPagination
             total={listings.total}
@@ -75,7 +84,7 @@ export const ListingsSection = () => {
   ) : null;
 
   return (
-    <div>
+    <div className="listings-section">
       {listingsRegionElement}
       {listingsSectionElement}
     </div>

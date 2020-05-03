@@ -502,6 +502,10 @@
   background-image: url('../../src/components/ListingsHome/assets/los-angeles.jpg');
 }
 
+.listings-section {
+  width: 100%;
+}
+
 @media (max-width: 75em) {
   .listings {
     padding-left: 20px;

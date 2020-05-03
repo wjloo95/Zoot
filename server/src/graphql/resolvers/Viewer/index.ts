@@ -103,7 +103,7 @@ export const viewerResolvers: IResolvers = {
     },
     disconnectStripe: async (
       _root: undefined,
-      args: {},
+      _args: {},
       { db, req }: { db: Database; req: Request }
     ): Promise<Viewer> => {
       try {
@@ -112,6 +112,7 @@ export const viewerResolvers: IResolvers = {
         if (!viewer) {
           throw new Error('Could not find viewer');
         }
+
         const updateRes = await db.users.findOneAndUpdate(
           { _id: viewer._id },
           { $set: { walletId: undefined } },
@@ -137,7 +138,7 @@ export const viewerResolvers: IResolvers = {
   Viewer: {
     id: (viewer) => viewer._id,
     hasWallet: (viewer) => {
-      return !!viewer.walletID;
+      return !!viewer.walletId;
     },
   },
 };

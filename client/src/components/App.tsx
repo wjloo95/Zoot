@@ -80,7 +80,9 @@ const App = () => {
           <Route exact path="/login">
             <Login setViewer={setViewer} />
           </Route>
-          <Route exact path="/host" component={Host} />
+          <Route exact path="/host">
+            <Host viewer={viewer} />
+          </Route>
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
           <Route exact path="/user/:id">

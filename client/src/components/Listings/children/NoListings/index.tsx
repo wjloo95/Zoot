@@ -1,6 +1,7 @@
 import React from 'react';
-import { Typography, Skeleton } from 'antd';
+import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
+import { PageSkeleton } from '../../../../lib/components';
 
 const { Paragraph, Text } = Typography;
 
@@ -21,10 +22,6 @@ export const NoListings = ({ listingsRegion }: IProps) => {
       </Paragraph>
     </div>
   ) : (
-    <Skeleton
-      active
-      paragraph={{ rows: 2 }}
-      className="page-skeleton__paragraph"
-    />
+    <PageSkeleton />
   );
 };

@@ -9,6 +9,7 @@ import {
 import { Request } from 'express';
 import { ObjectID } from 'mongodb';
 import { authorize, verifyHostListingInput } from '../../../lib/utils';
+import { Google } from '../../../lib/api';
 
 export const listingResolvers: IResolvers = {
   Query: {
@@ -43,7 +44,38 @@ export const listingResolvers: IResolvers = {
       { db, req }: { db: Database; req: Request }
     ) => {
       verifyHostListingInput(input);
-      return 'lol';
+
+      const viewer = await authorize(db, req);
+
+      if (!viewer) {
+        throw new Error('Viewer cannot be found');
+      }
+
+      const { country, admin, city } = await Google.geocode(input.address);
+
+      if (!country || !admin || !city) {
+        throw new Error('Invalid address input');
+      }
+
+      const insertedResult = await db.listings.insertOne({
+        _id: new ObjectID(),
+        ...input,
+        bookings: [],
+        bookingsIndex: {},
+        country,
+        admin,
+        city,
+        host: viewer._id,
+      });
+
+      const newListing: Listing = insertedResult.ops[0];
+
+      await db.users.updateOne(
+        { _id: viewer._id },
+        { $push: { listings: newListing._id } }
+      );
+
+      return newListing;
     },
   },
   Listing: {

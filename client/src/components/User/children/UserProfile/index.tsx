@@ -10,6 +10,7 @@ import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphq
 import { useMutation } from '@apollo/react-hooks';
 import { DISCONNECT_STRIPE } from '../../../../lib/graphql/mutations/DisconnectStripe';
 import { Viewer } from '../../../../lib/types';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   user: UserData['user'];
@@ -76,6 +77,16 @@ export const UserProfile = ({
         <Text strong>any further payments</Text>. This will prevent users from
         booking listings that you have created.
       </Paragraph>
+      <Divider />
+      <Paragraph>
+        Interested in listing a property? Complete our listings form to start
+        earning money!
+      </Paragraph>
+      <Link to={'/host'}>
+        <Button type="primary" className="user-profile__details-cta">
+          List a Property
+        </Button>
+      </Link>
     </>
   ) : (
     <>

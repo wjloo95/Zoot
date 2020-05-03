@@ -16,6 +16,7 @@ import {
 } from '../../lib/graphql/queries/Listings/__generated__/Listings';
 import { LISTINGS } from '../../lib/graphql/queries';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
+import { searchValid } from '../../lib/utils/searchValidate';
 
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
@@ -45,8 +46,7 @@ export const ListingsHome = () => {
 
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();
-    const onlyChars = /^[a-zA-Z]+$/;
-    if (trimmedValue === '' || !onlyChars.test(trimmedValue)) {
+    if (searchValid(value)) {
       displayErrorMessage('Please enter a valid search term!');
     } else {
       history.push(`/listings/${trimmedValue}`);

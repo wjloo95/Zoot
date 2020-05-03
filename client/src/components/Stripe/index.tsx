@@ -41,11 +41,13 @@ export const Stripe = ({ viewer }: IProps) => {
     return <Redirect to={`/user/${viewer.id}?stripe_error=true`} />;
   }
 
+  if (data && data.connectStripe) {
+    return <Redirect to={`/user/${viewer.id}`} />;
+  }
+
   return loading ? (
     <Content className="stripe">
       <Spin size="large" tip="Connecting your Stripe account..." />
     </Content>
-  ) : (
-    <div>lol</div>
-  );
+  ) : null;
 };

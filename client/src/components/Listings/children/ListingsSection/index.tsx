@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { List } from 'antd';
+import { List, Affix } from 'antd';
 import { ListingCard } from '../../../../lib/components';
 import {
   Listings as ListingsData,
@@ -12,13 +12,15 @@ import { LISTINGS } from '../../../../lib/graphql/queries';
 import { NoListings } from '../NoListings';
 import Title from 'antd/lib/typography/Title';
 import { ListingsSortSection } from '../ListingsSortSection';
+import { ListingsPagination } from '../ListingsPagination';
 
 const { Item } = List;
 
-const PAGE_LIMIT = 6;
+const PAGE_LIMIT = 4;
 
 export const ListingsSection = () => {
   const [sort, setSort] = useState(ListingsSort.PRICE_LOW_TO_HIGH);
+  const [page, setPage] = useState(1);
   const { location } = useParams();
   const { data, loading, error } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
@@ -27,7 +29,7 @@ export const ListingsSection = () => {
         location,
         sort,
         limit: PAGE_LIMIT,
-        page: 1,
+        page,
       },
     }
   );
@@ -37,8 +39,16 @@ export const ListingsSection = () => {
 
   const listingsSectionElement =
     listings && listings.result.length ? (
-      <div>
-        <ListingsSortSection sort={sort} setSort={setSort} />
+      <div className="listings-section">
+        <Affix offsetTop={64}>
+          <ListingsPagination
+            total={listings.total}
+            page={page}
+            limit={PAGE_LIMIT}
+            setPage={setPage}
+          />
+          <ListingsSortSection sort={sort} setSort={setSort} />
+        </Affix>
         <List
           grid={{
             gutter: 8,

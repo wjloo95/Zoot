@@ -68,7 +68,7 @@ export const ListingsHome = () => {
           locations.
         </Paragraph>
         <Button>
-          <Link to="/listings/united%20states">
+          <Link to="/listings/United%20States">
             Popular listings in the United States
           </Link>
         </Button>
@@ -80,7 +80,7 @@ export const ListingsHome = () => {
         </Title>
         <Row gutter={12}>
           <Col xs={24} sm={12}>
-            <Link to="/listings/san%20francisco">
+            <Link to="/listings/San%20Francisco">
               <div className="home__listings-img-cover">
                 <img
                   src={sanFranciscoImage}
@@ -91,7 +91,7 @@ export const ListingsHome = () => {
             </Link>
           </Col>
           <Col xs={24} sm={12}>
-            <Link to="/listings/cancún">
+            <Link to="/listings/Cancún">
               <div className="home__listings-img-cover">
                 <img
                   src={cancunImage}

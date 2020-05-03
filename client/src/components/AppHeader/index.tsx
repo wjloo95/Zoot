@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Input, Layout } from 'antd';
 import { MenuItems } from './children';
@@ -15,8 +15,24 @@ interface IProps {
 }
 
 export const AppHeader = ({ viewer, setViewer }: IProps) => {
+  const [search, setSearch] = useState('');
   const history = useHistory();
   const { location } = history;
+
+  useEffect(() => {
+    const { pathname } = location;
+    const pathnameSubStrings = pathname.split('/');
+
+    if (!pathname.includes('/listings')) {
+      setSearch('');
+      return;
+    }
+
+    if (pathname.includes('/listings') && pathnameSubStrings.length === 3) {
+      setSearch(pathnameSubStrings[2]);
+      return;
+    }
+  }, [location]);
 
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();
@@ -32,6 +48,8 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
         <Search
           placeholder="Search 'San Francisco'"
           enterButton
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
           onSearch={onSearch}
         />
       </div>

@@ -31,26 +31,26 @@ export const HomeHero = ({ onSearch }: IProps) => {
       </div>
       <Row gutter={12} className="home-hero__cards">
         <Col xs={12} md={6}>
-          <Link to="/listings/toronto">
+          <Link to="/listings/Toronto">
             <Card cover={<img alt="toronto" src={torontoImage} />}>
               Toronto
             </Card>
           </Link>
         </Col>
         <Col xs={12} md={6}>
-          <Link to="/listings/dubai">
+          <Link to="/listings/Dubai">
             <Card cover={<img alt="dubai" src={dubaiImage} />}>Dubai</Card>
           </Link>
         </Col>
         <Col xs={0} md={6}>
-          <Link to="/listings/los%20angeles">
+          <Link to="/listings/Los%20Angeles">
             <Card cover={<img alt="los-angeles" src={losAngelesImage} />}>
               Los Angeles
             </Card>
           </Link>
         </Col>
         <Col xs={0} md={6}>
-          <Link to="/listings/london">
+          <Link to="/listings/London">
             <Card cover={<img alt="london" src={londonImage} />}>London</Card>
           </Link>
         </Col>

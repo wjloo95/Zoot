@@ -60,10 +60,12 @@ export const ListingsSection = () => {
         </Affix>
         <List
           grid={{
+            column: 3,
             gutter: 8,
             xs: 1,
             sm: 2,
-            lg: 4,
+            md: 2,
+            lg: 3,
           }}
           dataSource={listings.result}
           renderItem={(listing) => (

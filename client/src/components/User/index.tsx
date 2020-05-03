@@ -22,7 +22,7 @@ interface IProps {
 const PAGE_LIMIT = 3;
 
 export const User = ({ viewer }: IProps) => {
-  const { id } = useParams();
+  const { id, stripe_error } = useParams();
 
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
     variables: {
@@ -44,6 +44,9 @@ export const User = ({ viewer }: IProps) => {
   const userProfileElement = user ? (
     <UserProfile user={user} isViewer={isViewer} />
   ) : null;
+  const stripeErrorBanner = stripe_error ? (
+    <ErrorBanner description="We had an issue connecting with Stripe. Please try again soon." />
+  ) : null;
 
   return loading ? (
     <Content className="user">
@@ -51,6 +54,7 @@ export const User = ({ viewer }: IProps) => {
     </Content>
   ) : (
     <Content className="user">
+      {stripeErrorBanner}
       <Row gutter={12} justify="start">
         <Col xs={24}>{userProfileElement}</Col>
         <Col xs={24}>

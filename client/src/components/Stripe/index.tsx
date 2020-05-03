@@ -6,7 +6,7 @@ import {
   ConnectStripe as ConnectStripeData,
   ConnectStripeVariables,
 } from '../../lib/graphql/mutations/ConnectStripe/__generated__/ConnectStripe';
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useParams, useHistory } from 'react-router-dom';
 import { Viewer } from '../../lib/types';
 import { displaySuccessNotification } from '../../lib/utils';
 
@@ -33,12 +33,12 @@ export const Stripe = ({ viewer, setViewer }: IProps) => {
     },
   });
 
+  const history = useHistory();
   const connectStripeRef = useRef(connectStripe);
 
   useEffect(() => {
-    // const { code } = useParams();
-
-    const code = new URL(window.location.href).searchParams.get('code');
+    // const code = new URL(window.location.href).searchParams.get('code');
+    const code = history.location.search.split('code=')[1];
 
     if (code) {
       connectStripeRef.current({
@@ -46,8 +46,10 @@ export const Stripe = ({ viewer, setViewer }: IProps) => {
           input: { code },
         },
       });
+    } else {
+      history.replace('/login');
     }
-  }, []);
+  }, [history]);
 
   if (error) {
     return <Redirect to={`/user/${viewer.id}?stripe_error=true`} />;

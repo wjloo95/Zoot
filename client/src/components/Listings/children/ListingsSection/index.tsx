@@ -17,7 +17,7 @@ import { ListingsSkeleton } from '../ListingsSkeleton';
 
 const { Item } = List;
 
-const PAGE_LIMIT = 4;
+const PAGE_LIMIT = 6;
 
 export const ListingsSection = () => {
   const [sort, setSort] = useState(ListingsSort.PRICE_LOW_TO_HIGH);

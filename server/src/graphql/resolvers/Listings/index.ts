@@ -1,21 +1,41 @@
 import { IResolvers } from 'apollo-server-express';
-import { ListingsArgs, ListingsData, ListingsSort } from './types';
+import {
+  ListingsArgs,
+  ListingsData,
+  ListingsSort,
+  ListingsQuery,
+} from './types';
 import { Database } from '../../../lib/types';
+import { Google } from '../../../lib/api';
 
 export const listingsResolvers: IResolvers = {
   Query: {
     listings: async (
       _root: undefined,
-      { sort, limit, page }: ListingsArgs,
+      { location, sort, limit, page }: ListingsArgs,
       { db }: { db: Database }
     ): Promise<ListingsData> => {
       try {
+        const query: ListingsQuery = {};
+
         const data: ListingsData = {
           total: 0,
           result: [],
         };
 
-        let cursor = await db.listings.find({});
+        if (location) {
+          const { country, admin, city } = await Google.geocode(location);
+
+          if (city) query.city = city;
+          if (admin) query.admin = admin;
+          if (country) {
+            query.country = country;
+          } else {
+            throw new Error('No Country Found');
+          }
+        }
+
+        let cursor = await db.listings.find(query);
 
         if (sort && sort === ListingsSort.PRICE_LOW_TO_HIGH) {
           cursor = cursor.sort({ price: 1 });
@@ -33,6 +53,7 @@ export const listingsResolvers: IResolvers = {
 
         return data;
       } catch (error) {
+        console.log(error);
         throw new Error(`Failed to query listings: ${error}`);
       }
     },

@@ -6,6 +6,7 @@ export enum ListingsSort {
 }
 
 export interface ListingsArgs {
+  location: string | null;
   sort: ListingsSort;
   limit: number;
   page: number;
@@ -14,4 +15,10 @@ export interface ListingsArgs {
 export interface ListingsData {
   total: number;
   result: Listing[];
+}
+
+export interface ListingsQuery {
+  country?: string;
+  admin?: string;
+  city?: string;
 }

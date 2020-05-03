@@ -59,6 +59,12 @@ export const viewerResolvers: IResolvers = {
         throw new Error(`Failed to log out: ${error}`);
       }
     },
+    connectStripe: async (code: string): Promise<Viewer> => {
+      return { didRequest: true };
+    },
+    disconnectStripe: async (): Promise<Viewer> => {
+      return { didRequest: true };
+    },
   },
   Viewer: {
     id: (viewer) => viewer._id,

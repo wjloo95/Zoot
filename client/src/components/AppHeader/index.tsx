@@ -20,15 +20,17 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
   const { location } = history;
 
   useEffect(() => {
-    const { pathname } = location;
-    const pathnameSubStrings = pathname.split('/');
+    const pathnameSubStrings = location.pathname.split('/');
 
-    if (!pathname.includes('/listings')) {
+    if (!location.pathname.includes('/listings')) {
       setSearch('');
       return;
     }
 
-    if (pathname.includes('/listings') && pathnameSubStrings.length === 3) {
+    if (
+      location.pathname.includes('/listings') &&
+      pathnameSubStrings.length === 3
+    ) {
       setSearch(pathnameSubStrings[2]);
       return;
     }

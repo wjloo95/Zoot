@@ -1,9 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Form, Layout, Typography, Input, InputNumber, Radio } from 'antd';
+import {
+  Form,
+  Layout,
+  Typography,
+  Input,
+  InputNumber,
+  Radio,
+  Upload,
+} from 'antd';
 import { Viewer } from '../../lib/types';
 import { ListingType } from '../../lib/graphql/globalTypes';
 import { HomeOutlined, BankOutlined, TeamOutlined } from '@ant-design/icons';
+import { displayErrorMessage } from '../../lib/utils';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -13,8 +22,26 @@ interface IProps {
   viewer: Viewer;
 }
 
+const validateImage = (file: File) => {
+  const isValidImage = file.type === 'image/jpeg' || file.type === 'image/png';
+  const isValidSize = file.size / 1024 / 1024 < 1;
+
+  if (!isValidImage) {
+    displayErrorMessage("You're only able to upload valid JPG or PNG files!");
+    return false;
+  }
+
+  if (!isValidSize) {
+    displayErrorMessage(
+      "You're only able to upload valid image files of under 1MB in size!"
+    );
+    return false;
+  }
+
+  return isValidImage && isValidSize;
+};
+
 export const Host = ({ viewer }: IProps) => {
-  console.log(viewer);
   if (!viewer.id || !viewer.hasWallet) {
     return (
       <Content className="host-content">
@@ -97,6 +124,22 @@ export const Host = ({ viewer }: IProps) => {
 
         <Item label="Zip/Postal Code">
           <Input placeholder="Please enter a zip code for your listing!" />
+        </Item>
+
+        <Item
+          label="Image"
+          extra="Images have to be under 1MB in size and of type JPG or PNG"
+        >
+          <div className="host__form-image-upload">
+            <Upload
+              name="image"
+              listType="picture-card"
+              showUploadList={true}
+              action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+              beforeUpload={validateImage}
+              // onChange={handleImageUpload}
+            />
+          </div>
         </Item>
 
         <Item label="Price" extra="All prices in $USD/day">

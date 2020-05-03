@@ -1,18 +1,48 @@
 import React from 'react';
 import { Avatar, Button, Card, Divider, Tag, Typography } from 'antd';
 import { User as UserData } from '../../../../lib/graphql/queries/User/__generated__/User';
-import { formatPrice } from '../../../../lib/utils';
+import {
+  formatPrice,
+  displaySuccessNotification,
+  displayErrorMessage,
+} from '../../../../lib/utils';
+import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
+import { useMutation } from '@apollo/react-hooks';
+import { DISCONNECT_STRIPE } from '../../../../lib/graphql/mutations/DisconnectStripe';
+import { Viewer } from '../../../../lib/types';
 
 interface IProps {
   user: UserData['user'];
   isViewer: boolean;
+  viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
 const { Paragraph, Text, Title } = Typography;
 
 const STRIPE_URL = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
 
-export const UserProfile = ({ user, isViewer }: IProps) => {
+export const UserProfile = ({ user, isViewer, viewer, setViewer }: IProps) => {
+  const [disconnectStripe, { loading }] = useMutation<DisconnectStripeData>(
+    DISCONNECT_STRIPE,
+    {
+      onCompleted: (data) => {
+        if (data && data.disconnectStripe) {
+          setViewer({ ...viewer, hasWallet: data.disconnectStripe.hasWallet });
+          displaySuccessNotification(
+            "You've successfully disconnected from Stripe!",
+            "You'll have to reconnect with Stripe to continue to create listings."
+          );
+        }
+      },
+      onError: () => {
+        displayErrorMessage(
+          "Sorry! We weren't able to disconnect you from Stripe. Please try again later!"
+        );
+      },
+    }
+  );
+
   const sendToStripe = () => {
     window.location.href = STRIPE_URL;
   };

@@ -84,7 +84,7 @@ const App = () => {
           <Route exact path="/listing/:id" component={Listing} />
           <Route exact path="/listings/:location?" component={Listings} />
           <Route exact path="/user/:id">
-            <User viewer={viewer} />
+            <User viewer={viewer} setViewer={setViewer} />
           </Route>
           <Route exact path="/stripe">
             <Stripe viewer={viewer} setViewer={setViewer} />

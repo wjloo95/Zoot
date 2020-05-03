@@ -17,11 +17,12 @@ const { TabPane } = Tabs;
 
 interface IProps {
   viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
 const PAGE_LIMIT = 3;
 
-export const User = ({ viewer }: IProps) => {
+export const User = ({ viewer, setViewer }: IProps) => {
   const { id, stripe_error } = useParams();
 
   const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
@@ -42,7 +43,12 @@ export const User = ({ viewer }: IProps) => {
   const user = data ? data.user : null;
   const isViewer = viewer.id === id;
   const userProfileElement = user ? (
-    <UserProfile user={user} isViewer={isViewer} />
+    <UserProfile
+      user={user}
+      isViewer={isViewer}
+      viewer={viewer}
+      setViewer={setViewer}
+    />
   ) : null;
   const stripeErrorBanner = stripe_error ? (
     <ErrorBanner description="We had an issue connecting with Stripe. Please try again soon." />

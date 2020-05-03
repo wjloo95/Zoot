@@ -8,18 +8,30 @@ import {
 } from '../../lib/graphql/mutations/ConnectStripe/__generated__/ConnectStripe';
 import { Redirect, useParams } from 'react-router-dom';
 import { Viewer } from '../../lib/types';
+import { displaySuccessNotification } from '../../lib/utils';
 
 const { Content } = Layout;
 
 interface IProps {
   viewer: Viewer;
+  setViewer: (viewer: Viewer) => void;
 }
 
-export const Stripe = ({ viewer }: IProps) => {
+export const Stripe = ({ viewer, setViewer }: IProps) => {
   const [connectStripe, { data, loading, error }] = useMutation<
     ConnectStripeData,
     ConnectStripeVariables
-  >(CONNECT_STRIPE);
+  >(CONNECT_STRIPE, {
+    onCompleted: (data) => {
+      if (data && data.connectStripe) {
+        setViewer({ ...viewer, hasWallet: data.connectStripe.hasWallet });
+        displaySuccessNotification(
+          "You've successfully connected your Stripe Account!",
+          'You can now begin to create listings in the Host page.'
+        );
+      }
+    },
+  });
 
   const connectStripeRef = useRef(connectStripe);
 

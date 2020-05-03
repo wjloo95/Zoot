@@ -87,7 +87,7 @@ const App = () => {
             <User viewer={viewer} />
           </Route>
           <Route exact path="/stripe">
-            <Stripe viewer={viewer} />
+            <Stripe viewer={viewer} setViewer={setViewer} />
           </Route>
           <Route component={NotFound} />
         </Switch>

@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import { Layout, Affix, Spin } from 'antd';
 import { Viewer } from '../lib/types';
-import { Header } from './Header';
+import { AppHeader } from './AppHeader';
 import { useMutation } from '@apollo/react-hooks';
 import {
   LogIn as LogInData,
@@ -71,8 +71,8 @@ const App = () => {
     <Router>
       <Layout id="app">
         {logInErrorBannerElement}
-        <Affix offsetTop={0} className="app__affix-header">
-          <Header viewer={viewer} setViewer={setViewer} />
+        <Affix className="app__affix-header">
+          <AppHeader viewer={viewer} setViewer={setViewer} />
         </Affix>
         <Switch>
           <Route exact path="/listings" component={ListingsHome} />

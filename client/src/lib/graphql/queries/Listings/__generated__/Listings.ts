@@ -29,7 +29,8 @@ export interface Listings {
 }
 
 export interface ListingsVariables {
-  sort?: ListingsSort | null;
+  location?: string | null;
+  sort: ListingsSort;
   limit: number;
   page: number;
 }

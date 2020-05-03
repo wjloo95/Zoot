@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { List, Affix } from 'antd';
-import { ListingCard } from '../../../../lib/components';
+import { ListingCard, ErrorBanner } from '../../../../lib/components';
 import {
   Listings as ListingsData,
   ListingsVariables,
@@ -35,9 +35,15 @@ export const ListingsSection = () => {
     }
   );
 
-  if (loading) {
+  if (error) {
     return (
       <div className="listings-section">
+        <ErrorBanner
+          description={`
+          We either couldn't find anything matching your search or have encountered an error.
+          If you're searching for a unique location, try searching by country.
+          `}
+        />
         <ListingsSkeleton />
       </div>
     );
@@ -85,7 +91,11 @@ export const ListingsSection = () => {
     </Title>
   ) : null;
 
-  return (
+  return loading ? (
+    <div className="listings-section">
+      <ListingsSkeleton />
+    </div>
+  ) : (
     <div className="listings-section">
       {listingsRegionElement}
       {listingsSectionElement}

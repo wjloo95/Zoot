@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { List, Affix } from 'antd';
 import { ListingCard, ErrorBanner } from '../../../../lib/components';
 import {
@@ -22,10 +22,14 @@ const PAGE_LIMIT = 6;
 export const ListingsSection = () => {
   const [sort, setSort] = useState(ListingsSort.PRICE_LOW_TO_HIGH);
   const [page, setPage] = useState(1);
+
   const { location } = useParams();
+  const locationRef = useRef(location);
+
   const { data, loading, error } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
     {
+      skip: locationRef.current !== location && page !== 1,
       variables: {
         location,
         sort,
@@ -37,6 +41,7 @@ export const ListingsSection = () => {
 
   useEffect(() => {
     setPage(1);
+    locationRef.current = location;
   }, [location]);
 
   if (error) {

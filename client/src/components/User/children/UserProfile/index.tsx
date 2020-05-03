@@ -31,7 +31,7 @@ export const UserProfile = ({
   setViewer,
   handleRefetch,
 }: IProps) => {
-  const [disconnectStripe, { loading }] = useMutation<DisconnectStripeData>(
+  const [disconnectStripe] = useMutation<DisconnectStripeData>(
     DISCONNECT_STRIPE,
     {
       onCompleted: (data) => {

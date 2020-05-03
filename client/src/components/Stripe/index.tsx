@@ -6,7 +6,7 @@ import {
   ConnectStripe as ConnectStripeData,
   ConnectStripeVariables,
 } from '../../lib/graphql/mutations/ConnectStripe/__generated__/ConnectStripe';
-import { Redirect, useParams, useHistory } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { Viewer } from '../../lib/types';
 import { displaySuccessNotification } from '../../lib/utils';
 

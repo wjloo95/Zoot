@@ -80,7 +80,7 @@ export const ListingsHome = () => {
         </Title>
         <Row gutter={12}>
           <Col xs={24} sm={12}>
-            <Link to="/listings/san%20fransisco">
+            <Link to="/listings/san%20francisco">
               <div className="home__listings-img-cover">
                 <img
                   src={sanFranciscoImage}

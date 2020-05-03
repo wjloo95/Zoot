@@ -8,6 +8,7 @@ export const Listings = () => {
   return (
     <Content className="listings">
       <ListingsSection />
+      <div className="map"></div>
     </Content>
   );
 };

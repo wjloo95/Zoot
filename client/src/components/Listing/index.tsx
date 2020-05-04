@@ -14,15 +14,20 @@ import {
   ListingCreateBooking,
 } from './children';
 import { listingBookings } from './children/ListingBookings/mockBookings';
+import { Viewer } from '../../lib/types';
 
 const { Content } = Layout;
+
+interface IProps {
+  viewer: Viewer;
+}
 
 interface IParams {
   id: string;
 }
 
 const PAGE_LIMIT = 3;
-export const Listing = () => {
+export const Listing = ({ viewer }: IProps) => {
   const { id } = useParams<IParams>();
   const { data, loading, error } = useQuery<ListingData, ListingVariables>(
     LISTING,
@@ -51,7 +56,12 @@ export const Listing = () => {
   ) : null;
 
   const ListingCreateBookingElement = listing ? (
-    <ListingCreateBooking price={listing.price} />
+    <ListingCreateBooking
+      price={listing.price}
+      viewer={viewer}
+      host={listing.host}
+      bookingsIndex={listing.bookingsIndex}
+    />
   ) : null;
 
   return loading ? (

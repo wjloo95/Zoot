@@ -48,7 +48,7 @@ export const Host = ({ viewer }: IProps) => {
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string>('');
 
-  const [hostListing, { loading, data }] = useMutation<
+  const [hostListing, { loading }] = useMutation<
     HostListingData,
     HostListingVariables
   >(HOST_LISTING, {

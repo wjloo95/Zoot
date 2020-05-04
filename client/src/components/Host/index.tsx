@@ -88,7 +88,7 @@ export const Host = ({ viewer }: IProps) => {
       description: values.description,
       address: fullAddress,
       image: imageBase64Value,
-      price: values.price * 100,
+      price: values.price,
     };
 
     hostListing({

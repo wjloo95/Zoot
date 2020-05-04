@@ -2,7 +2,7 @@ import { IResolvers } from 'apollo-server-express';
 import { Database, Listing, Booking } from '../../../lib/types';
 import { CreateBookingArgs } from './types';
 import { Request } from 'express';
-import { authorize } from '../../../lib/utils';
+import { authorize, resolveBookingsIndex } from '../../../lib/utils';
 import { ObjectID } from 'mongodb';
 import { Stripe } from '../../../lib/api';
 
@@ -41,13 +41,11 @@ export const bookingResolvers: IResolvers = {
           throw new Error('Check out date cannot be before check in date');
         }
 
-        // to be continued in the next lesson
-        //
-        // const bookingsIndex = resolveBookingsIndex(
-        //   listing.bookingsIndex,
-        //   checkIn,
-        //   checkOut
-        // );
+        const bookingsIndex = resolveBookingsIndex(
+          listing.bookingsIndex,
+          checkIn,
+          checkOut
+        );
 
         const totalPrice =
           listing.price *
@@ -98,7 +96,7 @@ export const bookingResolvers: IResolvers = {
             _id: listing._id,
           },
           {
-            // $set: { bookingsIndex }, // to be handled in the next lesson
+            $set: { bookingsIndex },
             $push: { bookings: insertedBooking._id },
           }
         );
@@ -119,6 +117,9 @@ export const bookingResolvers: IResolvers = {
       { db }: { db: Database }
     ): Promise<Listing | null> => {
       return db.listings.findOne({ _id: booking.listing });
+    },
+    tenant: (booking: Booking, _args: {}, { db }: { db: Database }) => {
+      return db.users.findOne({ _id: booking.tenant });
     },
   },
 };

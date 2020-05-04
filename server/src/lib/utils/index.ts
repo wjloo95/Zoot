@@ -1,6 +1,7 @@
 import { Request } from 'express';
 import { Database, User, ListingType } from '../types';
 import { HostListingInput } from '../../graphql/resolvers/Listing/types';
+import { AddressComponent } from '@google/maps';
 
 export const authorize = async (
   db: Database,
@@ -37,4 +38,30 @@ export const verifyHostListingInput = ({
   if (price < 0) {
     throw new Error('Price must be greater than 0');
   }
+};
+
+export const parseAddress = (addressComponents: AddressComponent[]) => {
+  let country = null;
+  let admin = null;
+  let city = null;
+
+  for (const component of addressComponents) {
+    if (component.types.includes('country')) {
+      country = component.long_name;
+    }
+
+    if (component.types.includes('administrative_area_level_1')) {
+      admin = component.long_name;
+    }
+
+    if (
+      component.types.includes('locality') ||
+      component.types.includes('postal_town') ||
+      component.types.includes('neighborhood')
+    ) {
+      city = component.long_name;
+    }
+  }
+
+  return { country, admin, city };
 };

@@ -19,7 +19,11 @@ import {
   LoadingOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { getBase64Value, validateImage } from '../../lib/utils';
+import {
+  getBase64Value,
+  validateImage,
+  handleHostListing,
+} from '../../lib/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { SignedOutHost } from './children';
 
@@ -57,7 +61,7 @@ export const Host = ({ viewer }: IProps) => {
 
   return (
     <Content className="host-content">
-      <Form layout="vertical">
+      <Form layout="vertical" onFinish={handleHostListing}>
         <div className="host__form-header">
           <Title level={3} className="host__form-title">
             Hi! Let's get started listing your place.
@@ -199,7 +203,7 @@ export const Host = ({ viewer }: IProps) => {
           name="image"
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Please enter provide an image for your listing!',
             },
           ]}
@@ -240,7 +244,9 @@ export const Host = ({ viewer }: IProps) => {
         </Item>
 
         <Item>
-          <Button type="primary">Submit</Button>
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
         </Item>
       </Form>
     </Content>

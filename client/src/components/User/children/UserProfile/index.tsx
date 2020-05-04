@@ -8,7 +8,7 @@ import {
 } from '../../../../lib/utils';
 import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
 import { useMutation } from '@apollo/react-hooks';
-import { DISCONNECT_STRIPE } from '../../../../lib/graphql/mutations/DisconnectStripe';
+import { DISCONNECT_STRIPE } from '../../../../lib/graphql/mutations';
 import { Viewer } from '../../../../lib/types';
 import { Link } from 'react-router-dom';
 

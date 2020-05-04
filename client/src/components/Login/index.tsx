@@ -12,7 +12,7 @@ import {
   LogInVariables,
 } from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { AUTH_URL } from '../../lib/graphql/queries';
-import { LOG_IN } from '../../lib/graphql/mutations/LogIn';
+import { LOG_IN } from '../../lib/graphql/mutations';
 import {
   displayErrorMessage,
   displaySuccessNotification,

@@ -19,7 +19,7 @@ import {
   LogIn as LogInData,
   LogInVariables,
 } from '../lib/graphql/mutations/LogIn/__generated__/LogIn';
-import { LOG_IN } from '../lib/graphql/mutations/LogIn';
+import { LOG_IN } from '../lib/graphql/mutations';
 import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
 import { Stripe } from './Stripe';
 

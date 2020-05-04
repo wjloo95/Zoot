@@ -6,7 +6,7 @@ import { HomeOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Viewer } from '../../../../lib/types';
 import { useMutation } from '@apollo/react-hooks';
 import { LogOut as LogOutData } from '../../../../lib/graphql/mutations/LogOut/__generated__/LogOut';
-import { LOG_OUT } from '../../../../lib/graphql/mutations/LogOut';
+import { LOG_OUT } from '../../../../lib/graphql/mutations';
 import {
   displaySuccessNotification,
   displayErrorMessage,

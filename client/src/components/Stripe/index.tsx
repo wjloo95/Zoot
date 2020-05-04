@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/react-hooks';
 import { Layout, Spin } from 'antd';
-import { CONNECT_STRIPE } from '../../lib/graphql/mutations/ConnectStripe';
+import { CONNECT_STRIPE } from '../../lib/graphql/mutations';
 import {
   ConnectStripe as ConnectStripeData,
   ConnectStripeVariables,

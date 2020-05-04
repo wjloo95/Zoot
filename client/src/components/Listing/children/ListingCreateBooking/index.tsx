@@ -5,6 +5,7 @@ import { formatPrice, displayErrorMessage } from '../../../../lib/utils';
 import { Viewer } from '../../../../lib/types';
 import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { BookingsIndex } from './types';
+import { CreateBookingModal } from './children';
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -23,6 +24,7 @@ export const ListingCreateBooking = ({
 }: IProps) => {
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
 
@@ -95,6 +97,16 @@ export const ListingCreateBooking = ({
   const checkOutInputDisabled = !checkInDate;
   const buttonDisabled = !checkInDate || !checkOutDate;
   const isHost = viewer.id === host.id;
+  const listingCreateBookingModalElement =
+    price && checkInDate && checkOutDate ? (
+      <CreateBookingModal
+        price={price}
+        modalVisible={modalVisible}
+        checkInDate={checkInDate}
+        checkOutDate={checkOutDate}
+        setModalVisible={setModalVisible}
+      />
+    ) : null;
 
   let buttonMessage = "You won't be charged yet";
   if (!viewer.id) {
@@ -146,6 +158,7 @@ export const ListingCreateBooking = ({
           size="large"
           type="primary"
           className="listing-booking__card-cta"
+          onClick={() => setModalVisible(true)}
         >
           Request to book!
         </Button>
@@ -153,6 +166,7 @@ export const ListingCreateBooking = ({
           {buttonMessage}
         </Text>
       </Card>
+      {listingCreateBookingModalElement}
     </div>
   );
 };

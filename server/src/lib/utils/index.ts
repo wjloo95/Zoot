@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Database, User, ListingType } from '../types';
+import { Database, User, ListingType, BookingsIndex } from '../types';
 import { HostListingInput } from '../../graphql/resolvers/Listing/types';
 import { AddressComponent } from '@google/maps';
 
@@ -64,4 +64,40 @@ export const parseAddress = (addressComponents: AddressComponent[]) => {
   }
 
   return { country, admin, city };
+};
+
+export const resolveBookingsIndex = (
+  bookingsIndex: BookingsIndex,
+  checkInDate: string,
+  checkOutDate: string
+) => {
+  let dateCursor = new Date(checkInDate);
+  let checkOut = new Date(checkOutDate);
+  const newBookingsIndex: BookingsIndex = { ...bookingsIndex };
+
+  while (dateCursor <= checkOut) {
+    const y = dateCursor.getUTCFullYear();
+    const m = dateCursor.getUTCMonth();
+    const d = dateCursor.getUTCDate();
+
+    if (!newBookingsIndex[y]) {
+      newBookingsIndex[y] = {};
+    }
+
+    if (!newBookingsIndex[y][m]) {
+      newBookingsIndex[y][m] = {};
+    }
+
+    if (!newBookingsIndex[y][m][d]) {
+      newBookingsIndex[y][m][d] = true;
+    } else {
+      throw new Error(
+        'Selected dates cannot overlap dates that have already been booked'
+      );
+    }
+
+    dateCursor = new Date(dateCursor.getTime() + 86400000);
+  }
+
+  return newBookingsIndex;
 };

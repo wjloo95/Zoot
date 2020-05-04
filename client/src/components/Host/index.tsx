@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import {
   Form,
   Layout,
@@ -22,10 +21,17 @@ import {
 import {
   getBase64Value,
   validateImage,
-  handleHostListing,
+  displayErrorMessage,
 } from '../../lib/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { SignedOutHost } from './children';
+import { useMutation } from '@apollo/react-hooks';
+import { HOST_LISTING } from '../../lib/graphql/mutations';
+import {
+  HostListing as HostListingData,
+  HostListingVariables,
+} from '../../lib/graphql/mutations/HostListing/__generated__/HostListing';
+import { Store } from 'antd/lib/form/interface';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -37,7 +43,12 @@ interface IProps {
 
 export const Host = ({ viewer }: IProps) => {
   const [imageLoading, setImageLoading] = useState(false);
-  const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
+  const [imageBase64Value, setImageBase64Value] = useState<string>('');
+
+  const [hostListing, { loading, data }] = useMutation<
+    HostListingData,
+    HostListingVariables
+  >(HOST_LISTING);
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
@@ -55,13 +66,39 @@ export const Host = ({ viewer }: IProps) => {
     }
   };
 
+  const handleHostListing = (values: Store) => {
+    const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.postalCode}`;
+
+    const input = {
+      type: values.type,
+      numOfGuests: values.numOfGuests,
+      title: values.title,
+      description: values.description,
+      address: fullAddress,
+      image: imageBase64Value,
+      price: values.price * 100,
+    };
+
+    hostListing({
+      variables: {
+        input,
+      },
+    });
+  };
+
   if (!viewer.id || !viewer.hasWallet) {
     return <SignedOutHost />;
   }
 
   return (
     <Content className="host-content">
-      <Form layout="vertical" onFinish={handleHostListing}>
+      <Form
+        layout="vertical"
+        onFinish={handleHostListing}
+        onFinishFailed={() =>
+          displayErrorMessage('Please complete all required fields!')
+        }
+      >
         <div className="host__form-header">
           <Title level={3} className="host__form-title">
             Hi! Let's get started listing your place.
@@ -203,7 +240,7 @@ export const Host = ({ viewer }: IProps) => {
           name="image"
           rules={[
             {
-              required: false,
+              required: true,
               message: 'Please enter provide an image for your listing!',
             },
           ]}

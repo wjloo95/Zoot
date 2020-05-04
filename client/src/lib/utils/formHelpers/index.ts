@@ -1,6 +1,4 @@
 import { displayErrorMessage } from '../errorSuccessFunctions';
-import { FormEvent } from 'react';
-import { Store } from 'antd/lib/form/interface';
 
 export const validateImage = (file: File) => {
   const isValidImage = file.type === 'image/jpeg' || file.type === 'image/png';
@@ -30,14 +28,4 @@ export const getBase64Value = (
   reader.onload = () => {
     callback(reader.result as string);
   };
-};
-
-export const handleHostListing = async (values: Store) => {
-  console.log(values);
-  // form.validateFields((err, values) => {
-  //   if (err) {
-  //     displayErrorMessage('Please complete all required form fields!');
-  //     return;
-  //   }
-  // });
 };

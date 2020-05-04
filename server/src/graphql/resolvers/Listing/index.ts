@@ -42,7 +42,7 @@ export const listingResolvers: IResolvers = {
       _root: undefined,
       { input }: HostListingArgs,
       { db, req }: { db: Database; req: Request }
-    ) => {
+    ): Promise<Listing> => {
       verifyHostListingInput(input);
 
       const viewer = await authorize(db, req);

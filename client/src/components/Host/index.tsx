@@ -22,6 +22,7 @@ import {
   getBase64Value,
   validateImage,
   displayErrorMessage,
+  displaySuccessNotification,
 } from '../../lib/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { SignedOutHost } from './children';
@@ -32,6 +33,7 @@ import {
   HostListingVariables,
 } from '../../lib/graphql/mutations/HostListing/__generated__/HostListing';
 import { Store } from 'antd/lib/form/interface';
+import { useHistory } from 'react-router-dom';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -42,13 +44,23 @@ interface IProps {
 }
 
 export const Host = ({ viewer }: IProps) => {
+  const history = useHistory();
   const [imageLoading, setImageLoading] = useState(false);
   const [imageBase64Value, setImageBase64Value] = useState<string>('');
 
   const [hostListing, { loading, data }] = useMutation<
     HostListingData,
     HostListingVariables
-  >(HOST_LISTING);
+  >(HOST_LISTING, {
+    onCompleted: (data) => {
+      displaySuccessNotification("You've successfully created your listing!");
+      // history.push(`/listing/${data.hostListing.}`
+    },
+    onError: () =>
+      displayErrorMessage(
+        "Sorry! We weren't able to create your listing. Please try again later."
+      ),
+  });
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
@@ -90,7 +102,16 @@ export const Host = ({ viewer }: IProps) => {
     return <SignedOutHost />;
   }
 
-  return (
+  return loading ? (
+    <Content className="host-content">
+      <div className="host__form-header">
+        <Title level={3} className="host__form-title">
+          Please wait!
+        </Title>
+        <Text type="secondary">We're creating your listing now.</Text>
+      </div>
+    </Content>
+  ) : (
     <Content className="host-content">
       <Form
         layout="vertical"

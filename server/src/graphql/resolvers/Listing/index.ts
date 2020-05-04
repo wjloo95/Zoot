@@ -9,7 +9,7 @@ import {
 import { Request } from 'express';
 import { ObjectID } from 'mongodb';
 import { authorize, verifyHostListingInput } from '../../../lib/utils';
-import { Google } from '../../../lib/api';
+import { Google, Cloudinary } from '../../../lib/api';
 
 export const listingResolvers: IResolvers = {
   Query: {
@@ -57,9 +57,12 @@ export const listingResolvers: IResolvers = {
         throw new Error('Invalid address input');
       }
 
+      const imageUrl = await Cloudinary.upload(input.image);
+
       const insertedResult = await db.listings.insertOne({
         _id: new ObjectID(),
         ...input,
+        image: imageUrl,
         bookings: [],
         bookingsIndex: {},
         country,

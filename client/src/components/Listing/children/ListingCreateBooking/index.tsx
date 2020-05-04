@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
 import { Button, Card, Divider, Typography, DatePicker } from 'antd';
-import { formatPrice, displayErrorMessage } from '../../../../lib/utils';
+import {
+  formatPrice,
+  displayErrorMessage,
+  disabledDate,
+} from '../../../../lib/utils';
 const { Paragraph, Title } = Typography;
 
 interface IProps {
@@ -11,16 +15,6 @@ interface IProps {
 export const ListingCreateBooking = ({ price }: IProps) => {
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
-
-  const disabledDate = (currentDate?: Moment) => {
-    if (currentDate) {
-      const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf('day'));
-
-      return dateIsBeforeEndOfDay;
-    } else {
-      return false;
-    }
-  };
 
   const verifyAndSetCheckOutDate = (selectedCheckOutDate: Moment | null) => {
     if (checkInDate && selectedCheckOutDate) {
@@ -73,6 +67,7 @@ export const ListingCreateBooking = ({ price }: IProps) => {
         </div>
         <Divider />
         <Button
+          disabled={buttonDisabled}
           size="large"
           type="primary"
           className="listing-booking__card-cta"

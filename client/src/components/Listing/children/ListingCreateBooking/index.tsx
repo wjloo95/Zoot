@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Moment } from 'moment';
+import moment, { Moment } from 'moment';
 import { Button, Card, Divider, Typography, DatePicker } from 'antd';
 import { formatPrice } from '../../../../lib/utils';
 const { Paragraph, Title } = Typography;
@@ -11,6 +11,17 @@ interface IProps {
 export const ListingCreateBooking = ({ price }: IProps) => {
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+
+  const disabledDate = (currentDate?: Moment) => {
+    if (currentDate) {
+      const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf('day'));
+
+      return dateIsBeforeEndOfDay;
+    } else {
+      return false;
+    }
+  };
+
   return (
     <div className="listing-create-booking listing-booking">
       <Card className="listing-booking__card">

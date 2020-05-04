@@ -54,7 +54,7 @@ export const Host = ({ viewer }: IProps) => {
   >(HOST_LISTING, {
     onCompleted: (data) => {
       displaySuccessNotification("You've successfully created your listing!");
-      // history.push(`/listing/${data.hostListing.}`
+      history.push(`/listing/${data.hostListing.id}`);
     },
     onError: () =>
       displayErrorMessage(

@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
 import { Button, Card, Divider, Typography, DatePicker } from 'antd';
-import {
-  formatPrice,
-  displayErrorMessage,
-  disabledDate,
-} from '../../../../lib/utils';
+import { formatPrice, displayErrorMessage } from '../../../../lib/utils';
 const { Paragraph, Title } = Typography;
 
 interface IProps {
@@ -15,6 +11,28 @@ interface IProps {
 export const ListingCreateBooking = ({ price }: IProps) => {
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+
+  const disabledDate = (currentDate?: Moment) => {
+    if (currentDate) {
+      const dateIsBeforeEndOfDay = currentDate.isBefore(moment().endOf('day'));
+
+      return dateIsBeforeEndOfDay;
+    } else {
+      return false;
+    }
+  };
+
+  const disabledCheckoutDate = (currentDate?: Moment) => {
+    if (currentDate) {
+      const dateIsBeforeEndOfDay = checkInDate
+        ? currentDate.isBefore(checkInDate)
+        : false;
+
+      return dateIsBeforeEndOfDay;
+    } else {
+      return false;
+    }
+  };
 
   const verifyAndSetCheckOutDate = (selectedCheckOutDate: Moment | null) => {
     if (checkInDate && selectedCheckOutDate) {
@@ -60,7 +78,7 @@ export const ListingCreateBooking = ({ price }: IProps) => {
               format={'YYYY/MM/DD'}
               showToday={false}
               disabled={checkOutInputDisabled}
-              disabledDate={disabledDate}
+              disabledDate={disabledCheckoutDate}
               onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
             />
           </div>

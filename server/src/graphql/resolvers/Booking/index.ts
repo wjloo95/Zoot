@@ -8,7 +8,7 @@ import { Stripe } from '../../../lib/api';
 
 export const bookingResolvers: IResolvers = {
   Mutation: {
-    createBookings: async (
+    createBooking: async (
       _root: undefined,
       { input }: CreateBookingArgs,
       { db, req }: { db: Database; req: Request }

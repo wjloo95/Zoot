@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
 import { Button, Card, Divider, Typography, DatePicker } from 'antd';
-import { formatPrice } from '../../../../lib/utils';
+import { formatPrice, displayErrorMessage } from '../../../../lib/utils';
 const { Paragraph, Title } = Typography;
 
 interface IProps {
@@ -22,6 +22,21 @@ export const ListingCreateBooking = ({ price }: IProps) => {
     }
   };
 
+  const verifyAndSetCheckOutDate = (selectedCheckOutDate: Moment | null) => {
+    if (checkInDate && selectedCheckOutDate) {
+      if (moment(selectedCheckOutDate).isBefore(checkInDate, 'days')) {
+        return displayErrorMessage(
+          `Your check out date cannot be before your check in date!`
+        );
+      }
+    }
+
+    setCheckOutDate(selectedCheckOutDate);
+  };
+
+  const checkOutInputDisabled = !checkInDate;
+  const buttonDisabled = !checkInDate || !checkOutDate;
+
   return (
     <div className="listing-create-booking listing-booking">
       <Card className="listing-booking__card">
@@ -37,16 +52,22 @@ export const ListingCreateBooking = ({ price }: IProps) => {
             <Paragraph strong>Check In</Paragraph>
             <DatePicker
               value={checkInDate ? checkInDate : undefined}
-              onChange={(dateValue) => setCheckInDate(dateValue)}
               format={'YYYY/MM/DD'}
+              showToday={false}
+              disabledDate={disabledDate}
+              onChange={(dateValue) => setCheckInDate(dateValue)}
+              onOpenChange={() => setCheckOutDate(null)}
             />
           </div>
           <div className="listing-booking__card-date-picker">
             <Paragraph strong>Check Out</Paragraph>
             <DatePicker
               value={checkOutDate ? checkOutDate : undefined}
-              onChange={(dateValue) => setCheckOutDate(dateValue)}
               format={'YYYY/MM/DD'}
+              showToday={false}
+              disabled={checkOutInputDisabled}
+              disabledDate={disabledDate}
+              onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
             />
           </div>
         </div>

@@ -17,13 +17,17 @@ import { ListingsSkeleton } from '../ListingsSkeleton';
 
 const { Item } = List;
 
+interface IParams {
+  location: string;
+}
+
 const PAGE_LIMIT = 6;
 
 export const ListingsSection = () => {
   const [sort, setSort] = useState(ListingsSort.PRICE_LOW_TO_HIGH);
   const [page, setPage] = useState(1);
 
-  const { location } = useParams();
+  const { location } = useParams<IParams>();
   const locationRef = useRef(location);
 
   const { data, loading, error } = useQuery<ListingsData, ListingsVariables>(

@@ -20,10 +20,15 @@ interface IProps {
   setViewer: (viewer: Viewer) => void;
 }
 
+interface IParams {
+  id: string;
+  stripe_error: string;
+}
+
 const PAGE_LIMIT = 3;
 
 export const User = ({ viewer, setViewer }: IProps) => {
-  const { id, stripe_error } = useParams();
+  const { id, stripe_error } = useParams<IParams>();
 
   const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(
     USER,

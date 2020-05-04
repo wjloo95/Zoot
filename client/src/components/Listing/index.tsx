@@ -17,9 +17,13 @@ import { listingBookings } from './children/ListingBookings/mockBookings';
 
 const { Content } = Layout;
 
+interface IParams {
+  id: string;
+}
+
 const PAGE_LIMIT = 3;
 export const Listing = () => {
-  const { id } = useParams();
+  const { id } = useParams<IParams>();
   const { data, loading, error } = useQuery<ListingData, ListingVariables>(
     LISTING,
     { variables: { id, bookingsPage: 0, limit: PAGE_LIMIT } }

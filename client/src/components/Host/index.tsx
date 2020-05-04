@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Form,
@@ -8,11 +8,19 @@ import {
   InputNumber,
   Radio,
   Upload,
+  Button,
 } from 'antd';
 import { Viewer } from '../../lib/types';
 import { ListingType } from '../../lib/graphql/globalTypes';
-import { HomeOutlined, BankOutlined, TeamOutlined } from '@ant-design/icons';
-import { displayErrorMessage } from '../../lib/utils';
+import {
+  HomeOutlined,
+  BankOutlined,
+  TeamOutlined,
+  LoadingOutlined,
+  PlusOutlined,
+} from '@ant-design/icons';
+import { getBase64Value, validateImage } from '../../lib/utils';
+import { UploadChangeParam } from 'antd/lib/upload';
 
 const { Content } = Layout;
 const { Text, Title } = Typography;
@@ -22,26 +30,25 @@ interface IProps {
   viewer: Viewer;
 }
 
-const validateImage = (file: File) => {
-  const isValidImage = file.type === 'image/jpeg' || file.type === 'image/png';
-  const isValidSize = file.size / 1024 / 1024 < 1;
-
-  if (!isValidImage) {
-    displayErrorMessage("You're only able to upload valid JPG or PNG files!");
-    return false;
-  }
-
-  if (!isValidSize) {
-    displayErrorMessage(
-      "You're only able to upload valid image files of under 1MB in size!"
-    );
-    return false;
-  }
-
-  return isValidImage && isValidSize;
-};
-
 export const Host = ({ viewer }: IProps) => {
+  const [imageLoading, setImageLoading] = useState(false);
+  const [imageBase64Value, setImageBase64Value] = useState<string | null>(null);
+  const handleImageUpload = (info: UploadChangeParam) => {
+    const { file } = info;
+
+    if (file.status === 'uploading') {
+      setImageLoading(true);
+      return;
+    }
+
+    if (file.status === 'done' && file.originFileObj) {
+      getBase64Value(file.originFileObj, (imageBase64Value) => {
+        setImageBase64Value(imageBase64Value);
+        setImageLoading(false);
+      });
+    }
+  };
+
   if (!viewer.id || !viewer.hasWallet) {
     return (
       <Content className="host-content">
@@ -134,16 +141,29 @@ export const Host = ({ viewer }: IProps) => {
             <Upload
               name="image"
               listType="picture-card"
-              showUploadList={true}
+              showUploadList={false}
               action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
               beforeUpload={validateImage}
-              // onChange={handleImageUpload}
-            />
+              onChange={handleImageUpload}
+            >
+              {imageBase64Value ? (
+                <img src={imageBase64Value} alt="Listing" />
+              ) : (
+                <div>
+                  {imageLoading ? <LoadingOutlined /> : <PlusOutlined />}
+                  <div className="ant-upload-text">Upload</div>
+                </div>
+              )}
+            </Upload>
           </div>
         </Item>
 
         <Item label="Price" extra="All prices in $USD/day">
           <InputNumber min={0} placeholder="120" />
+        </Item>
+
+        <Item>
+          <Button type="primary">Submit</Button>
         </Item>
       </Form>
     </Content>

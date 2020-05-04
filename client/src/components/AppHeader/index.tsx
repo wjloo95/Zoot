@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Input, Layout } from 'antd';
 import { MenuItems } from './children';
 import { Viewer } from '../../lib/types';
-import { searchValid } from '../../lib/utils/searchValidate';
+import { searchValid } from '../../lib/utils';
 import { displayErrorMessage } from '../../lib/utils';
 
 const { Header: AntHeader } = Layout;

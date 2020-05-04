@@ -16,7 +16,7 @@ import {
 } from '../../lib/graphql/queries/Listings/__generated__/Listings';
 import { LISTINGS } from '../../lib/graphql/queries';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
-import { searchValid } from '../../lib/utils/searchValidate';
+import { searchValid } from '../../lib/utils';
 
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;

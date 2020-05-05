@@ -6,14 +6,7 @@ import { logInViaGoogle } from './logInViaGoogle';
 import crypto from 'crypto';
 import { Response, Request } from 'express';
 import { logInViaCookie } from './logInViaCookie';
-import { authorize } from '../../../lib/utils';
-
-export const cookieOptions = {
-  httpOnly: true,
-  sameSite: true,
-  signed: true,
-  secure: process.env.NODE_ENV === 'development' ? false : true,
-};
+import { authorize, cookieOptions } from '../../../lib/utils';
 
 export const viewerResolvers: IResolvers = {
   Query: {
@@ -50,7 +43,7 @@ export const viewerResolvers: IResolvers = {
     },
     logOut: (
       _root: undefined,
-      args: {},
+      _args: {},
       { res }: { res: Response }
     ): Viewer => {
       try {

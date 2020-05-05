@@ -1,6 +1,6 @@
 import { Database, User } from '../../../lib/types';
 import { Request, Response } from 'express';
-import { cookieOptions } from '.';
+import { cookieOptions } from '../../../lib/utils';
 
 export const logInViaCookie = async (
   token: string,

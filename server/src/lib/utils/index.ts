@@ -3,6 +3,13 @@ import { Database, User, ListingType, BookingsIndex } from '../types';
 import { HostListingInput } from '../../graphql/resolvers/Listing/types';
 import { AddressComponent } from '@google/maps';
 
+export const cookieOptions = {
+  httpOnly: true,
+  sameSite: true,
+  signed: true,
+  secure: process.env.NODE_ENV === 'development' ? false : true,
+};
+
 export const authorize = async (
   db: Database,
   req: Request

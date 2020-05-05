@@ -39,8 +39,6 @@ export const Google = {
       throw new Error('Failed to geocode address');
     }
 
-    console.log(res.json.results[0].address_components);
-
     return parseAddress(res.json.results[0].address_components);
   },
 };

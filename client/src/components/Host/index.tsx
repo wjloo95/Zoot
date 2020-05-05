@@ -1,14 +1,7 @@
 import React, { useState } from 'react';
-import {
-  Form,
-  Layout,
-  Typography,
-  Input,
-  InputNumber,
-  Radio,
-  Upload,
-  Button,
-} from 'antd';
+import { useMutation } from '@apollo/react-hooks';
+import { useHistory } from 'react-router-dom';
+
 import { Viewer } from '../../lib/types';
 import { ListingType } from '../../lib/graphql/globalTypes';
 import {
@@ -26,15 +19,23 @@ import {
 } from '../../lib/utils';
 import { UploadChangeParam } from 'antd/lib/upload';
 import { SignedOutHost } from './children';
-import { useMutation } from '@apollo/react-hooks';
 import { HOST_LISTING } from '../../lib/graphql/mutations';
 import {
   HostListing as HostListingData,
   HostListingVariables,
 } from '../../lib/graphql/mutations/HostListing/__generated__/HostListing';
 import { Store } from 'antd/lib/form/interface';
-import { useHistory } from 'react-router-dom';
 
+import {
+  Form,
+  Layout,
+  Typography,
+  Input,
+  InputNumber,
+  Radio,
+  Upload,
+  Button,
+} from 'antd';
 const { Content } = Layout;
 const { Text, Title } = Typography;
 const { Item } = Form;
@@ -289,7 +290,7 @@ export const Host = ({ viewer }: IProps) => {
 
         <Item
           label="Price"
-          extra="All prices in $USD/day"
+          extra="All prices in $USD/night"
           name="price"
           rules={[
             {

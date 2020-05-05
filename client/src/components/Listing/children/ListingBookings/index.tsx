@@ -61,7 +61,7 @@ export const ListingBookings = ({ listingBookings, limit }: IProps) => {
     />
   ) : null;
 
-  const listingBookingsElement = listingBookingsList ? (
+  return listingBookingsList ? (
     <div className="listing-bookings">
       <Divider />
       <div className="listing-bookings__section">
@@ -70,6 +70,4 @@ export const ListingBookings = ({ listingBookings, limit }: IProps) => {
       {listingBookingsList}
     </div>
   ) : null;
-
-  return listingBookingsElement;
 };

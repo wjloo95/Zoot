@@ -33,7 +33,7 @@ export const ListingCard = ({ listing }: IProps) => {
           <div className="listing-card__description">
             <Title level={4} className="listing-card__price">
               {`${formatPrice(price)}`}
-              <span>/day</span>
+              <span>/night</span>
             </Title>
             <Text strong ellipsis className="listing-card__title">
               {title}

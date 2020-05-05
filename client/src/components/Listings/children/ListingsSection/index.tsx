@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { List, Affix } from 'antd';
+import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+
 import { ListingCard, ErrorBanner } from '../../../../lib/components';
 import {
   Listings as ListingsData,
   ListingsVariables,
 } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
 import { ListingsSort } from '../../../../lib/graphql/globalTypes';
-import { useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/react-hooks';
 import { LISTINGS } from '../../../../lib/graphql/queries';
 import { NoListings } from '../NoListings';
-import Title from 'antd/lib/typography/Title';
 import { ListingsSortSection } from '../ListingsSortSection';
 import { ListingsPagination } from '../ListingsPagination';
 import { ListingsSkeleton } from '../ListingsSkeleton';
 
+import { List, Affix, Typography } from 'antd';
 const { Item } = List;
+const { Title } = Typography;
 
 interface IParams {
   location: string;

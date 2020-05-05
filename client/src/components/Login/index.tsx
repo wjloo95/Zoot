@@ -1,26 +1,28 @@
 import React, { useEffect, useRef } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import { Redirect } from 'react-router-dom';
 
-// Image Assets
 import googleLogo from './assets/google_logo.jpg';
 import facebookLogo from './assets/f_logo_RGB-White_58.png';
 
 import { Viewer } from '../../lib/types';
+
 import { AuthUrl as AuthUrlData } from '../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl';
+import { AUTH_URL } from '../../lib/graphql/queries';
+
 import {
   LogIn as LogInData,
   LogInVariables,
 } from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
-import { AUTH_URL } from '../../lib/graphql/queries';
 import { LOG_IN } from '../../lib/graphql/mutations';
+
 import {
   displayErrorMessage,
   displaySuccessNotification,
 } from '../../lib/utils/';
+import { ErrorBanner } from '../../lib/components';
 
 import { Card, Layout, Typography, Spin } from 'antd';
-import { ErrorBanner } from '../../lib/components';
-import { Redirect } from 'react-router-dom';
 const { Content } = Layout;
 const { Text, Title } = Typography;
 interface IProps {
@@ -29,10 +31,10 @@ interface IProps {
 
 export const Login = ({ setViewer }: IProps) => {
   const client = useApolloClient();
-  const [
-    logIn,
-    { data: logInData, loading: logInLoading, error: logInError },
-  ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
+  const [logIn, { data, loading, error }] = useMutation<
+    LogInData,
+    LogInVariables
+  >(LOG_IN, {
     onCompleted: (data) => {
       if (data && data.logIn) {
         setViewer(data.logIn);
@@ -69,24 +71,20 @@ export const Login = ({ setViewer }: IProps) => {
     }
   }, []);
 
-  if (logInLoading) {
-    return (
-      <Content className="log-in">
-        <Spin size="large" tip="Logging you in..." />
-      </Content>
-    );
-  }
-
-  if (logInData && logInData.logIn) {
-    const { id: viewerId } = logInData.logIn;
+  if (data && data.logIn) {
+    const { id: viewerId } = data.logIn;
     return <Redirect to={`/user/${viewerId}`} />;
   }
 
-  const logInErrorBanner = logInError ? (
+  const logInErrorBanner = error ? (
     <ErrorBanner description="We weren't able to log you in. Please try again soon." />
   ) : null;
 
-  return (
+  return loading ? (
+    <Content className="log-in">
+      <Spin size="large" tip="Logging you in..." />
+    </Content>
+  ) : (
     <Content className="log-in">
       {logInErrorBanner}
       <Card className="log-in-card">

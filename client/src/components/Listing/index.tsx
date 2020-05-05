@@ -1,12 +1,12 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
+import { useParams } from 'react-router-dom';
+
 import { LISTING } from '../../lib/graphql/queries';
 import {
   Listing as ListingData,
   ListingVariables,
 } from '../../lib/graphql/queries/Listing/__generated__/Listing';
-import { useParams } from 'react-router-dom';
-import { Layout, Col, Row } from 'antd';
 import { PageSkeleton, ErrorBanner } from '../../lib/components';
 import {
   ListingDetails,
@@ -16,6 +16,7 @@ import {
 import { listingBookings } from './children/ListingBookings/mockBookings';
 import { Viewer } from '../../lib/types';
 
+import { Layout, Col, Row } from 'antd';
 const { Content } = Layout;
 
 interface IProps {
@@ -45,7 +46,6 @@ export const Listing = ({ viewer }: IProps) => {
 
   const listing = data ? data.listing : null;
   const image = listing ? listing.image : null;
-  // const listingBookings = listing ? listing.bookings : null;
 
   const listingDetailsElement = listing ? (
     <ListingDetails listing={listing} />

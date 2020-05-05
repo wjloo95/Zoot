@@ -1,8 +1,9 @@
 import React from 'react';
-import { Typography } from 'antd';
 import { Link } from 'react-router-dom';
+
 import { PageSkeleton } from '../../../../lib/components';
 
+import { Typography } from 'antd';
 const { Paragraph, Text } = Typography;
 
 interface IProps {

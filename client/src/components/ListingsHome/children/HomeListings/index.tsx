@@ -4,17 +4,16 @@ import { ListingCard } from '../../../../lib/components';
 import { Listings } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
 
 interface IProps {
-  title: string;
   listings: Listings['listings']['result'];
 }
 
 const { Title } = Typography;
 
-export const HomeListings = ({ title, listings }: IProps) => {
+export const HomeListings = ({ listings }: IProps) => {
   return (
     <div className="home-listings">
       <Title level={4} className="home-listings__title">
-        {title}
+        Premium Listings
       </Title>
       <List
         grid={{

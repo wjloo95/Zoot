@@ -1,5 +1,6 @@
 import React from 'react';
-import { Col, Row, Typography, Layout, Button } from 'antd';
+import { useQuery } from '@apollo/react-hooks';
+import { useHistory, Link } from 'react-router-dom';
 
 import { HomeHero, HomeListingsSkeleton, HomeListings } from './children';
 
@@ -7,9 +8,7 @@ import mapBackground from './assets/map-background.jpg';
 import sanFranciscoImage from './assets/san-francisco.jpg';
 import cancunImage from './assets/cancun.jpg';
 
-import { useHistory, Link } from 'react-router-dom';
 import { displayErrorMessage } from '../../lib/utils';
-import { useQuery } from '@apollo/react-hooks';
 import {
   ListingsVariables,
   Listings as ListingsData,
@@ -18,6 +17,7 @@ import { LISTINGS } from '../../lib/graphql/queries';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
 import { searchValid } from '../../lib/utils';
 
+import { Col, Row, Typography, Layout, Button } from 'antd';
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
@@ -38,12 +38,6 @@ export const ListingsHome = () => {
     }
   );
 
-  const topListingsSection = loading ? (
-    <HomeListingsSkeleton />
-  ) : data ? (
-    <HomeListings title="Premium Listings" listings={data.listings.result} />
-  ) : null;
-
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();
     if (searchValid(value)) {
@@ -52,6 +46,13 @@ export const ListingsHome = () => {
       history.push(`/listings/${trimmedValue}`);
     }
   };
+
+  const topListingsSection = loading ? (
+    <HomeListingsSkeleton />
+  ) : data ? (
+    <HomeListings listings={data.listings.result} />
+  ) : null;
+
   return (
     <Content
       className="home"

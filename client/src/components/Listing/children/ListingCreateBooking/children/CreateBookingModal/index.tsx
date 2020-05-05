@@ -21,8 +21,8 @@ export const CreateBookingModal = ({
   checkOutDate,
   setModalVisible,
 }: IProps) => {
-  const daysBooked = checkOutDate.diff(checkInDate, 'days') + 1;
-  const listingPrice = price * daysBooked;
+  const nightsBooked = checkOutDate.diff(checkInDate, 'days') + 1;
+  const listingPrice = price * nightsBooked;
 
   return (
     <Modal
@@ -57,7 +57,7 @@ export const CreateBookingModal = ({
 
         <div className="listing-booking-modal__charge-summary">
           <Paragraph>
-            {formatPrice(price)} * {daysBooked} days ={' '}
+            {formatPrice(price)} * {nightsBooked} nights ={' '}
             <Text strong>{formatPrice(listingPrice)}</Text>
           </Paragraph>
           <Paragraph className="listing-booking-modal__charge-summary-total">

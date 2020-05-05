@@ -37,7 +37,6 @@ export const Stripe = ({ viewer, setViewer }: IProps) => {
   const connectStripeRef = useRef(connectStripe);
 
   useEffect(() => {
-    // const code = new URL(window.location.href).searchParams.get('code');
     const code = history.location.search.split('code=')[1];
 
     if (code) {

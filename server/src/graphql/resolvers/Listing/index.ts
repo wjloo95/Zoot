@@ -51,7 +51,7 @@ export const listingResolvers: IResolvers = {
         throw new Error('Viewer cannot be found');
       }
 
-      const { country, admin, city } = await Google.geocode(input.address);
+      const { country, admin, city } = await Google.geocode(input.street);
 
       if (!country || !admin || !city) {
         throw new Error('Invalid address input');
@@ -60,15 +60,16 @@ export const listingResolvers: IResolvers = {
       const imageUrl = await Cloudinary.upload(input.image);
 
       const insertedResult = await db.listings.insertOne({
-        _id: new ObjectID(),
         ...input,
+        _id: new ObjectID(),
+        host: viewer._id,
         image: imageUrl,
         bookings: [],
         bookingsIndex: {},
         country,
-        admin,
+        state: admin,
         city,
-        host: viewer._id,
+        reviews: 0,
       });
 
       const newListing: Listing = insertedResult.ops[0];

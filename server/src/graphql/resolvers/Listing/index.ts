@@ -51,7 +51,9 @@ export const listingResolvers: IResolvers = {
         throw new Error('Viewer cannot be found');
       }
 
-      const { country, state, city } = await Google.geocode(input.street);
+      const { country, state, city, lat, lng } = await Google.geocode(
+        input.street
+      );
 
       if (!country || !state || !city) {
         throw new Error('Invalid address input');
@@ -66,6 +68,8 @@ export const listingResolvers: IResolvers = {
         image: imageUrl,
         bookings: [],
         bookingsIndex: {},
+        latitude: lat,
+        longitude: lng,
         country,
         state,
         city,

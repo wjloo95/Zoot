@@ -1,10 +1,11 @@
 const parse = require('csv-parse');
-const transform = require('stream-transform');
-const stream = require('stream').Transform;
 const fs = require('fs');
+const streamToMongoDB = require('stream-to-mongo-db').streamToMongoDB;
 
-const mongodb = require('mongodb');
-const { MongoClient } = mongodb;
+const { MongoClient } = require('mongodb');
+
+const dbURL =
+  'mongodb+srv://wjloo95:xdartDKxHHQzKyNn@cluster0-rdi5y.mongodb.net/test?retryWrites=true&w=majority';
 
 const extractFields = [
   'Name',
@@ -30,6 +31,7 @@ const extractFields = [
 ];
 
 const hostFields = [
+  'Host ID',
   'Host Name',
   'Host Since',
   'Host Location',
@@ -75,13 +77,12 @@ const extractFieldIndex = [
   84,
 ];
 
-const hostFieldsIndex = [21, 22, 23, 24, 28];
+const hostFieldsIndex = [19, 21, 22, 23, 24, 28];
 
 const numExtractFieldsIndex = [45, 46, 49, 50, 51, 56, 61, 62, 63, 64, 72, 75];
 
-const url = `mongodb+srv://wjloo95:xdartDKxHHQzKyNn@cluster0-rdi5y.mongodb.net/test?retryWrites=true&w=majority`;
 const connectDatabase = async () => {
-  const client = await MongoClient.connect(url, {
+  const client = await MongoClient.connect(dbURL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
@@ -95,103 +96,88 @@ const connectDatabase = async () => {
   return collections;
 };
 
-const transformData = async (data) => {
-  // const finalListingData = {};
-  // const hostData = {};
-  // const hostID = data['Host ID'];
-
-  // hostFields.forEach((field) => {
-  //   if (field === 'Host About') {
-  //     hostData[field] = data[field].split('\r\n').join(' ');
-  //   } else {
-  //     hostData[field] = data[field];
-  //   }
-  // });
-
-  // extractFields.forEach((field) => {
-  //   finalListingData[field] = data[field];
-  // });
-
-  // numExtractFields.forEach(
-  //   (field) => (finalListingData[field] = Number(data[field]))
-  // );
-
-  // const newListing = await db.listings.insertOne(finalListingData);
-  // const newListingID = newListing.ops[0]._id;
-  // await db.users.updateOne(
-  //   { hostID },
-  //   { $set: hostData, $push: { listings: newListingID } },
-  //   { upsert: true }
-  // );
-  console.log(data);
-  return data;
-};
-
 const streamData = async () => {
   const db = await connectDatabase();
+  
+  const test = fs
+    .createReadStream('./airbnb-input/airbnb-listings.csv')
+    .pipe(
+      parse({
+        delimiter: ';',
+        columns: true,
+        cast: (value, { header, index, column }) => {
+          if (numExtractFieldsIndex.includes(index)) {
+            return header ? value : Number(value);
+          } else if (
+            hostFieldsIndex.includes(index) ||
+            extractFieldIndex.includes(index)
+            ) {
+              return header
+              ? value
+              : column === 'Host About'
+              ? value.split('\r\n').join(' ')
+              : value;
+            } else {
+              return undefined;
+            }
+          },
+        })
+        )
+        .pipe(streamToMongoDB({ dbURL, collection: 'test' }));
+        
+        // test.on('data', async (data) => {
+          //   const finalListingData = {};
+          //   const hostData = {};
+          
+          //   for (let [key, value] of Object.entries(data)) {
+            //     if (hostFields.includes(key)) {
+              //       hostData[key] = value;
+              //     } else {
+                //       finalListingData[key] = value;
+                //     }
+                //   }
+                //   const newListing = await db.listings.insertOne(finalListingData);
+                //   const newListingID = newListing.ops[0]._id;
+                //   await db.users.updateOne(
+                  //     { 'Host ID': hostData['Host ID'] },
+                  //     { $setOnInsert: hostData, $push: { listings: newListingID } },
+                  //     { upsert: true }
+                  //   );
+                  // });
+                };
+                
+                const createUsers = () => {
+                  const db = await connectDatabase();
+                  
+                  const stream = db.test.find().stream({transform: async(data) => {
+                    const hostData = {
+                      'Host ID': data['Host ID'],
+  'Host Name': data['Host Name'],
+  'Host Since': data['Host Since'],
+  'Host Location': data['Host Location'],
+  'Host About': data['Host About'],
+  'Host Thumbnail Url': data['Host Thumbnail Url'],
+                    }
+                      await db.users.updateOne(
+                          { 'Host ID': data['Host ID'] },
+                          { $setOnInsert: hostData, $push: { listings: newListingID } },
+                          { upsert: true }
+                        );
 
-  // await db.listings.drop();
-  // await db.users.drop();
+                        const newData = {...data}
+                        
+                        delete newData['Host ID'],
+  delete newData['Host Name'],
+  delete newData['Host Since'],
+  delete newData['Host Location'],
+  delete newData['Host About'],
+  delete newData['Host Thumbnail Url']
 
-  const test = fs.createReadStream('./airbnb-input/airbnb-listings.csv').pipe(
-    parse({
-      delimiter: ';',
-      columns: true,
-      cast: (value, { header, index }) => {
-        if (numExtractFieldsIndex.includes(index)) {
-          return header ? value : Number(value);
-        } else if (
-          hostFieldsIndex.includes(index) ||
-          extractFieldIndex.includes(index)
-        ) {
-          return value;
-        } else {
-          return undefined;
-        }
-      },
-    })
-  );
-
-  const parser = parse({ delimiter: ';', columns: true });
-
-  test.on('data', (chunk) => {
-    console.log(chunk);
-  });
-  // .pipe(transform(transformData));
-
-  // fs.createReadStream('./airbnb-input/airbnb-listings.csv')
-  //   .pipe(parse({ delimiter: ';', columns: true }))
-  //   .on('data', (data) => {
-  //       const finalListingData = {};
-  //       const hostData = {};
-  //       const hostID = data['Host ID'];
-
-  //       hostFields.forEach((field) => {
-  //         if (field === 'Host About') {
-  //           hostData[field] = data[field].split('\r\n').join(' ');
-  //         } else {
-  //           hostData[field] = data[field];
-  //         }
-  //       });
-
-  //       extractFields.forEach((field) => {
-  //         finalListingData[field] = data[field];
-  //       });
-
-  //       numExtractFields.forEach(
-  //         (field) => (finalListingData[field] = Number(data[field]))
-  //       );
-
-  //       const newListing = await db.listings.insertOne(finalListingData);
-  //       const newListingID = newListing.ops[0]._id;
-  //       await db.users.updateOne(
-  //         { hostID },
-  //         { $set: hostData, $push: { listings: newListingID } },
-  //         { upsert: true }
-  //       );
-  //       console.log(data);
-  //   })
-  //   .on('end', () => console.log('Completed ETL'));
-};
-
-streamData();
+  return newData
+                    
+                  }})
+                  
+                }
+                
+                streamData();
+                

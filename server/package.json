@@ -38,7 +38,7 @@
     "csv-parse": "^4.9.0",
     "dotenv": "^8.2.0",
     "eslint": "^6.8.0",
-    "stream-transform": "^2.0.2",
+    "stream-to-mongo-db": "^1.6.0",
     "ts-node": "^8.9.1",
     "typescript": "^3.8.3"
   }

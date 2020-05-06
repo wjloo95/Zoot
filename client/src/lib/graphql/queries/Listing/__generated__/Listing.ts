@@ -50,7 +50,7 @@ export interface Listing_listing {
   street: string;
   city: string;
   bookings: Listing_listing_bookings | null;
-  bookingsIndex: string;
+  bookingsIndex: string | null;
   price: number;
   bedrooms: number;
   bathrooms: number;

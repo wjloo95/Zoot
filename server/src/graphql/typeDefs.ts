@@ -77,7 +77,7 @@ export const typeDefs = gql`
     reviews: Int!
     rating: Int!
     bookings(limit: Int!, page: Int!): Bookings
-    bookingsIndex: String!
+    bookingsIndex: String
   }
 
   type Listings {

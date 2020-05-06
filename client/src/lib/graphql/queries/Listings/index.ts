@@ -12,9 +12,11 @@ export const LISTINGS = gql`
       total
       result {
         id
-        title
-        image
-        address
+        name
+        thumbnail
+        street
+        reviews
+        rating
         price
         numOfGuests
       }

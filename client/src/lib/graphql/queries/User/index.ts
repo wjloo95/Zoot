@@ -5,8 +5,10 @@ export const USER = gql`
     user(id: $id) {
       id
       name
+      about
       avatar
-      contact
+      location
+      since
       hasWallet
       income
     }
@@ -23,9 +25,11 @@ export const USER_BOOKINGS = gql`
           id
           listing {
             id
-            title
-            image
-            address
+            name
+            thumbnail
+            street
+            reviews
+            rating
             price
             numOfGuests
           }
@@ -45,9 +49,11 @@ export const USER_LISTINGS = gql`
         total
         result {
           id
-          title
-          image
-          address
+          name
+          thumbnail
+          street
+          reviews
+          rating
           price
           numOfGuests
         }

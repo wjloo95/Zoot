@@ -7,15 +7,11 @@
 // START Enums and Input Objects
 //==============================================================
 
-export enum ListingType {
-  APARTMENT = "APARTMENT",
-  HOTEL = "HOTEL",
-  HOUSE = "HOUSE",
-}
-
 export enum ListingsSort {
   PRICE_HIGH_TO_LOW = "PRICE_HIGH_TO_LOW",
   PRICE_LOW_TO_HIGH = "PRICE_LOW_TO_HIGH",
+  RATINGS_COUNT = "RATINGS_COUNT",
+  RATINGS_VALUE = "RATINGS_VALUE",
 }
 
 export interface ConnectStripeInput {
@@ -23,12 +19,18 @@ export interface ConnectStripeInput {
 }
 
 export interface HostListingInput {
-  title: string;
+  name: string;
   description: string;
+  property: string;
+  room: string;
+  notes: string;
+  rules: string;
   image: string;
-  type: ListingType;
-  address: string;
+  street: string;
   price: number;
+  bathrooms: number;
+  bedrooms: number;
+  minimum: number;
   numOfGuests: number;
 }
 

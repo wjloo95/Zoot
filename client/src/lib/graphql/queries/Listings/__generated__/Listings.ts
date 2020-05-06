@@ -12,9 +12,11 @@ import { ListingsSort } from "./../../../globalTypes";
 export interface Listings_listings_result {
   __typename: "Listing";
   id: string;
-  title: string;
-  image: string;
-  address: string;
+  name: string;
+  thumbnail: string;
+  street: string;
+  reviews: number;
+  rating: number;
   price: number;
   numOfGuests: number;
 }

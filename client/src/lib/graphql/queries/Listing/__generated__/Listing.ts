@@ -52,6 +52,8 @@ export interface Listing_listing {
   bookings: Listing_listing_bookings | null;
   bookingsIndex: string;
   price: number;
+  bedrooms: number;
+  bathrooms: number;
   minimum: number;
   rating: number;
   reviews: number;

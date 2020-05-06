@@ -3,7 +3,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
 import { Viewer } from '../../lib/types';
-import { ListingType } from '../../lib/graphql/globalTypes';
 import {
   HomeOutlined,
   BankOutlined,
@@ -83,13 +82,20 @@ export const Host = ({ viewer }: IProps) => {
     const fullAddress = `${values.address}, ${values.city}, ${values.state}, ${values.postalCode}`;
 
     const input = {
-      type: values.type,
+      property: values.property,
       numOfGuests: values.numOfGuests,
-      title: values.title,
+      name: values.name,
       description: values.description,
-      address: fullAddress,
+      rules: values.rules,
+      notes: values.notes,
+      street: fullAddress,
       image: imageBase64Value,
+      thumbnail: imageBase64Value,
       price: values.price,
+      bathrooms: values.bathrooms,
+      bedrooms: values.bedrooms,
+      minimum: values.minimum,
+      room: values.room,
     };
 
     hostListing({
@@ -133,21 +139,42 @@ export const Host = ({ viewer }: IProps) => {
 
         <Item
           label="Home Type"
-          name="type"
+          name="property"
           rules={[{ required: true, message: 'Please select a home type!' }]}
         >
           <Radio.Group>
-            <Radio.Button value={ListingType.APARTMENT}>
+            <Radio.Button value={'Apartment'}>
               <BankOutlined />
               <span>Apartment</span>
             </Radio.Button>
-            <Radio.Button value={ListingType.HOUSE}>
+            <Radio.Button value={'House'}>
               <HomeOutlined />
               <span>House</span>
             </Radio.Button>
-            <Radio.Button value={ListingType.HOTEL}>
+            <Radio.Button value={'Other'}>
               <TeamOutlined />
-              <span>Hotel</span>
+              <span>Other</span>
+            </Radio.Button>
+          </Radio.Group>
+        </Item>
+
+        <Item
+          label="Room Type"
+          name="room"
+          rules={[{ required: true, message: 'Please select a room type!' }]}
+        >
+          <Radio.Group>
+            <Radio.Button value={'Private room'}>
+              <BankOutlined />
+              <span>Private Room</span>
+            </Radio.Button>
+            <Radio.Button value={'Entire home/apt'}>
+              <HomeOutlined />
+              <span>Entire Home/Apartment</span>
+            </Radio.Button>
+            <Radio.Button value={'Other'}>
+              <TeamOutlined />
+              <span>Other</span>
             </Radio.Button>
           </Radio.Group>
         </Item>
@@ -164,15 +191,53 @@ export const Host = ({ viewer }: IProps) => {
         >
           <InputNumber min={1} placeholder="4" />
         </Item>
+        <Item
+          label="# of Bedrooms"
+          name="bedrooms"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter the number of bedrooms!',
+            },
+          ]}
+        >
+          <InputNumber min={1} placeholder="2" />
+        </Item>
+
+        <Item
+          label="# of Bathrooms"
+          name="bathrooms"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter the number of bathrooms!',
+            },
+          ]}
+        >
+          <InputNumber min={1} placeholder="1" />
+        </Item>
+
+        <Item
+          label="Minimum Stay"
+          name="minimum"
+          rules={[
+            {
+              required: true,
+              message: 'Please enter the minimum length of stay!',
+            },
+          ]}
+        >
+          <InputNumber min={1} placeholder="3" />
+        </Item>
 
         <Item
           label="Title"
           extra="Max character count of 45"
-          name="title"
+          name="name"
           rules={[
             {
               required: true,
-              message: 'Please enter a title for your listing!',
+              message: 'Please enter a name for your listing!',
             },
           ]}
         >
@@ -200,6 +265,49 @@ export const Host = ({ viewer }: IProps) => {
             placeholder={`
               Modern, clean, and iconic home of the Fresh Prince.
               Situated in the heart of Bel-Air, Los Angeles.
+            `}
+          />
+        </Item>
+
+        <Item
+          label="Listing Rules"
+          extra="Max character count of 400"
+          name="rules"
+          rules={[
+            {
+              required: true,
+              message: 'Please add any house rules for your listing!',
+            },
+          ]}
+        >
+          <Input.TextArea
+            rows={3}
+            autoSize
+            maxLength={400}
+            placeholder={`
+              Please refrain from wearing shoes in the house.
+            `}
+          />
+        </Item>
+
+        <Item
+          label="Listing Notes"
+          extra="Max character count of 400"
+          name="notes"
+          rules={[
+            {
+              required: true,
+              message:
+                'Please add any additional notes you may have for the tenant!',
+            },
+          ]}
+        >
+          <Input.TextArea
+            rows={3}
+            autoSize
+            maxLength={400}
+            placeholder={`
+              The cat likes to sit on your lap at night!
             `}
           />
         </Item>

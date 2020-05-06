@@ -12,12 +12,18 @@ const { Paragraph, Title } = Typography;
 
 export const ListingDetails = ({ listing }: IProps) => {
   const {
-    title,
+    name,
     description,
-    type,
-    address,
+    notes,
+    rules,
+    property,
+    street,
     city,
     numOfGuests,
+    bedrooms,
+    bathrooms,
+    rating,
+    reviews,
     host,
   } = listing;
 
@@ -33,10 +39,10 @@ export const ListingDetails = ({ listing }: IProps) => {
             <EnvironmentFilled /> {city}
           </Link>
           <Divider type="vertical" />
-          {address}
+          {street}
         </Paragraph>
         <Title level={3} className="listing-details__title">
-          {title}
+          {name}
         </Title>
       </div>
 
@@ -56,7 +62,7 @@ export const ListingDetails = ({ listing }: IProps) => {
       <div className="listing-details__section">
         <Title level={4}>About this space</Title>
         <div className="listing-details__about-items">
-          <Tag color="magenta">{type}</Tag>
+          <Tag color="magenta">{property}</Tag>
           <Tag color="magenta">{numOfGuests} Guests</Tag>
         </div>
         <Paragraph ellipsis={{ rows: 3, expandable: true }}>

@@ -34,6 +34,8 @@ export const LISTING = gql`
       }
       bookingsIndex
       price
+      bedrooms
+      bathrooms
       minimum
       rating
       reviews

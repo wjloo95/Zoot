@@ -17,12 +17,18 @@ export const typeDefs = gql`
   }
 
   input HostListingInput {
-    title: String!
+    name: String!
     description: String!
+    property: String!
+    room: String!
+    notes: String!
+    rules: String!
     image: String!
-    type: String!
-    address: String!
+    street: String!
     price: Int!
+    bathrooms: Int!
+    bedrooms: Int!
+    minimum: Int!
     numOfGuests: Int!
   }
 

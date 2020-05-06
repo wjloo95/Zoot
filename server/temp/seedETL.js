@@ -136,6 +136,59 @@ const deleteUsers = async () => {
   return;
 };
 
+const fixNames = async () => {
+  const db = await connectDatabase();
+
+  // await db.premium_listings.updateMany(
+  await db.listings.updateMany(
+    {},
+    {
+      $rename: {
+        Name: 'name',
+        Description: 'description',
+        Notes: 'notes',
+        'House Rules': 'rules',
+        'Thumbnail Url': 'thumbnail',
+        'Picture Url': 'image',
+        Street: 'street',
+        City: 'city',
+        State: 'state',
+        Country: 'country',
+        Latitude: 'latitude',
+        Longitude: 'longitude',
+        'Property Type': 'property',
+        'Room Type': 'room',
+        Accommodates: 'numOfGuests',
+        Bathrooms: 'bathrooms',
+        Bedrooms: 'bedrooms',
+        Price: 'price',
+        'Minimum Nights': 'minimum',
+        'Number of Reviews': 'reviews',
+        'Review Scores Rating': 'rating',
+      },
+      $unset: { 'Cancellation Policy': '' },
+    }
+  );
+
+  // await db.premium_users.updateMany(
+  await db.users.updateMany(
+    {},
+    {
+      $rename: {
+        'Host ID': 'id',
+        'Host Name': 'name',
+        'Host Since': 'since',
+        'Host Location': 'location',
+        'Host About': 'about',
+        'Host Thumbnail Url': 'avatar',
+      },
+    }
+  );
+  console.log('Done!');
+  return;
+};
+
 // streamData();
 // createUsers();
-deleteUsers();
+// deleteUsers();
+// fixNames();

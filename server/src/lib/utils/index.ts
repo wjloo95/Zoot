@@ -27,6 +27,7 @@ export const verifyHostListingInput = ({
   name,
   description,
   notes,
+  rules,
   room,
   price,
 }: HostListingInput) => {
@@ -38,6 +39,9 @@ export const verifyHostListingInput = ({
   }
   if (notes.length > 5000) {
     throw new Error('Listing notes must be under 5000 characters');
+  }
+  if (rules.length > 5000) {
+    throw new Error('Listing rules must be under 5000 characters');
   }
   if (
     room !== RoomType.EntireHome &&

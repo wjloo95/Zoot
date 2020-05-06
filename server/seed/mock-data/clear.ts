@@ -1,6 +1,6 @@
 require('dotenv').config();
 
-import { connectDatabase } from '../src/db';
+import { connectDatabase } from '../../src/db';
 
 const clear = async () => {
   try {

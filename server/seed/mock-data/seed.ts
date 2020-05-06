@@ -1,7 +1,7 @@
 require('dotenv').config();
 
-import { connectDatabase } from '../src/db';
-import { Listing, ListingType, User } from '../src/lib/types';
+import { connectDatabase } from '../../src/db';
+import { Listing, ListingType, User } from '../../src/lib/types';
 import { ObjectID } from 'mongodb';
 
 const listings: Listing[] = [

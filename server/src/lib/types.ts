@@ -6,6 +6,12 @@ export enum RoomType {
   SharedRoom = 'SHARED_ROOM',
 }
 
+export enum PropertyType {
+  Apartment = 'APARTMENT',
+  House = 'HOUSE',
+  Other = 'OTHER',
+}
+
 interface BookingsIndexMonth {
   [key: string]: boolean;
 }
@@ -23,7 +29,7 @@ export interface Listing {
   name: string;
   description: string;
   property: string;
-  room: string;
+  room: RoomType;
   notes: string;
   rules: string;
   thumbnail?: string;

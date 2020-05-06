@@ -26,7 +26,7 @@ export const typeDefs = gql`
     name: String!
     description: String!
     property: String!
-    room: String!
+    room: RoomType!
     notes: String!
     rules: String!
     image: String!

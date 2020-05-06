@@ -1,5 +1,11 @@
 import { Request } from 'express';
-import { Database, User, BookingsIndex, RoomType } from '../types';
+import {
+  Database,
+  User,
+  BookingsIndex,
+  RoomType,
+  PropertyType,
+} from '../types';
 import { HostListingInput } from '../../graphql/resolvers/Listing/types';
 import { AddressComponent } from '@google/maps';
 
@@ -29,6 +35,7 @@ export const verifyHostListingInput = ({
   notes,
   rules,
   room,
+  property,
   price,
 }: HostListingInput) => {
   if (name.length > 100) {
@@ -49,6 +56,15 @@ export const verifyHostListingInput = ({
     room !== RoomType.SharedRoom
   ) {
     throw new Error('Listing description must be under 5000 characters');
+  }
+  if (
+    property !== PropertyType.Apartment &&
+    property !== PropertyType.House &&
+    property !== PropertyType.Other
+  ) {
+    throw new Error(
+      'If your listing is neither an apartment or house, please select Other!'
+    );
   }
   if (price < 0) {
     throw new Error('Price must be greater than 0');

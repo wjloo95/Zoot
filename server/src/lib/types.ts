@@ -1,11 +1,5 @@
 import { ObjectID, Collection } from 'mongodb';
 
-export enum ListingType {
-  Apartment = 'APARTMENT',
-  House = 'HOUSE',
-  Hotel = 'HOTEL',
-}
-
 interface BookingsIndexMonth {
   [key: string]: boolean;
 }
@@ -19,19 +13,30 @@ export interface BookingsIndex {
 }
 export interface Listing {
   _id: ObjectID;
-  title: string;
-  description: string;
-  image: string;
   host: string;
-  admin: string;
-  type: ListingType;
-  address: string;
+  name: string;
+  description: string;
+  property: string;
+  room: string;
+  notes: string;
+  rules: string;
+  thumbnail: string;
+  image: string;
+  street: string;
   city: string;
+  state: string;
   country: string;
+  latitude: number;
+  longitude: number;
+  price: number;
+  bathrooms: number;
+  bedrooms: number;
+  minimum: number;
+  numOfGuests: number;
+  reviews: number;
+  rating: number;
   bookings: ObjectID[];
   bookingsIndex: BookingsIndex;
-  price: number;
-  numOfGuests: number;
   authorized?: boolean;
 }
 
@@ -40,7 +45,9 @@ export interface User {
   token: string;
   name: string;
   avatar: string;
-  contact: string;
+  about: string;
+  location: string;
+  since: string;
   walletId?: string;
   income: number;
   bookings: ObjectID[];

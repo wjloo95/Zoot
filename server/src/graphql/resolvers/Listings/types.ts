@@ -22,6 +22,6 @@ export interface ListingsData {
 
 export interface ListingsQuery {
   country?: string;
-  admin?: string;
+  state?: string;
   city?: string;
 }

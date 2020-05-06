@@ -7,9 +7,11 @@ import { formatPrice } from '../../utils';
 interface IProps {
   listing: {
     id: string;
-    title: string;
-    image: string;
-    address: string;
+    name: string;
+    thumbnail: string;
+    street: string;
+    reviews: number;
+    rating: number;
     price: number;
     numOfGuests: number;
   };
@@ -17,14 +19,23 @@ interface IProps {
 
 const { Text, Title } = Typography;
 export const ListingCard = ({ listing }: IProps) => {
-  const { id, title, image, address, price, numOfGuests } = listing;
+  const {
+    id,
+    name,
+    thumbnail,
+    street,
+    reviews,
+    rating,
+    price,
+    numOfGuests,
+  } = listing;
   return (
     <Link to={`/listing/${id}`}>
       <Card
         hoverable
         cover={
           <div
-            style={{ backgroundImage: `url(${image})` }}
+            style={{ backgroundImage: `url(${thumbnail})` }}
             className="listing-card__cover-img"
           />
         }
@@ -36,13 +47,13 @@ export const ListingCard = ({ listing }: IProps) => {
               <span>/night</span>
             </Title>
             <Text strong ellipsis className="listing-card__title">
-              {title}
+              {name}
             </Text>
           </div>
           <div className="listing-card-bottom">
             <div className="listing-card-bottom-address">
               <CompassOutlined />
-              <Text ellipsis>{address}</Text>
+              <Text ellipsis>{street}</Text>
             </div>
             <div className="listing-card-bottom-guests">
               <UserOutlined />

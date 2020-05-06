@@ -136,7 +136,13 @@ export const UserProfile = ({
             Name: <Text strong>{user.name}</Text>
           </Paragraph>
           <Paragraph>
-            Contact: <Text strong>{user.contact}</Text>
+            Location: <Text strong>{user.location}</Text>
+          </Paragraph>
+          <Paragraph>
+            User Since: <Text strong>{user.since}</Text>
+          </Paragraph>
+          <Paragraph>
+            About: <Text strong>{user.about}</Text>
           </Paragraph>
         </div>
         {additionalDetailsSection}

@@ -8,6 +8,12 @@ export const typeDefs = gql`
     RATINGS_VALUE
   }
 
+  enum RoomType {
+    ENTIRE_HOME
+    PRIVATE_ROOM
+    SHARED_ROOM
+  }
+
   input LogInInput {
     code: String!
   }

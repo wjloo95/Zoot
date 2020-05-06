@@ -1,5 +1,11 @@
 import { ObjectID, Collection } from 'mongodb';
 
+export enum RoomType {
+  EntireHome = 'ENTIRE_HOME',
+  PrivateRoom = 'PRIVATE_ROOM',
+  SharedRoom = 'SHARED_ROOM',
+}
+
 interface BookingsIndexMonth {
   [key: string]: boolean;
 }
@@ -66,8 +72,8 @@ export interface Booking {
 export interface Database {
   listings: Collection<Listing>;
   users: Collection<User>;
-  premium_listings: Collection<Listing>;
-  premium_users: Collection<User>;
+  // premium_listings: Collection<Listing>;
+  // premium_users: Collection<User>;
   bookings: Collection<Booking>;
 }
 

@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Database, User, BookingsIndex } from '../types';
+import { Database, User, BookingsIndex, RoomType } from '../types';
 import { HostListingInput } from '../../graphql/resolvers/Listing/types';
 import { AddressComponent } from '@google/maps';
 
@@ -26,13 +26,24 @@ export const authorize = async (
 export const verifyHostListingInput = ({
   name,
   description,
-
+  notes,
+  room,
   price,
 }: HostListingInput) => {
   if (name.length > 100) {
     throw new Error('Listing title must be under 100 characters');
   }
   if (description.length > 5000) {
+    throw new Error('Listing description must be under 5000 characters');
+  }
+  if (notes.length > 5000) {
+    throw new Error('Listing notes must be under 5000 characters');
+  }
+  if (
+    room !== RoomType.EntireHome &&
+    room !== RoomType.PrivateRoom &&
+    room !== RoomType.SharedRoom
+  ) {
     throw new Error('Listing description must be under 5000 characters');
   }
   if (price < 0) {

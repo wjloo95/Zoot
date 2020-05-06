@@ -3,7 +3,6 @@ const extractFields = [
   'Description',
   'Notes',
   'House Rules',
-  'Thumbnail Url',
   'Picture Url',
   'Street',
   'City',
@@ -11,7 +10,6 @@ const extractFields = [
   'Country',
   'Property Type',
   'Room Type',
-  'Cancellation Policy',
 ];
 
 const hostFields = [

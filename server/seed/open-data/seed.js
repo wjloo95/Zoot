@@ -7,7 +7,7 @@ const { MongoClient } = require('mongodb');
 const dbURL =
   'mongodb+srv://wjloo95:xdartDKxHHQzKyNn@cluster0-rdi5y.mongodb.net/airbnb?retryWrites=true&w=majority';
 
-const extractFieldIndex = [4, 7, 10, 14, 15, 17, 34, 38, 39, 44, 47, 48, 84];
+const extractFieldIndex = [4, 7, 10, 14, 17, 34, 38, 39, 44, 47, 48];
 
 const hostFieldsIndex = [19, 21, 22, 23, 24, 28];
 
@@ -34,7 +34,7 @@ const streamData = async () => {
   const db = await connectDatabase();
 
   const test = fs
-    .createReadStream('./airbnb-input/airbnb-listings.csv')
+    .createReadStream('../airbnb-input/airbnb-listings.csv')
     .pipe(
       parse({
         delimiter: ';',
@@ -68,6 +68,9 @@ const streamData = async () => {
           // return value['Price'] >= 500 ? value : null;
           // Listings
           // return value['Number of Reviews'] >= 100 ? value : null;
+          return value['Number of Reviews'] >= 100 || value['Price'] >= 500
+            ? value
+            : null;
         },
         cast: (value, { header, index, column }) => {
           if (numExtractFieldsIndex.includes(index)) {
@@ -87,14 +90,14 @@ const streamData = async () => {
         },
       })
     )
-    .pipe(streamToMongoDB({ dbURL, collection: 'premium_listings' }));
+    .pipe(streamToMongoDB({ dbURL, collection: 'listings' }));
 };
 
 const createUsers = async () => {
   const db = await connectDatabase();
 
-  await db.premium_listings.find().forEach(async (data) => {
-    // await db.listings.find().forEach(async (data) => {
+  // await db.premium_listings.find().forEach(async (data) => {
+  await db.listings.find().forEach(async (data) => {
     const newListingID = data._id;
     const hostData = {
       'Host ID': data['Host ID'],
@@ -104,34 +107,29 @@ const createUsers = async () => {
       'Host About': data['Host About'],
       'Host Thumbnail Url': data['Host Thumbnail Url'],
     };
-    await db.premium_users.updateOne(
-      // await db.users.updateOne(
+    // const newUser = await db.premium_users.updateOne(
+    const newUser = await db.users.findOneAndUpdate(
       { 'Host ID': data['Host ID'] },
       { $setOnInsert: hostData, $push: { listings: newListingID } },
-      { upsert: true }
+      { upsert: true, returnOriginal: false }
     );
+
+    // await db.premium_listings.updateMany({}, [
+    await db.listings.updateOne({ _id: newListingID }, [
+      {
+        $unset: [
+          'Host ID',
+          'Host Name',
+          'Host Since',
+          'Host Location',
+          'Host About',
+          'Host Thumbnail Url',
+        ],
+      },
+      { $set: { host: newUser.value._id } },
+    ]);
   });
 
-  console.log('Done!');
-  return;
-};
-
-const deleteUsers = async () => {
-  const db = await connectDatabase();
-
-  await db.premium_listings.updateMany({}, [
-    // await db.listings.updateMany({}, [
-    {
-      $unset: [
-        'Host ID',
-        'Host Name',
-        'Host Since',
-        'Host Location',
-        'Host About',
-        'Host Thumbnail Url',
-      ],
-    },
-  ]);
   console.log('Done!');
   return;
 };
@@ -148,7 +146,6 @@ const fixNames = async () => {
         Description: 'description',
         Notes: 'notes',
         'House Rules': 'rules',
-        'Thumbnail Url': 'thumbnail',
         'Picture Url': 'image',
         Street: 'street',
         City: 'city',
@@ -188,9 +185,12 @@ const fixNames = async () => {
   return;
 };
 
-streamData().then(() => {
-  createUsers().then(() => {
-    deleteUsers();
-  });
-});
-// fixNames();
+// streamData().then(() => {
+//   createUsers().then(() => {
+//     });
+//   });
+// });
+
+// streamData();
+// createUsers();
+fixNames();

@@ -10,6 +10,9 @@ build/
 # environment variables
 .env
 
+# data files
+*.csv
+
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*

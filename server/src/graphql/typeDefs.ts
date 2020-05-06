@@ -8,18 +8,6 @@ export const typeDefs = gql`
     RATINGS_VALUE
   }
 
-  enum CancellationType {
-    STRICT
-    FLEXIBLE
-    MODERATE
-  }
-
-  enum RoomType {
-    ENTIRE_HOME
-    PRIVATE_ROOM
-    SHARED_ROOM
-  }
-
   input LogInInput {
     code: String!
   }
@@ -60,16 +48,15 @@ export const typeDefs = gql`
 
   type Listing {
     id: ID!
+    host: User!
     name: String!
     description: String!
+    property: String!
+    room: String!
     notes: String!
     rules: String!
-    roomType: RoomType!
-    propertyType: String!
-    cancellation: CancellationType!
     thumbnail: String!
     image: String!
-    host: User!
     street: String!
     city: String!
     state: String!
@@ -77,13 +64,11 @@ export const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     price: Int!
-    numOfGuests: Int!
-    includedGuests: Int!
     bathrooms: Int!
     bedrooms: Int!
-    minNights: Int!
-    maxNights: Int!
-    numReviews: Int!
+    minimum: Int!
+    numOfGuests: Int!
+    reviews: Int!
     rating: Int!
     bookings(limit: Int!, page: Int!): Bookings
     bookingsIndex: String!
@@ -98,10 +83,10 @@ export const typeDefs = gql`
   type User {
     id: ID!
     name: String!
-    since: String!
-    location: String!
-    about: String!
     avatar: String!
+    about: String!
+    location: String!
+    since: String!
     hasWallet: Boolean!
     income: Int
     bookings(limit: Int!, page: Int!): Bookings

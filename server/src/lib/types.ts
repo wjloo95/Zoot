@@ -77,8 +77,6 @@ export interface Booking {
 export interface Database {
   listings: Collection<Listing>;
   users: Collection<User>;
-  // premium_listings: Collection<Listing>;
-  // premium_users: Collection<User>;
   bookings: Collection<Booking>;
 }
 

@@ -4,12 +4,20 @@ export const typeDefs = gql`
   enum ListingsSort {
     PRICE_LOW_TO_HIGH
     PRICE_HIGH_TO_LOW
+    RATINGS_COUNT
+    RATINGS_VALUE
   }
 
-  enum ListingType {
-    APARTMENT
-    HOUSE
-    HOTEL
+  enum CancellationType {
+    STRICT
+    FLEXIBLE
+    MODERATE
+  }
+
+  enum RoomType {
+    ENTIRE_HOME
+    PRIVATE_ROOM
+    SHARED_ROOM
   }
 
   input LogInInput {
@@ -24,7 +32,7 @@ export const typeDefs = gql`
     title: String!
     description: String!
     image: String!
-    type: ListingType!
+    type: String!
     address: String!
     price: Int!
     numOfGuests: Int!
@@ -52,19 +60,33 @@ export const typeDefs = gql`
 
   type Listing {
     id: ID!
-    title: String!
+    name: String!
     description: String!
+    notes: String!
+    rules: String!
+    roomType: RoomType!
+    propertyType: String!
+    cancellation: CancellationType!
+    thumbnail: String!
     image: String!
     host: User!
-    type: ListingType!
-    address: String!
+    street: String!
     city: String!
-    admin: String!
+    state: String!
     country: String!
-    bookings(limit: Int!, page: Int!): Bookings
-    bookingsIndex: String!
+    latitude: Float!
+    longitude: Float!
     price: Int!
     numOfGuests: Int!
+    includedGuests: Int!
+    bathrooms: Int!
+    bedrooms: Int!
+    minNights: Int!
+    maxNights: Int!
+    numReviews: Int!
+    rating: Int!
+    bookings(limit: Int!, page: Int!): Bookings
+    bookingsIndex: String!
   }
 
   type Listings {
@@ -76,8 +98,10 @@ export const typeDefs = gql`
   type User {
     id: ID!
     name: String!
+    since: String!
+    location: String!
+    about: String!
     avatar: String!
-    contact: String!
     hasWallet: Boolean!
     income: Int
     bookings(limit: Int!, page: Int!): Bookings

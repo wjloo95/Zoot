@@ -188,7 +188,9 @@ const fixNames = async () => {
   return;
 };
 
-// streamData();
-// createUsers();
-// deleteUsers();
+streamData().then(() => {
+  createUsers().then(() => {
+    deleteUsers();
+  });
+});
 // fixNames();

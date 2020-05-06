@@ -40,36 +40,8 @@ const streamData = async () => {
         delimiter: ';',
         columns: true,
         on_record: (value, context) => {
-          // if (
-          //   !['strict', 'flexible', 'moderate'].includes(
-          //     value['Cancellation Policy']
-          //   )
-          // ) {
-          //   return null;
-          // } else if (
-          //   ![
-          //     'Apartment',
-          //     'House',
-          //     'Bed & Breakfast',
-          //     'Condominium',
-          //     'Loft',
-          //     'Townhouse',
-          //     'Villa',
-          //     'Bungalow',
-          //     'Boat',
-          //   ].includes(value['Property Type'])
-          // ) {
-          //   return null;
-          // } else if (value['Number of Reviews'] < 100) {
-          //   return null;
-          // }
-          // return value;
-          // Premium Listings
-          // return value['Price'] >= 500 ? value : null;
-          // Listings
-          // return value['Number of Reviews'] >= 100 ? value : null;
           return value['Number of Reviews'] >= 100 || value['Price'] >= 500
-            ? value
+            ? { ...value, bookings: [], bookingsIndex: {} }
             : null;
         },
         cast: (value, { header, index, column }) => {
@@ -99,17 +71,20 @@ const createUsers = async () => {
   // await db.premium_listings.find().forEach(async (data) => {
   await db.listings.find().forEach(async (data) => {
     const newListingID = data._id;
+
     const hostData = {
-      'Host ID': data['Host ID'],
-      'Host Name': data['Host Name'],
-      'Host Since': data['Host Since'],
-      'Host Location': data['Host Location'],
-      'Host About': data['Host About'],
-      'Host Thumbnail Url': data['Host Thumbnail Url'],
+      id: data['Host ID'],
+      name: data['Host Name'],
+      since: data['Host Since'],
+      location: data['Host Location'],
+      about: data['Host About'],
+      avatar: data['Host Thumbnail Url'],
+      bookings: [],
     };
+
     // const newUser = await db.premium_users.updateOne(
     const newUser = await db.users.findOneAndUpdate(
-      { 'Host ID': data['Host ID'] },
+      { id: data['Host ID'] },
       { $setOnInsert: hostData, $push: { listings: newListingID } },
       { upsert: true, returnOriginal: false }
     );
@@ -126,7 +101,9 @@ const createUsers = async () => {
           'Host Thumbnail Url',
         ],
       },
-      { $set: { host: newUser.value._id } },
+      {
+        $set: { host: `${newUser.value._id}` },
+      },
     ]);
   });
 
@@ -163,33 +140,11 @@ const fixNames = async () => {
         'Number of Reviews': 'reviews',
         'Review Scores Rating': 'rating',
       },
-      $unset: { 'Cancellation Policy': '' },
-    }
-  );
-
-  // await db.premium_users.updateMany(
-  await db.users.updateMany(
-    {},
-    {
-      $rename: {
-        'Host ID': 'id',
-        'Host Name': 'name',
-        'Host Since': 'since',
-        'Host Location': 'location',
-        'Host About': 'about',
-        'Host Thumbnail Url': 'avatar',
-      },
     }
   );
   console.log('Done!');
   return;
 };
-
-// streamData().then(() => {
-//   createUsers().then(() => {
-//     });
-//   });
-// });
 
 // streamData();
 // createUsers();

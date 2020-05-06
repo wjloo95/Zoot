@@ -25,9 +25,7 @@ export const listingsResolvers: IResolvers = {
         };
 
         if (location) {
-          const { country, admin, city } = await Google.geocode(location);
-
-          const state = admin;
+          const { country, state, city } = await Google.geocode(location);
 
           if (city) query.city = city;
           if (state) query.state = state;

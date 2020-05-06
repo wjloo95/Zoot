@@ -42,7 +42,7 @@ export const verifyHostListingInput = ({
 
 export const parseAddress = (addressComponents: AddressComponent[]) => {
   let country = null;
-  let admin = null;
+  let state = null;
   let city = null;
 
   for (const component of addressComponents) {
@@ -51,7 +51,7 @@ export const parseAddress = (addressComponents: AddressComponent[]) => {
     }
 
     if (component.types.includes('administrative_area_level_1')) {
-      admin = component.long_name;
+      state = component.long_name;
     }
 
     if (
@@ -63,7 +63,7 @@ export const parseAddress = (addressComponents: AddressComponent[]) => {
     }
   }
 
-  return { country, admin, city };
+  return { country, state, city };
 };
 
 export const resolveBookingsIndex = (

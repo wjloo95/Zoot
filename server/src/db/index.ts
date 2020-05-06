@@ -12,6 +12,8 @@ export const connectDatabase = async (): Promise<Database> => {
   const collections = {
     listings: db.collection<Listing>('listings'),
     users: db.collection<User>('users'),
+    premium_listings: db.collection<Listing>('premium_listings'),
+    premium_users: db.collection<User>('premium_users'),
     bookings: db.collection<Booking>('bookings'),
   };
 

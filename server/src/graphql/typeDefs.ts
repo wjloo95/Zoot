@@ -14,6 +14,12 @@ export const typeDefs = gql`
     SHARED_ROOM
   }
 
+  enum PropertyType {
+    APARTMENT
+    HOUSE
+    OTHER
+  }
+
   input LogInInput {
     code: String!
   }
@@ -25,7 +31,7 @@ export const typeDefs = gql`
   input HostListingInput {
     name: String!
     description: String!
-    property: String!
+    property: PropertyType!
     room: RoomType!
     notes: String!
     rules: String!
@@ -67,7 +73,6 @@ export const typeDefs = gql`
     room: String!
     notes: String!
     rules: String!
-    thumbnail: String!
     image: String!
     street: String!
     city: String!
@@ -83,7 +88,7 @@ export const typeDefs = gql`
     reviews: Int!
     rating: Int!
     bookings(limit: Int!, page: Int!): Bookings
-    bookingsIndex: String
+    bookingsIndex: String!
   }
 
   type Listings {

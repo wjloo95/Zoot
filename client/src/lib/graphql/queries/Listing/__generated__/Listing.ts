@@ -47,10 +47,12 @@ export interface Listing_listing {
   host: Listing_listing_host;
   property: string;
   room: string;
+  latitude: number;
+  longitude: number;
   street: string;
   city: string;
   bookings: Listing_listing_bookings | null;
-  bookingsIndex: string | null;
+  bookingsIndex: string;
   price: number;
   bedrooms: number;
   bathrooms: number;

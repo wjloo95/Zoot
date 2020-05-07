@@ -11,7 +11,7 @@ export interface UserListings_user_listings_result {
   __typename: "Listing";
   id: string;
   name: string;
-  thumbnail: string;
+  image: string;
   street: string;
   reviews: number;
   rating: number;

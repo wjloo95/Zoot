@@ -14,6 +14,18 @@ export enum ListingsSort {
   RATINGS_VALUE = "RATINGS_VALUE",
 }
 
+export enum PropertyType {
+  APARTMENT = "APARTMENT",
+  HOUSE = "HOUSE",
+  OTHER = "OTHER",
+}
+
+export enum RoomType {
+  ENTIRE_HOME = "ENTIRE_HOME",
+  PRIVATE_ROOM = "PRIVATE_ROOM",
+  SHARED_ROOM = "SHARED_ROOM",
+}
+
 export interface ConnectStripeInput {
   code: string;
 }
@@ -21,8 +33,8 @@ export interface ConnectStripeInput {
 export interface HostListingInput {
   name: string;
   description: string;
-  property: string;
-  room: string;
+  property: PropertyType;
+  room: RoomType;
   notes: string;
   rules: string;
   image: string;

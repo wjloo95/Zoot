@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import { Typography } from 'antd';
-import { EnvironmentTwoTone } from '@ant-design/icons';
+import { EnvironmentFilled } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -14,7 +14,7 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
   const initialViewport = {
     latitude,
     longitude,
-    zoom: 10,
+    zoom: 11,
     maxZoom: 18,
     minZoom: 4,
   };
@@ -34,10 +34,7 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
         }}
       >
         <Marker latitude={latitude} longitude={longitude}>
-          <EnvironmentTwoTone
-            style={{ fontSize: '30px' }}
-            twoToneColor="#d63031"
-          />
+          <EnvironmentFilled style={{ fontSize: '30px', color: '#2d3436' }} />
         </Marker>
       </ReactMapGL>
     </div>

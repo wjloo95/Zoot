@@ -14,7 +14,7 @@ import { ListingsSortSection } from '../ListingsSortSection';
 import { ListingsPagination } from '../ListingsPagination';
 import { ListingsSkeleton } from '../ListingsSkeleton';
 
-import { List, Affix, Typography } from 'antd';
+import { List, Typography } from 'antd';
 const { Item } = List;
 const { Title } = Typography;
 
@@ -74,16 +74,14 @@ export const ListingsSection = () => {
   const listingsSectionElement =
     listings && listings.result.length ? (
       <div>
-        <Affix offsetTop={64}>
-          <ListingsPagination
-            total={listings.total}
-            page={page}
-            limit={pageLimit}
-            setPage={setPage}
-            setPageLimit={setPageLimit}
-          />
-          <ListingsSortSection sort={sort} setSort={setSort} />
-        </Affix>
+        <ListingsPagination
+          total={listings.total}
+          page={page}
+          limit={pageLimit}
+          setPage={setPage}
+          setPageLimit={setPageLimit}
+        />
+        <ListingsSortSection sort={sort} setSort={setSort} />
         <List
           grid={{
             gutter: 8,

@@ -39,6 +39,29 @@ export const ListingDetails = ({ listing }: IProps) => {
       <>Be the first to submit a review!</>
     );
 
+  const descriptionElement = description.length ? (
+    <>
+      <Title level={3}>Description</Title>
+      <Paragraph ellipsis={{ rows: 3, expandable: true }}>
+        {description}
+      </Paragraph>
+    </>
+  ) : null;
+
+  const rulesElement = rules.length ? (
+    <>
+      <Title level={3}>House Rules</Title>
+      <Paragraph ellipsis={{ rows: 3, expandable: true }}>{rules}</Paragraph>
+    </>
+  ) : null;
+
+  const notesElement = notes.length ? (
+    <>
+      <Title level={3}>Additional Notes</Title>
+      <Paragraph ellipsis={{ rows: 3, expandable: true }}>{notes}</Paragraph>
+    </>
+  ) : null;
+
   return (
     <div className="listing-details">
       <div className="listing-details__information">
@@ -84,14 +107,9 @@ export const ListingDetails = ({ listing }: IProps) => {
           <Tag color="magenta">{bedrooms} Bedrooms</Tag>
           <Tag color="magenta">{bathrooms} Bathrooms</Tag>
         </div>
-        <Title level={3}>Description</Title>
-        <Paragraph ellipsis={{ rows: 3, expandable: true }}>
-          {description}
-        </Paragraph>
-        <Title level={3}>House Rules</Title>
-        <Paragraph ellipsis={{ rows: 3, expandable: true }}>{rules}</Paragraph>
-        <Title level={3}>Additional Notes</Title>
-        <Paragraph ellipsis={{ rows: 3, expandable: true }}>{notes}</Paragraph>
+        {descriptionElement}
+        {rulesElement}
+        {notesElement}
       </div>
     </div>
   );

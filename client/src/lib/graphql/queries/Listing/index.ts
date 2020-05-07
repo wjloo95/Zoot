@@ -17,6 +17,8 @@ export const LISTING = gql`
       }
       property
       room
+      latitude
+      longitude
       street
       city
       bookings(limit: $limit, page: $bookingsPage) {

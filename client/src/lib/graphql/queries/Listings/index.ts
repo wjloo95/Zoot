@@ -13,8 +13,10 @@ export const LISTINGS = gql`
       result {
         id
         name
-        thumbnail
+        image
         street
+        latitude
+        longitude
         reviews
         rating
         price

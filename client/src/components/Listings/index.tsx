@@ -76,6 +76,7 @@ export const Listings = () => {
   const listingsRegion = listings ? listings.region : null;
   const listingsLat = listings ? listings.latitude : null;
   const listingsLng = listings ? listings.longitude : null;
+  const resultListings = listings ? listings.result : null;
 
   const listingsSectionElement =
     listings && listings.result.length ? (
@@ -129,6 +130,7 @@ export const Listings = () => {
       <ListingsMap
         latitude={listingsLat || 0.0023}
         longitude={listingsLng || 78.4559}
+        listings={resultListings}
       />
     </Content>
   );

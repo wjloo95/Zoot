@@ -2,6 +2,7 @@ import { Database, User } from '../../../lib/types';
 import { Google } from '../../../lib/api';
 import { Response } from 'express';
 import { cookieOptions } from '../../../lib/utils';
+import { ObjectID } from 'mongodb';
 
 export const logInViaGoogle = async (
   code: string,
@@ -42,7 +43,7 @@ export const logInViaGoogle = async (
   }
 
   const updateRes = await db.users.findOneAndUpdate(
-    { _id: userId },
+    { _id: new ObjectID(userId) },
     {
       $set: {
         name: userName,

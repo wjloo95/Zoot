@@ -25,7 +25,7 @@ export interface BookingsIndex {
 }
 export interface Listing {
   _id: ObjectID;
-  host: string;
+  host: ObjectID;
   name: string;
   description: string;
   property: string;
@@ -52,7 +52,7 @@ export interface Listing {
 }
 
 export interface User {
-  _id: string;
+  _id: ObjectID;
   token: string;
   name: string;
   avatar: string;
@@ -69,7 +69,7 @@ export interface User {
 export interface Booking {
   _id: ObjectID;
   listing: ObjectID;
-  tenant: string;
+  tenant: ObjectID;
   checkIn: string;
   checkOut: string;
 }
@@ -81,7 +81,7 @@ export interface Database {
 }
 
 export interface Viewer {
-  _id?: string;
+  _id?: ObjectID;
   token?: string;
   avatar?: string;
   walletId?: string;

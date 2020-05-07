@@ -95,7 +95,9 @@ export const listingResolvers: IResolvers = {
       _args: {},
       { db }: { db: Database }
     ): Promise<User> => {
-      const hostUser = await db.users.findOne({ _id: listing.host });
+      const hostUser = await db.users.findOne({
+        _id: new ObjectID(listing.host),
+      });
 
       if (!hostUser) {
         throw new Error('Host could not be found');

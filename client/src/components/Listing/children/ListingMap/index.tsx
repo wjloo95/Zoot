@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import ReactMapGL, { ViewportProps } from 'react-map-gl';
+import ReactMapGL, { Marker } from 'react-map-gl';
 import { Typography } from 'antd';
+import { EnvironmentTwoTone } from '@ant-design/icons';
 
 const { Title } = Typography;
 
@@ -14,6 +15,8 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
     latitude,
     longitude,
     zoom: 10,
+    maxZoom: 18,
+    minZoom: 4,
   };
   const [viewport, setViewport] = useState(initialViewport);
   return (
@@ -26,9 +29,17 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
         height={400}
         {...viewport}
         onViewportChange={(viewport) => {
+          console.log(viewport);
           setViewport(viewport);
         }}
-      />
+      >
+        <Marker latitude={latitude} longitude={longitude}>
+          <EnvironmentTwoTone
+            style={{ fontSize: '30px' }}
+            twoToneColor="#d63031"
+          />
+        </Marker>
+      </ReactMapGL>
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Button, Card, Divider, Tag, Typography } from 'antd';
 
@@ -7,6 +7,7 @@ import {
   formatPrice,
   displaySuccessNotification,
   displayErrorMessage,
+  imageExists,
 } from '../../../../lib/utils';
 import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
 import { useMutation } from '@apollo/react-hooks';
@@ -33,6 +34,7 @@ export const UserProfile = ({
   setViewer,
   handleRefetch,
 }: IProps) => {
+  const [avatarImage, setAvatarImage] = useState(user.avatar);
   const [disconnectStripe] = useMutation<DisconnectStripeData>(
     DISCONNECT_STRIPE,
     {
@@ -129,7 +131,14 @@ export const UserProfile = ({
     <div className="user-profile">
       <Card className="user-profile__card">
         <div className="user-profile__avatar">
-          <Avatar size={100} src={user.avatar ? user.avatar : placeholder} />
+          <Avatar
+            size={100}
+            onError={() => {
+              setAvatarImage(placeholder);
+              return false;
+            }}
+            src={avatarImage}
+          />
         </div>
         <Divider />
         <div className="user-profile__details">

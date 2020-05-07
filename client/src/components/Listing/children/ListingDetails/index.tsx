@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Divider, Tag, Typography } from 'antd';
 import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
@@ -13,6 +13,7 @@ interface IProps {
 const { Paragraph, Title } = Typography;
 
 export const ListingDetails = ({ listing }: IProps) => {
+  const [avatarImage, setAvatarImage] = useState(listing.host.avatar);
   const {
     name,
     description,
@@ -91,7 +92,14 @@ export const ListingDetails = ({ listing }: IProps) => {
 
       <div className="listing-details__section">
         <Link to={`/user/${host.id}`}>
-          <Avatar src={host.avatar ? host.avatar : placeholder} size={64} />
+          <Avatar
+            onError={() => {
+              setAvatarImage(placeholder);
+              return false;
+            }}
+            src={avatarImage}
+            size={64}
+          />
           <Title level={2} className="listing-details__host-name">
             {host.name}
           </Title>

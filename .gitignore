@@ -10,6 +10,7 @@ build/
 # environment variables
 .env
 
+# data files
 *.csv
 
 npm-debug.log*

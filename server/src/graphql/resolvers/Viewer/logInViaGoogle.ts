@@ -41,7 +41,7 @@ export const logInViaGoogle = async (
     throw new Error('Google login error');
   }
 
-  userId = userId + 'ABC';
+  const updatedID = userId + 'ABC';
 
   const today = new Date();
   const sinceString =
@@ -52,7 +52,7 @@ export const logInViaGoogle = async (
     ('0' + today.getDate()).slice(-2);
 
   const updateRes = await db.users.findOneAndUpdate(
-    { _id: new ObjectID(userId) },
+    { _id: new ObjectID(updatedID) },
     {
       $set: {
         name: userName,
@@ -70,7 +70,7 @@ export const logInViaGoogle = async (
 
   const viewer = updateRes.value;
 
-  res.cookie('viewer', userId, {
+  res.cookie('viewer', updatedID, {
     ...cookieOptions,
     maxAge: 365 * 24 * 60 * 60 * 1000,
   });

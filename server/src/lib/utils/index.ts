@@ -8,6 +8,7 @@ import {
 } from '../types';
 import { HostListingInput } from '../../graphql/resolvers/Listing/types';
 import { AddressComponent } from '@google/maps';
+import { ObjectID } from 'mongodb';
 
 export const cookieOptions = {
   httpOnly: true,
@@ -22,7 +23,7 @@ export const authorize = async (
 ): Promise<User | null> => {
   const token = req.get('X-CSRF-TOKEN');
   const viewer = await db.users.findOne({
-    _id: req.signedCookies.viewer,
+    _id: new ObjectID(req.signedCookies.viewer),
     token,
   });
 

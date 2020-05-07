@@ -3,6 +3,7 @@ import { UserArgs, UserListsArgs, UserListsData } from './types';
 import { Database, User, Booking, Listing } from '../../../lib/types';
 import { Request } from 'express';
 import { authorize } from '../../../lib/utils';
+import { ObjectID } from 'mongodb';
 
 export const userResolvers: IResolvers = {
   Query: {
@@ -12,7 +13,7 @@ export const userResolvers: IResolvers = {
       { db, req }: { db: Database; req: Request }
     ): Promise<User> => {
       try {
-        const user = await db.users.findOne({ _id: id });
+        const user = await db.users.findOne({ _id: new ObjectID(id) });
 
         if (!user) {
           throw new Error("User can't be found");

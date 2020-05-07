@@ -13,10 +13,11 @@ export const HomeListings = ({ listings }: IProps) => {
   return (
     <div className="home-listings">
       <Title level={4} className="home-listings__title">
-        Premium Listings
+        Our Most Popular Listings
       </Title>
       <List
         grid={{
+          column: 3,
           gutter: 8,
           xs: 1,
           sm: 2,

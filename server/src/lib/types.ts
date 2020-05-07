@@ -1,9 +1,15 @@
 import { ObjectID, Collection } from 'mongodb';
 
-export enum ListingType {
+export enum RoomType {
+  EntireHome = 'ENTIRE_HOME',
+  PrivateRoom = 'PRIVATE_ROOM',
+  SharedRoom = 'SHARED_ROOM',
+}
+
+export enum PropertyType {
   Apartment = 'APARTMENT',
   House = 'HOUSE',
-  Hotel = 'HOTEL',
+  Other = 'OTHER',
 }
 
 interface BookingsIndexMonth {
@@ -19,28 +25,40 @@ export interface BookingsIndex {
 }
 export interface Listing {
   _id: ObjectID;
-  title: string;
+  host: ObjectID;
+  name: string;
   description: string;
+  property: string;
+  room: string;
+  notes: string;
+  rules: string;
   image: string;
-  host: string;
-  admin: string;
-  type: ListingType;
-  address: string;
+  street: string;
   city: string;
+  state: string;
   country: string;
+  latitude: number;
+  longitude: number;
+  price: number;
+  bathrooms: number;
+  bedrooms: number;
+  minimum: number;
+  numOfGuests: number;
+  reviews: number;
+  rating?: number;
   bookings: ObjectID[];
   bookingsIndex: BookingsIndex;
-  price: number;
-  numOfGuests: number;
   authorized?: boolean;
 }
 
 export interface User {
-  _id: string;
+  _id: ObjectID;
   token: string;
   name: string;
   avatar: string;
-  contact: string;
+  about: string;
+  location: string;
+  since: string;
   walletId?: string;
   income: number;
   bookings: ObjectID[];
@@ -51,7 +69,7 @@ export interface User {
 export interface Booking {
   _id: ObjectID;
   listing: ObjectID;
-  tenant: string;
+  tenant: ObjectID;
   checkIn: string;
   checkOut: string;
 }
@@ -63,7 +81,7 @@ export interface Database {
 }
 
 export interface Viewer {
-  _id?: string;
+  _id?: ObjectID;
   token?: string;
   avatar?: string;
   walletId?: string;

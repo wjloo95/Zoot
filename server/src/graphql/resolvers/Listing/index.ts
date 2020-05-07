@@ -17,7 +17,7 @@ export const listingResolvers: IResolvers = {
       _root: undefined,
       { id }: ListingArgs,
       { db, req }: { db: Database; req: Request }
-    ) => {
+    ): Promise<Listing> => {
       try {
         const listing = await db.listings.findOne({ _id: new ObjectID(id) });
 
@@ -51,24 +51,29 @@ export const listingResolvers: IResolvers = {
         throw new Error('Viewer cannot be found');
       }
 
-      const { country, admin, city } = await Google.geocode(input.address);
+      const { country, state, city, lat, lng } = await Google.geocode(
+        input.street
+      );
 
-      if (!country || !admin || !city) {
+      if (!country || !state || !city) {
         throw new Error('Invalid address input');
       }
 
       const imageUrl = await Cloudinary.upload(input.image);
 
       const insertedResult = await db.listings.insertOne({
-        _id: new ObjectID(),
         ...input,
+        _id: new ObjectID(),
+        host: viewer._id,
         image: imageUrl,
         bookings: [],
         bookingsIndex: {},
+        latitude: lat,
+        longitude: lng,
         country,
-        admin,
+        state,
         city,
-        host: viewer._id,
+        reviews: 0,
       });
 
       const newListing: Listing = insertedResult.ops[0];
@@ -90,7 +95,9 @@ export const listingResolvers: IResolvers = {
       _args: {},
       { db }: { db: Database }
     ): Promise<User> => {
-      const hostUser = await db.users.findOne({ _id: listing.host });
+      const hostUser = await db.users.findOne({
+        _id: new ObjectID(listing.host),
+      });
 
       if (!hostUser) {
         throw new Error('Host could not be found');

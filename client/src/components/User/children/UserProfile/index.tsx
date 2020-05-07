@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Avatar, Button, Card, Divider, Tag, Typography } from 'antd';
+
 import { User as UserData } from '../../../../lib/graphql/queries/User/__generated__/User';
 import {
   formatPrice,
@@ -10,8 +12,8 @@ import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphq
 import { useMutation } from '@apollo/react-hooks';
 import { DISCONNECT_STRIPE } from '../../../../lib/graphql/mutations';
 import { Viewer } from '../../../../lib/types';
-import { Link } from 'react-router-dom';
 
+import placeholder from '../../../../lib/assets/UserPlaceholder.png';
 interface IProps {
   user: UserData['user'];
   isViewer: boolean;
@@ -31,6 +33,7 @@ export const UserProfile = ({
   setViewer,
   handleRefetch,
 }: IProps) => {
+  const [avatarImage, setAvatarImage] = useState(user.avatar);
   const [disconnectStripe] = useMutation<DisconnectStripeData>(
     DISCONNECT_STRIPE,
     {
@@ -127,7 +130,14 @@ export const UserProfile = ({
     <div className="user-profile">
       <Card className="user-profile__card">
         <div className="user-profile__avatar">
-          <Avatar size={100} src={user.avatar} />
+          <Avatar
+            size={100}
+            onError={() => {
+              setAvatarImage(placeholder);
+              return false;
+            }}
+            src={avatarImage}
+          />
         </div>
         <Divider />
         <div className="user-profile__details">
@@ -136,7 +146,13 @@ export const UserProfile = ({
             Name: <Text strong>{user.name}</Text>
           </Paragraph>
           <Paragraph>
-            Contact: <Text strong>{user.contact}</Text>
+            Location: <Text strong>{user.location}</Text>
+          </Paragraph>
+          <Paragraph>
+            User Since: <Text strong>{user.since}</Text>
+          </Paragraph>
+          <Paragraph>
+            About: <Text strong>{user.about}</Text>
           </Paragraph>
         </div>
         {additionalDetailsSection}

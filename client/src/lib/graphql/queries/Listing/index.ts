@@ -4,8 +4,10 @@ export const LISTING = gql`
   query Listing($id: ID!, $bookingsPage: Int!, $limit: Int!) {
     listing(id: $id) {
       id
-      title
+      name
       description
+      notes
+      rules
       image
       host {
         id
@@ -13,8 +15,11 @@ export const LISTING = gql`
         avatar
         hasWallet
       }
-      type
-      address
+      property
+      room
+      latitude
+      longitude
+      street
       city
       bookings(limit: $limit, page: $bookingsPage) {
         total
@@ -31,6 +36,11 @@ export const LISTING = gql`
       }
       bookingsIndex
       price
+      bedrooms
+      bathrooms
+      minimum
+      rating
+      reviews
       numOfGuests
     }
   }

@@ -8,12 +8,7 @@ import {
   ListingVariables,
 } from '../../lib/graphql/queries/Listing/__generated__/Listing';
 import { PageSkeleton, ErrorBanner } from '../../lib/components';
-import {
-  ListingDetails,
-  ListingBookings,
-  ListingCreateBooking,
-} from './children';
-import { listingBookings } from './children/ListingBookings/mockBookings';
+import { ListingDetails, ListingCreateBooking } from './children';
 import { Viewer } from '../../lib/types';
 
 import { Layout, Col, Row } from 'antd';
@@ -51,10 +46,6 @@ export const Listing = ({ viewer }: IProps) => {
     <ListingDetails listing={listing} />
   ) : null;
 
-  const listingBookingsElement = listingBookings ? (
-    <ListingBookings listingBookings={listingBookings} limit={PAGE_LIMIT} />
-  ) : null;
-
   const ListingCreateBookingElement = listing ? (
     <ListingCreateBooking
       price={listing.price}
@@ -80,7 +71,6 @@ export const Listing = ({ viewer }: IProps) => {
         <Row gutter={24} justify="space-between">
           <Col xs={24} lg={14}>
             {listingDetailsElement}
-            {listingBookingsElement}
           </Col>
           <Col xs={24} lg={10}>
             {ListingCreateBookingElement}

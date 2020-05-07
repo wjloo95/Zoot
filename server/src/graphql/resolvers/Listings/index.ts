@@ -25,10 +25,10 @@ export const listingsResolvers: IResolvers = {
         };
 
         if (location) {
-          const { country, admin, city } = await Google.geocode(location);
+          const { country, state, city } = await Google.geocode(location);
 
           if (city) query.city = city;
-          if (admin) query.admin = admin;
+          if (state) query.state = state;
           if (country) {
             query.country = country;
           } else {
@@ -36,8 +36,8 @@ export const listingsResolvers: IResolvers = {
           }
 
           const cityText = city ? `${city}, ` : '';
-          const adminText = admin ? `${admin}, ` : '';
-          data.region = `${cityText}${adminText}${country}`;
+          const stateText = state ? `${state}, ` : '';
+          data.region = `${cityText}${stateText}${country}`;
         }
 
         let cursor = await db.listings.find(query);
@@ -48,6 +48,14 @@ export const listingsResolvers: IResolvers = {
 
         if (sort && sort === ListingsSort.PRICE_HIGH_TO_LOW) {
           cursor = cursor.sort({ price: -1 });
+        }
+
+        if (sort && sort === ListingsSort.RATINGS_COUNT) {
+          cursor = cursor.sort({ reviews: -1 });
+        }
+
+        if (sort && sort === ListingsSort.RATINGS_VALUE) {
+          cursor = cursor.sort({ rating: -1 });
         }
 
         cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);

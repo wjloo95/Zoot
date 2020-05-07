@@ -3,8 +3,6 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ListingType } from "./../../../globalTypes";
-
 // ====================================================
 // GraphQL query operation: Listing
 // ====================================================
@@ -41,16 +39,26 @@ export interface Listing_listing_bookings {
 export interface Listing_listing {
   __typename: "Listing";
   id: string;
-  title: string;
+  name: string;
   description: string;
+  notes: string;
+  rules: string;
   image: string;
   host: Listing_listing_host;
-  type: ListingType;
-  address: string;
+  property: string;
+  room: string;
+  latitude: number;
+  longitude: number;
+  street: string;
   city: string;
   bookings: Listing_listing_bookings | null;
   bookingsIndex: string;
   price: number;
+  bedrooms: number;
+  bathrooms: number;
+  minimum: number;
+  rating: number;
+  reviews: number;
   numOfGuests: number;
 }
 

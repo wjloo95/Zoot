@@ -17,7 +17,7 @@ export const listingResolvers: IResolvers = {
       _root: undefined,
       { id }: ListingArgs,
       { db, req }: { db: Database; req: Request }
-    ) => {
+    ): Promise<Listing> => {
       try {
         const listing = await db.listings.findOne({ _id: new ObjectID(id) });
 

@@ -4,6 +4,8 @@ import { Avatar, Divider, Tag, Typography } from 'antd';
 import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { EnvironmentFilled, UserOutlined, StarFilled } from '@ant-design/icons';
 
+import placeholder from '../../../../lib/assets/UserPlaceholder.png';
+
 interface IProps {
   listing: ListingData['listing'];
 }
@@ -57,7 +59,7 @@ export const ListingDetails = ({ listing }: IProps) => {
 
       <div className="listing-details__section">
         <Link to={`/user/${host.id}`}>
-          <Avatar src={host.avatar} size={64} />
+          <Avatar src={host.avatar ? host.avatar : placeholder} size={64} />
           <Title level={2} className="listing-details__host-name">
             {host.name}
           </Title>

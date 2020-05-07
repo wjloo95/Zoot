@@ -25,7 +25,7 @@ interface IParams {
 const PAGE_LIMIT = 6;
 
 export const ListingsSection = () => {
-  const [sort, setSort] = useState(ListingsSort.PRICE_LOW_TO_HIGH);
+  const [sort, setSort] = useState(ListingsSort.RATINGS_VALUE);
   const [page, setPage] = useState(1);
 
   const { location } = useParams<IParams>();

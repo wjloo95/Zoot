@@ -95,6 +95,25 @@
   z-index: 99;
 }
 
+/* Map Card Styles */
+.map-card__cover-img {
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+  background-position: 50%;
+}
+.map-card__price.ant-typography {
+  color: #1d226c;
+}
+.map-card__price.ant-typography span {
+  color: #bfbfbf;
+  font-weight: 400;
+}
+.map-card__title.ant-typography,
+.map-card__address.ant-typography {
+  display: block;
+}
+
 /* Listing Card Styles */
 .listing-card__cover-img {
   width: 100%;
@@ -163,6 +182,7 @@
     padding-bottom: 0;
   }
 }
+
 .home-hero,
 .page-skeleton__paragraph {
   padding-bottom: 40px;

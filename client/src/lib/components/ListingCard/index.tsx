@@ -1,8 +1,10 @@
 import React from 'react';
-import { Card, Typography } from 'antd';
-import { UserOutlined, CompassOutlined, StarFilled } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils';
+
+import { UserOutlined, CompassOutlined, StarFilled } from '@ant-design/icons';
+import { Card, Typography } from 'antd';
+const { Text, Title } = Typography;
 
 interface IProps {
   listing: {
@@ -15,10 +17,10 @@ interface IProps {
     price: number;
     numOfGuests: number;
   };
+  map?: boolean;
 }
 
-const { Text, Title } = Typography;
-export const ListingCard = ({ listing }: IProps) => {
+export const ListingCard = ({ listing, map }: IProps) => {
   const {
     id,
     name,
@@ -38,7 +40,33 @@ export const ListingCard = ({ listing }: IProps) => {
     ) : (
       <>No Reviews</>
     );
-  return (
+  return map ? (
+    <Link to={`/listing/${id}`}>
+      <Card
+        hoverable
+        cover={
+          <div
+            style={{ backgroundImage: `url(${image})` }}
+            className="map-card__cover-img"
+          />
+        }
+      >
+        <div className="map-card__details">
+          <div className="map-card__description">
+            <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
+            {starSection}
+            <Title level={4} className="map-card__price">
+              {`${formatPrice(price)}`}
+              <span>/night</span>
+            </Title>
+            <Text strong ellipsis className="map-card__title">
+              {name}
+            </Text>
+          </div>
+        </div>
+      </Card>
+    </Link>
+  ) : (
     <Link to={`/listing/${id}`}>
       <Card
         hoverable

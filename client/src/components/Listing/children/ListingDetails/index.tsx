@@ -47,8 +47,8 @@ export const ListingDetails = ({ listing }: IProps) => {
           <UserOutlined />
           {numOfGuests} Guests
           <Divider type="vertical" />
-          <StarFilled />
-          {((rating * 5) / 500).toFixed(2)} : {reviews} Reviews
+          <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
+          {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
         </Paragraph>
         <Title level={3} className="listing-details__title">
           {name}

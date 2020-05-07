@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, Typography } from 'antd';
-import { UserOutlined, CompassOutlined } from '@ant-design/icons';
+import { UserOutlined, CompassOutlined, StarFilled } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils';
 
@@ -42,15 +42,14 @@ export const ListingCard = ({ listing }: IProps) => {
       >
         <div className="listing-card__details">
           <div className="listing-card__description">
+            <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
+            {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
             <Title level={4} className="listing-card__price">
               {`${formatPrice(price)}`}
               <span>/night</span>
             </Title>
             <Text strong ellipsis className="listing-card__title">
               {name}
-            </Text>
-            <Text strong ellipsis className="listing-card__title">
-              {reviews} Reviews, {rating} Overall
             </Text>
           </div>
           <div className="listing-card-bottom">

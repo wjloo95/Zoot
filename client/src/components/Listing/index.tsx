@@ -71,7 +71,6 @@ export const Listing = ({ viewer }: IProps) => {
         <Row gutter={24} justify="space-between">
           <Col xs={24} lg={14}>
             {listingDetailsElement}
-            {/* {listingBookingsElement} */}
           </Col>
           <Col xs={24} lg={10}>
             {ListingCreateBookingElement}

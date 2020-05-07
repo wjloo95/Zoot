@@ -53,15 +53,15 @@ export const ListingDetails = ({ listing }: IProps) => {
           <Divider type="vertical" />
           {street}
           <Divider type="vertical" />
-          <UserOutlined />
-          {numOfGuests} Guests
-          <Divider type="vertical" />
-          <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
-          {starSection}
         </Paragraph>
-        <Title level={3} className="listing-details__title">
+        <Title level={2} className="listing-details__title">
           {name}
         </Title>
+        <UserOutlined />
+        {numOfGuests} Guests
+        <Divider type="vertical" />
+        <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
+        {starSection}
       </div>
 
       <Divider />
@@ -78,20 +78,19 @@ export const ListingDetails = ({ listing }: IProps) => {
       <Divider />
 
       <div className="listing-details__section">
-        <Title level={4}>About this space</Title>
         <div className="listing-details__about-items">
           <Tag color="magenta">{property}</Tag>
           <Tag color="magenta">{room}</Tag>
           <Tag color="magenta">{bedrooms} Bedrooms</Tag>
           <Tag color="magenta">{bathrooms} Bathrooms</Tag>
         </div>
-        <Title level={2}>Description</Title>
+        <Title level={3}>Description</Title>
         <Paragraph ellipsis={{ rows: 3, expandable: true }}>
           {description}
         </Paragraph>
-        <Title level={2}>House Rules</Title>
+        <Title level={3}>House Rules</Title>
         <Paragraph ellipsis={{ rows: 3, expandable: true }}>{rules}</Paragraph>
-        <Title level={2}>Additional Notes</Title>
+        <Title level={3}>Additional Notes</Title>
         <Paragraph ellipsis={{ rows: 3, expandable: true }}>{notes}</Paragraph>
       </div>
     </div>

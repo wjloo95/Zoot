@@ -21,7 +21,7 @@ import { Col, Row, Typography, Layout, Button } from 'antd';
 const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
-const PAGE_LIMIT = 4;
+const PAGE_LIMIT = 6;
 const PAGE_NUMBER = 1;
 
 export const ListingsHome = () => {
@@ -31,7 +31,7 @@ export const ListingsHome = () => {
     LISTINGS,
     {
       variables: {
-        sort: ListingsSort.PRICE_HIGH_TO_LOW,
+        sort: ListingsSort.RATINGS_COUNT,
         limit: PAGE_LIMIT,
         page: PAGE_NUMBER,
       },
@@ -70,7 +70,7 @@ export const ListingsHome = () => {
         </Paragraph>
         <Button>
           <Link to="/listings/United%20States">
-            Popular listings in the United States
+            Highly Rated Listings in the United States
           </Link>
         </Button>
       </div>

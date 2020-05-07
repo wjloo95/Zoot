@@ -14,7 +14,7 @@ import { ListingsSortSection } from '../ListingsSortSection';
 import { ListingsPagination } from '../ListingsPagination';
 import { ListingsSkeleton } from '../ListingsSkeleton';
 
-import { List, Affix, Typography } from 'antd';
+import { List, Typography } from 'antd';
 const { Item } = List;
 const { Title } = Typography;
 
@@ -22,11 +22,12 @@ interface IParams {
   location: string;
 }
 
-const PAGE_LIMIT = 6;
+const PAGE_LIMIT = 5;
 
 export const ListingsSection = () => {
-  const [sort, setSort] = useState(ListingsSort.PRICE_LOW_TO_HIGH);
+  const [sort, setSort] = useState(ListingsSort.RATINGS_VALUE);
   const [page, setPage] = useState(1);
+  const [pageLimit, setPageLimit] = useState(PAGE_LIMIT);
 
   const { location } = useParams<IParams>();
   const locationRef = useRef(location);
@@ -34,11 +35,14 @@ export const ListingsSection = () => {
   const { data, loading, error } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
     {
-      skip: locationRef.current !== location && page !== 1,
+      skip:
+        locationRef.current !== location &&
+        page !== 1 &&
+        pageLimit !== PAGE_LIMIT,
       variables: {
         location,
         sort,
-        limit: PAGE_LIMIT,
+        limit: pageLimit,
         page,
       },
     }
@@ -46,6 +50,7 @@ export const ListingsSection = () => {
 
   useEffect(() => {
     setPage(1);
+    setPageLimit(PAGE_LIMIT);
     locationRef.current = location;
   }, [location]);
 
@@ -69,18 +74,16 @@ export const ListingsSection = () => {
   const listingsSectionElement =
     listings && listings.result.length ? (
       <div>
-        <Affix offsetTop={64}>
-          <ListingsPagination
-            total={listings.total}
-            page={page}
-            limit={PAGE_LIMIT}
-            setPage={setPage}
-          />
-          <ListingsSortSection sort={sort} setSort={setSort} />
-        </Affix>
+        <ListingsPagination
+          total={listings.total}
+          page={page}
+          limit={pageLimit}
+          setPage={setPage}
+          setPageLimit={setPageLimit}
+        />
+        <ListingsSortSection sort={sort} setSort={setSort} />
         <List
           grid={{
-            column: 3,
             gutter: 8,
             xs: 1,
             sm: 2,
@@ -99,11 +102,12 @@ export const ListingsSection = () => {
       <NoListings listingsRegion={listingsRegion} />
     );
 
-  const listingsRegionElement = listingsRegion ? (
-    <Title level={3} className="listings__title">
-      Results for "{listingsRegion}"
-    </Title>
-  ) : null;
+  const listingsRegionElement =
+    listings && listingsRegion ? (
+      <Title level={3} className="listings__title">
+        {listings.total} Results for "{listingsRegion}"
+      </Title>
+    ) : null;
 
   return loading ? (
     <div className="listings-section">

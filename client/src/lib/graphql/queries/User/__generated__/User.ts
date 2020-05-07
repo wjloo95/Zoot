@@ -11,8 +11,10 @@ export interface User_user {
   __typename: "User";
   id: string;
   name: string;
+  about: string;
   avatar: string;
-  contact: string;
+  location: string;
+  since: string;
   hasWallet: boolean;
   income: number | null;
 }

@@ -428,10 +428,9 @@
 }
 .listing-details__section {
   font-size: 15px;
-  padding: 5px 0;
 }
 .listing-details__about-items {
-  padding-bottom: 20px;
+  padding-bottom: 15px;
 }
 .listing-details__amenities-row {
   padding: 5px 0;

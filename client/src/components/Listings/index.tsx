@@ -6,6 +6,7 @@ import { ListingCard, ErrorBanner } from '../../lib/components';
 import {
   Listings as ListingsData,
   ListingsVariables,
+  Listings_listings_result,
 } from '../../lib/graphql/queries/Listings/__generated__/Listings';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
 import { LISTINGS } from '../../lib/graphql/queries';
@@ -32,6 +33,10 @@ export const Listings = () => {
   const [sort, setSort] = useState(ListingsSort.RATINGS_VALUE);
   const [page, setPage] = useState(1);
   const [pageLimit, setPageLimit] = useState(PAGE_LIMIT);
+  const [
+    selectedListing,
+    setSelectedListing,
+  ] = useState<Listings_listings_result | null>(null);
 
   const { location } = useParams<IParams>();
   const locationRef = useRef(location);
@@ -100,7 +105,14 @@ export const Listings = () => {
           }}
           dataSource={listings.result}
           renderItem={(listing) => (
-            <Item>
+            <Item
+              onMouseEnter={() => {
+                setSelectedListing(listing);
+              }}
+              onMouseLeave={() => {
+                setSelectedListing(null);
+              }}
+            >
               <ListingCard listing={listing} />
             </Item>
           )}
@@ -131,6 +143,8 @@ export const Listings = () => {
         latitude={listingsLat || 0.0023}
         longitude={listingsLng || 78.4559}
         listings={resultListings}
+        selectedListing={selectedListing}
+        setSelectedListing={setSelectedListing}
       />
     </Content>
   );

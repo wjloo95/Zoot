@@ -1,25 +1,32 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Marker, Popup } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 
 import { HomeFilled } from '@ant-design/icons';
 import {
   Listings as ListingsData,
   Listings_listings_result,
 } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
-import { Link } from 'react-router-dom';
 import { ListingCard } from '../../../../lib/components';
 
 interface IProps {
   latitude: number;
   longitude: number;
   listings: ListingsData['listings']['result'] | null;
+  selectedListing: Listings_listings_result | null;
+  setSelectedListing: (listing: Listings_listings_result | null) => void;
 }
 
 const DEFAULT_ZOOM = 10;
 const MAX_ZOOM = 18;
 const MIN_ZOOM = 4;
 
-export const ListingsMap = ({ latitude, longitude, listings }: IProps) => {
+export const ListingsMap = ({
+  latitude,
+  longitude,
+  listings,
+  selectedListing,
+  setSelectedListing,
+}: IProps) => {
   const initialViewport = {
     latitude,
     longitude,
@@ -28,10 +35,6 @@ export const ListingsMap = ({ latitude, longitude, listings }: IProps) => {
     minZoom: MIN_ZOOM,
   };
   const [viewport, setViewport] = useState(initialViewport);
-  const [
-    selectedListing,
-    setSelectedListing,
-  ] = useState<Listings_listings_result | null>(null);
 
   const closePopup = () => {
     setSelectedListing(null);

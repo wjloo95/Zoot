@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 
-import { EnvironmentFilled } from '@ant-design/icons';
-import { Listings as ListingsData } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
+import { HomeFilled } from '@ant-design/icons';
+import {
+  Listings as ListingsData,
+  Listings_listings_result,
+} from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
+import { Link } from 'react-router-dom';
+import { ListingCard } from '../../../../lib/components';
 
 interface IProps {
   latitude: number;
@@ -10,15 +15,40 @@ interface IProps {
   listings: ListingsData['listings']['result'] | null;
 }
 
+const DEFAULT_ZOOM = 10;
+const MAX_ZOOM = 18;
+const MIN_ZOOM = 4;
+
 export const ListingsMap = ({ latitude, longitude, listings }: IProps) => {
   const initialViewport = {
     latitude,
     longitude,
-    zoom: 10,
-    maxZoom: 18,
-    minZoom: 4,
+    zoom: DEFAULT_ZOOM,
+    maxZoom: MAX_ZOOM,
+    minZoom: MIN_ZOOM,
   };
   const [viewport, setViewport] = useState(initialViewport);
+  const [
+    selectedListing,
+    setSelectedListing,
+  ] = useState<Listings_listings_result | null>(null);
+
+  const closePopup = () => {
+    setSelectedListing(null);
+  };
+
+  const popupElement = selectedListing ? (
+    <Popup
+      latitude={selectedListing.latitude}
+      longitude={selectedListing.longitude}
+      onClose={closePopup}
+      anchor="top"
+    >
+      <div style={{ padding: '10px' }}>
+        <ListingCard listing={selectedListing} map />
+      </div>
+    </Popup>
+  ) : null;
 
   const coordinateMarkers = listings
     ? listings.map((listing) => (
@@ -27,7 +57,18 @@ export const ListingsMap = ({ latitude, longitude, listings }: IProps) => {
           latitude={listing.latitude}
           longitude={listing.longitude}
         >
-          <EnvironmentFilled style={{ fontSize: '30px', color: '#2d3436' }} />
+          <HomeFilled
+            style={{
+              fontSize: '30px',
+              color: `${
+                selectedListing?.id === listing.id ? '#0984e3' : '#2d3436'
+              }`,
+              cursor: 'pointer',
+            }}
+            onClick={() => {
+              setSelectedListing(listing);
+            }}
+          />
         </Marker>
       ))
     : null;
@@ -36,16 +77,16 @@ export const ListingsMap = ({ latitude, longitude, listings }: IProps) => {
     <div className="map">
       <ReactMapGL
         mapboxApiAccessToken={`${process.env.REACT_APP_MAPBOX_TOKEN}`}
-        mapStyle="mapbox://styles/mapbox/outdoors-v11"
+        mapStyle="mapbox://styles/mapbox/bright-v8"
         width={'100%'}
         height={600}
         {...viewport}
         onViewportChange={(viewport) => {
-          console.log(viewport);
           setViewport(viewport);
         }}
       >
         {coordinateMarkers}
+        {popupElement}
       </ReactMapGL>
     </div>
   );

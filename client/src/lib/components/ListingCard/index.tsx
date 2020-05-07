@@ -29,6 +29,15 @@ export const ListingCard = ({ listing }: IProps) => {
     price,
     numOfGuests,
   } = listing;
+
+  const starSection =
+    reviews > 0 ? (
+      <>
+        {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
+      </>
+    ) : (
+      <>No Reviews</>
+    );
   return (
     <Link to={`/listing/${id}`}>
       <Card
@@ -43,7 +52,7 @@ export const ListingCard = ({ listing }: IProps) => {
         <div className="listing-card__details">
           <div className="listing-card__description">
             <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
-            {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
+            {starSection}
             <Title level={4} className="listing-card__price">
               {`${formatPrice(price)}`}
               <span>/night</span>

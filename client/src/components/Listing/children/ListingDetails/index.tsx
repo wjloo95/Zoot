@@ -30,6 +30,15 @@ export const ListingDetails = ({ listing }: IProps) => {
     host,
   } = listing;
 
+  const starSection =
+    reviews > 0 ? (
+      <>
+        {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
+      </>
+    ) : (
+      <>Be the first to submit a review!</>
+    );
+
   return (
     <div className="listing-details">
       <div className="listing-details__information">
@@ -48,7 +57,7 @@ export const ListingDetails = ({ listing }: IProps) => {
           {numOfGuests} Guests
           <Divider type="vertical" />
           <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
-          {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
+          {starSection}
         </Paragraph>
         <Title level={3} className="listing-details__title">
           {name}

@@ -22,11 +22,12 @@ interface IParams {
   location: string;
 }
 
-const PAGE_LIMIT = 6;
+const PAGE_LIMIT = 5;
 
 export const ListingsSection = () => {
   const [sort, setSort] = useState(ListingsSort.RATINGS_VALUE);
   const [page, setPage] = useState(1);
+  const [pageLimit, setPageLimit] = useState(PAGE_LIMIT);
 
   const { location } = useParams<IParams>();
   const locationRef = useRef(location);
@@ -34,11 +35,14 @@ export const ListingsSection = () => {
   const { data, loading, error } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
     {
-      skip: locationRef.current !== location && page !== 1,
+      skip:
+        locationRef.current !== location &&
+        page !== 1 &&
+        pageLimit !== PAGE_LIMIT,
       variables: {
         location,
         sort,
-        limit: PAGE_LIMIT,
+        limit: pageLimit,
         page,
       },
     }
@@ -46,6 +50,7 @@ export const ListingsSection = () => {
 
   useEffect(() => {
     setPage(1);
+    setPageLimit(PAGE_LIMIT);
     locationRef.current = location;
   }, [location]);
 
@@ -73,14 +78,14 @@ export const ListingsSection = () => {
           <ListingsPagination
             total={listings.total}
             page={page}
-            limit={PAGE_LIMIT}
+            limit={pageLimit}
             setPage={setPage}
+            setPageLimit={setPageLimit}
           />
           <ListingsSortSection sort={sort} setSort={setSort} />
         </Affix>
         <List
           grid={{
-            column: 3,
             gutter: 8,
             xs: 1,
             sm: 2,

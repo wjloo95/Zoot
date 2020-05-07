@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
+import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 
 import { HomeFilled } from '@ant-design/icons';
 import {
@@ -7,6 +7,7 @@ import {
   Listings_listings_result,
 } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
 import { ListingCard } from '../../../../lib/components';
+import { useViewport } from '../../../../lib/utils';
 
 interface IProps {
   latitude: number;
@@ -34,7 +35,7 @@ export const ListingsMap = ({
     maxZoom: MAX_ZOOM,
     minZoom: MIN_ZOOM,
   };
-  const [viewport, setViewport] = useState(initialViewport);
+  const [viewport, setViewport] = useViewport(initialViewport);
 
   const closePopup = () => {
     setSelectedListing(null);

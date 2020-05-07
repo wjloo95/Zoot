@@ -29,7 +29,6 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
         height={400}
         {...viewport}
         onViewportChange={(viewport) => {
-          console.log(viewport);
           setViewport(viewport);
         }}
       >

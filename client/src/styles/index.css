@@ -532,7 +532,7 @@
   width: 100%;
 }
 
-@media (max-width: 75em) {
+@media (max-width: 991px) {
   .listings {
     margin-left: 20px;
     margin-right: 20px;

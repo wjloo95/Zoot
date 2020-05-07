@@ -7,7 +7,6 @@ import {
   formatPrice,
   displaySuccessNotification,
   displayErrorMessage,
-  imageExists,
 } from '../../../../lib/utils';
 import { DisconnectStripe as DisconnectStripeData } from '../../../../lib/graphql/mutations/DisconnectStripe/__generated__/DisconnectStripe';
 import { useMutation } from '@apollo/react-hooks';

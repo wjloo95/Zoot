@@ -115,33 +115,35 @@ const fixNames = async () => {
   const db = await connectDatabase();
 
   // await db.premium_listings.updateMany(
-  await db.listings.updateMany(
-    {},
-    {
-      $rename: {
-        Name: 'name',
-        Description: 'description',
-        Notes: 'notes',
-        'House Rules': 'rules',
-        'Picture Url': 'image',
-        Street: 'street',
-        City: 'city',
-        State: 'state',
-        Country: 'country',
-        Latitude: 'latitude',
-        Longitude: 'longitude',
-        'Property Type': 'property',
-        'Room Type': 'room',
-        Accommodates: 'numOfGuests',
-        Bathrooms: 'bathrooms',
-        Bedrooms: 'bedrooms',
-        Price: 'price',
-        'Minimum Nights': 'minimum',
-        'Number of Reviews': 'reviews',
-        'Review Scores Rating': 'rating',
-      },
-    }
-  );
+  // await db.listings.updateMany(
+  //   {},
+  //   {
+  //     $rename: {
+  //       Name: 'name',
+  //       Description: 'description',
+  //       Notes: 'notes',
+  //       'House Rules': 'rules',
+  //       'Picture Url': 'image',
+  //       Street: 'street',
+  //       City: 'city',
+  //       State: 'state',
+  //       Country: 'country',
+  //       Latitude: 'latitude',
+  //       Longitude: 'longitude',
+  //       'Property Type': 'property',
+  //       'Room Type': 'room',
+  //       Accommodates: 'numOfGuests',
+  //       Bathrooms: 'bathrooms',
+  //       Bedrooms: 'bedrooms',
+  //       Price: 'price',
+  //       'Minimum Nights': 'minimum',
+  //       'Number of Reviews': 'reviews',
+  //       'Review Scores Rating': 'rating',
+  //     },
+  //   }
+  // );
+
+  await db.users.updateMany({}, { $unset: { id: '' } });
   console.log('Done!');
   return;
 };

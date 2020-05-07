@@ -74,6 +74,7 @@ export const verifyHostListingInput = ({
 export const parseAddress = (addressComponents: AddressComponent[]) => {
   let country = null;
   let state = null;
+  let stateShort = null;
   let city = null;
 
   for (const component of addressComponents) {
@@ -83,6 +84,7 @@ export const parseAddress = (addressComponents: AddressComponent[]) => {
 
     if (component.types.includes('administrative_area_level_1')) {
       state = component.long_name;
+      stateShort = component.short_name;
     }
 
     if (
@@ -93,6 +95,12 @@ export const parseAddress = (addressComponents: AddressComponent[]) => {
       city = component.long_name;
     }
   }
+
+  if (country === 'United States') {
+    state = stateShort;
+  }
+
+  console.log(state);
 
   return { country, state, city };
 };

@@ -26,20 +26,17 @@ export const ListingCreateBooking = ({
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
 
-  const bookingsIndexJSON: BookingsIndex = bookingsIndex
-    ? JSON.parse(bookingsIndex)
-    : {};
+  const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
 
   const dateIsBooked = (currentDate: Moment) => {
     const year = moment(currentDate).year();
     const month = moment(currentDate).month();
     const day = moment(currentDate).date();
-    if (bookingsIndexJSON) {
-      if (bookingsIndexJSON[year] && bookingsIndexJSON[year][month]) {
-        return Boolean(bookingsIndexJSON[year][month][day]);
-      } else {
-        return false;
-      }
+
+    if (bookingsIndexJSON[year] && bookingsIndexJSON[year][month]) {
+      return Boolean(bookingsIndexJSON[year][month][day]);
+    } else {
+      return false;
     }
   };
 
@@ -138,7 +135,7 @@ export const ListingCreateBooking = ({
               value={checkInDate ? checkInDate : undefined}
               format={'YYYY/MM/DD'}
               showToday={false}
-              // disabledDate={disabledDate}
+              disabledDate={disabledDate}
               onChange={(dateValue) => setCheckInDate(dateValue)}
               onOpenChange={() => setCheckOutDate(null)}
             />

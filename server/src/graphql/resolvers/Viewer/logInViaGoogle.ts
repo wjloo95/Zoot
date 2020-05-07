@@ -11,7 +11,6 @@ export const logInViaGoogle = async (
   res: Response
 ): Promise<User | undefined> => {
   const { user } = await Google.logIn(code);
-
   if (!user) {
     throw new Error('Google login error');
   }
@@ -25,7 +24,7 @@ export const logInViaGoogle = async (
 
   const userName = userNamesList ? userNamesList[0].displayName : null;
 
-  const userId =
+  let userId =
     userNamesList &&
     userNamesList[0].metadata &&
     userNamesList[0].metadata.source
@@ -42,13 +41,25 @@ export const logInViaGoogle = async (
     throw new Error('Google login error');
   }
 
+  userId = userId + 'ABC';
+
+  const today = new Date();
+  const sinceString =
+    today.getFullYear() +
+    '-' +
+    ('0' + (today.getMonth() + 1)).slice(-2) +
+    '-' +
+    ('0' + today.getDate()).slice(-2);
+
   const updateRes = await db.users.findOneAndUpdate(
     { _id: new ObjectID(userId) },
     {
       $set: {
         name: userName,
         avatar: userAvatar,
-        contact: userEmail,
+        about: `Google Sign-In User at ${userEmail}`,
+        since: sinceString,
+        location: 'No Location Provided',
         bookings: [],
         listings: [],
         token,
@@ -57,7 +68,7 @@ export const logInViaGoogle = async (
     { upsert: true, returnOriginal: false }
   );
 
-  let viewer = updateRes.value;
+  const viewer = updateRes.value;
 
   res.cookie('viewer', userId, {
     ...cookieOptions,

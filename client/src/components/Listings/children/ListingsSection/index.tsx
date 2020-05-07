@@ -99,11 +99,12 @@ export const ListingsSection = () => {
       <NoListings listingsRegion={listingsRegion} />
     );
 
-  const listingsRegionElement = listingsRegion ? (
-    <Title level={3} className="listings__title">
-      Results for "{listingsRegion}"
-    </Title>
-  ) : null;
+  const listingsRegionElement =
+    listings && listingsRegion ? (
+      <Title level={3} className="listings__title">
+        {listings.total} Results for "{listingsRegion}"
+      </Title>
+    ) : null;
 
   return loading ? (
     <div className="listings-section">

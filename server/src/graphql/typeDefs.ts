@@ -38,7 +38,7 @@ export const typeDefs = gql`
     image: String!
     street: String!
     price: Int!
-    bathrooms: Int!
+    bathrooms: Float!
     bedrooms: Int!
     minimum: Int!
     numOfGuests: Int!
@@ -81,7 +81,7 @@ export const typeDefs = gql`
     latitude: Float!
     longitude: Float!
     price: Int!
-    bathrooms: Int!
+    bathrooms: Float!
     bedrooms: Int!
     minimum: Int!
     numOfGuests: Int!

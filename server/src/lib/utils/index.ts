@@ -100,8 +100,6 @@ export const parseAddress = (addressComponents: AddressComponent[]) => {
     state = stateShort;
   }
 
-  console.log(state);
-
   return { country, state, city };
 };
 

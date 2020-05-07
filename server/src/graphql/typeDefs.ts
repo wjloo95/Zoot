@@ -93,6 +93,8 @@ export const typeDefs = gql`
 
   type Listings {
     region: String
+    latitude: Float
+    longitude: Float
     total: Int!
     result: [Listing!]!
   }

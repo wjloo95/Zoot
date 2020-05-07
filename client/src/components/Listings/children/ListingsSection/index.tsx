@@ -22,7 +22,7 @@ interface IParams {
   location: string;
 }
 
-const PAGE_LIMIT = 5;
+const PAGE_LIMIT = 6;
 
 export const ListingsSection = () => {
   const [sort, setSort] = useState(ListingsSort.RATINGS_VALUE);
@@ -84,6 +84,7 @@ export const ListingsSection = () => {
         <ListingsSortSection sort={sort} setSort={setSort} />
         <List
           grid={{
+            column: 3,
             gutter: 8,
             xs: 1,
             sm: 2,

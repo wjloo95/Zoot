@@ -8,7 +8,7 @@ interface IProps {
   listing: {
     id: string;
     name: string;
-    thumbnail: string;
+    image: string;
     street: string;
     reviews: number;
     rating: number;
@@ -22,7 +22,7 @@ export const ListingCard = ({ listing }: IProps) => {
   const {
     id,
     name,
-    thumbnail,
+    image,
     street,
     reviews,
     rating,
@@ -35,7 +35,7 @@ export const ListingCard = ({ listing }: IProps) => {
         hoverable
         cover={
           <div
-            style={{ backgroundImage: `url(${thumbnail})` }}
+            style={{ backgroundImage: `url(${image})` }}
             className="listing-card__cover-img"
           />
         }
@@ -48,6 +48,9 @@ export const ListingCard = ({ listing }: IProps) => {
             </Title>
             <Text strong ellipsis className="listing-card__title">
               {name}
+            </Text>
+            <Text strong ellipsis className="listing-card__title">
+              {reviews} Reviews, {rating} Overall
             </Text>
           </div>
           <div className="listing-card-bottom">

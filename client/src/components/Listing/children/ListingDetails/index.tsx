@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Avatar, Divider, Tag, Typography } from 'antd';
 import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
-import { EnvironmentFilled } from '@ant-design/icons';
+import { EnvironmentFilled, UserOutlined, StarFilled } from '@ant-design/icons';
 
 interface IProps {
   listing: ListingData['listing'];
@@ -17,6 +17,7 @@ export const ListingDetails = ({ listing }: IProps) => {
     notes,
     rules,
     property,
+    room,
     street,
     city,
     numOfGuests,
@@ -40,6 +41,12 @@ export const ListingDetails = ({ listing }: IProps) => {
           </Link>
           <Divider type="vertical" />
           {street}
+          <Divider type="vertical" />
+          <UserOutlined />
+          {numOfGuests} Guests
+          <Divider type="vertical" />
+          <StarFilled />
+          {((rating * 5) / 500).toFixed(2)} : {reviews} Reviews
         </Paragraph>
         <Title level={3} className="listing-details__title">
           {name}
@@ -63,11 +70,18 @@ export const ListingDetails = ({ listing }: IProps) => {
         <Title level={4}>About this space</Title>
         <div className="listing-details__about-items">
           <Tag color="magenta">{property}</Tag>
-          <Tag color="magenta">{numOfGuests} Guests</Tag>
+          <Tag color="magenta">{room}</Tag>
+          <Tag color="magenta">{bedrooms} Bedrooms</Tag>
+          <Tag color="magenta">{bathrooms} Bathrooms</Tag>
         </div>
+        <Title level={2}>Description</Title>
         <Paragraph ellipsis={{ rows: 3, expandable: true }}>
           {description}
         </Paragraph>
+        <Title level={2}>House Rules</Title>
+        <Paragraph ellipsis={{ rows: 3, expandable: true }}>{rules}</Paragraph>
+        <Title level={2}>Additional Notes</Title>
+        <Paragraph ellipsis={{ rows: 3, expandable: true }}>{notes}</Paragraph>
       </div>
     </div>
   );

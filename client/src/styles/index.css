@@ -491,14 +491,21 @@
 }
 
 .listings {
-  padding: 60px 60px;
+  margin-left: 40px;
+  margin-top: 60px;
+  margin-right: 20px;
   display: flex;
 }
 .map {
-  width: 50%;
-  height: 50vh;
+  width: 70%;
   margin-left: 20px;
-  background-image: url('../../src/components/ListingsHome/assets/los-angeles.jpg');
+}
+
+.map > div {
+  position: absolute;
+  top: 11%;
+  padding: 0;
+  margin: 0;
 }
 
 .listings-section {
@@ -507,10 +514,22 @@
 
 @media (max-width: 75em) {
   .listings {
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
+  }
+  .map {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .map > div {
+    position: absolute;
+    top: 11%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
   }
 }
 .listings--none .ant-typography {

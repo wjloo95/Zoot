@@ -16,6 +16,7 @@ import {
   ListingsPagination,
   ListingsSortSection,
   NoListings,
+  ListingsMap,
 } from './children';
 const { Item } = List;
 const { Title } = Typography;
@@ -73,6 +74,8 @@ export const Listings = () => {
 
   const listings = data ? data.listings : null;
   const listingsRegion = listings ? listings.region : null;
+  const listingsLat = listings ? listings.latitude : null;
+  const listingsLng = listings ? listings.longitude : null;
 
   const listingsSectionElement =
     listings && listings.result.length ? (
@@ -123,7 +126,10 @@ export const Listings = () => {
         {listingsRegionElement}
         {listingsSectionElement}
       </div>
-      <div className="map"></div>
+      <ListingsMap
+        latitude={listingsLat || 0.0023}
+        longitude={listingsLng || 78.4559}
+      />
     </Content>
   );
 };

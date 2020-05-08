@@ -21,21 +21,26 @@
 }
 .app-header {
   display: flex;
+  position: fixed;
+  width: 100%;
   background: var(--main-header-bg-color);
   box-shadow: 0 2px 8px #f0f1f2;
   padding: 0;
+  z-index: 99;
 }
-.app-header__logo-search-section {
+.app-header-search-section {
   display: flex;
   align-items: center;
   flex-grow: 1;
 }
-.app-header__logo {
-  display: inline-block;
-  padding: 0 20px;
+.app-header-logo {
+  display: flex;
+  height: 100%;
+  padding: 5px 60px;
 }
-.app-header__logo img {
-  width: 36px;
+.app-header-logo img {
+  width: 90px;
+  height: 100%;
 }
 .app-header__search-input {
   display: flex;
@@ -52,7 +57,7 @@
   border: 1px solid #f0f1f2;
   box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
 }
-.app-header__menu-section {
+.app-header-menu-section {
   float: right;
 }
 .app-header-skeleton {
@@ -182,6 +187,10 @@
     float: right;
     padding-bottom: 0;
   }
+}
+
+.home {
+  margin-top: 40px;
 }
 
 .home-hero,
@@ -671,18 +680,40 @@ html {
   align-items: center;
   justify-content: center;
 }
-.app__affix-header {
-  z-index: 99;
-}
 .app__affix-footer {
   position: absolute;
   bottom: 10px;
   right: 10px;
 }
-@media (max-width: 36em) {
+@media (max-width: 768px) {
   .app__affix-footer {
     display: none;
   }
+}
+
+.app-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: transparent;
+  border-top: 1.5px solid #334355;
+  margin-right: 15%;
+  margin-left: 15%;
+}
+
+.app-footer > div {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.app-footer-text {
+  font-size: 18px;
+}
+.app-footer svg {
+  margin-right: 10px;
+  width: 2.5em;
+  height: 2.5em;
 }
 
 /* Login Styles */

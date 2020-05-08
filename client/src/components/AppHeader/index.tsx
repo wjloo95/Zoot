@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Input, Layout } from 'antd';
+import { Input, Layout, Avatar } from 'antd';
 import { MenuItems } from './children';
 import { Viewer } from '../../lib/types';
 import { searchValid } from '../../lib/utils';
 import { displayErrorMessage } from '../../lib/utils';
+import logo1 from './assets/Logo1.png';
+import logo2 from './assets/Logo2.png';
 
 const { Header: AntHeader } = Layout;
 const { Search } = Input;
@@ -59,13 +61,19 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
 
   return (
     <AntHeader className="app-header">
-      <div className="app-header__logo-search-section">
-        <div className="app-header__logo">
-          <Link to="/">Hi!</Link>
+      <div className="app-header-search-section">
+        <div className="app-header-logo">
+          <Link to="/">
+            <Avatar
+              src={logo2}
+              shape="square"
+              style={{ width: '90px', height: '100%', verticalAlign: 'top' }}
+            />
+          </Link>
         </div>
         {headerSearch}
       </div>
-      <div className="app-header__menu-section">
+      <div className="app-header-menu-section">
         <MenuItems viewer={viewer} setViewer={setViewer} />
       </div>
     </AntHeader>

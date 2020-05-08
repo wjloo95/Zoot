@@ -8,10 +8,18 @@ export const AppFooter = () => {
   return (
     <Footer className="app-footer">
       <div className="app-footer-icons">
-        <a href="https://github.com/wjloo95" target="_blank">
+        <a
+          href="https://github.com/wjloo95"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <GithubFilled style={{ color: 'black' }} />
         </a>
-        <a href="https://www.linkedin.com/in/william-loo/" target="_blank">
+        <a
+          href="https://www.linkedin.com/in/william-loo/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           <LinkedinFilled style={{ color: '#2867B2' }} />
         </a>
         <a href="mailto:loo.williamj@gmail.com">

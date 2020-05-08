@@ -50,8 +50,8 @@ export const HomeHero = ({ onSearch }: IProps) => {
           </Link>
         </Col>
         <Col xs={12} md={6}>
-          <Link to="/listings/Dubai">
-            <Card cover={<img alt="france" src={franceImage} />}>France</Card>
+          <Link to="/listings/Paris">
+            <Card cover={<img alt="france" src={franceImage} />}>Paris</Card>
           </Link>
         </Col>
       </Row>

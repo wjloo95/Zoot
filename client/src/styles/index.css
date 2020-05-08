@@ -785,9 +785,7 @@ html {
   color: #1d226c;
   display: inline-block;
 }
-.user-listings .ant-list-pagination {
-  padding-bottom: 20px;
-}
+
 .user-listings__description.ant-typography {
   font-size: 15px;
 }

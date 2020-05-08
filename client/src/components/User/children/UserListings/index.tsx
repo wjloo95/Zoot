@@ -29,6 +29,7 @@ export const UserListings = ({ id, limit }: IProps) => {
     UserListingsVariables
   >(USER_LISTINGS, {
     variables: { id, listingsPage: 0, limit },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (error) {

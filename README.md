@@ -18,10 +18,12 @@ Zoot is here to help you plan your next adventure! From securing bookings and sc
 * **GraphQL**
 * **MongoDB**
 * **External APIs**
-  * Google People API
-  * Google Geocoding API
-  * Stripe Payments API
-  * 
+  * Google People 
+  * Google Geocoding 
+  * Stripe Payments 
+  * Mapbox GL
+
+_Data for bookings sourced from [opendatasoft](https://data.opendatasoft.com/explore/dataset/airbnb-listings%40public/table/?disjunctive.host_verifications&disjunctive.amenities&disjunctive.features&location=2,13.11707,-0.08341&basemap=jawg.sunny)_
 
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#license)

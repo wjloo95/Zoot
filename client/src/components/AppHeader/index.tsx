@@ -5,7 +5,6 @@ import { MenuItems } from './children';
 import { Viewer } from '../../lib/types';
 import { searchValid } from '../../lib/utils';
 import { displayErrorMessage } from '../../lib/utils';
-import logo1 from './assets/Logo1.png';
 import logo2 from './assets/Logo2.png';
 
 const { Header: AntHeader } = Layout;

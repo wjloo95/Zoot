@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 
 import { HomeFilled } from '@ant-design/icons';

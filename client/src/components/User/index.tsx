@@ -36,6 +36,7 @@ export const User = ({ viewer, setViewer }: IProps) => {
       variables: {
         id,
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
 

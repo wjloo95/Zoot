@@ -35,6 +35,7 @@ export const ListingsHome = () => {
         limit: PAGE_LIMIT,
         page: PAGE_NUMBER,
       },
+      fetchPolicy: 'cache-and-network',
     }
   );
 

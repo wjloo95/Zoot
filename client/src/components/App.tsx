@@ -23,6 +23,7 @@ import { LOG_IN } from '../lib/graphql/mutations';
 import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
 import { Stripe } from './Stripe';
 import { AppFooter } from './AppFooter';
+import { ComingSoon } from './ComingSoon';
 
 const initialViewer: Viewer = {
   id: null,
@@ -94,6 +95,7 @@ const App = () => {
           <Route exact path="/stripe">
             <Stripe viewer={viewer} setViewer={setViewer} />
           </Route>
+          <Route exact path="/comingsoon" component={ComingSoon} />
           <Route component={NotFound} />
         </Switch>
         <AppFooter />

@@ -47,6 +47,7 @@ export const ListingsMap = ({
       longitude={selectedListing.longitude}
       onClose={closePopup}
       anchor="top"
+      className="map-popup"
     >
       <div style={{ padding: '10px' }}>
         <ListingCard listing={selectedListing} map />
@@ -83,7 +84,7 @@ export const ListingsMap = ({
         mapboxApiAccessToken={`${process.env.REACT_APP_MAPBOX_TOKEN}`}
         mapStyle="mapbox://styles/mapbox/bright-v8"
         width={'100%'}
-        height={'80%'}
+        height={'700px'}
         {...viewport}
         onViewportChange={(viewport) => {
           setViewport(viewport);

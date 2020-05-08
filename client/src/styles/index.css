@@ -512,7 +512,7 @@
 
 .listings {
   margin-left: 40px;
-  margin-top: 60px;
+  margin-top: 40px;
   margin-right: 20px;
   display: flex;
 }
@@ -531,9 +531,24 @@
 }
 
 .listings-list {
-  height: 800px;
+  height: 700px;
   overflow-x: hidden;
   overflow-y: visible;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b2bec3;
+}
+.map-popup {
+  display: none;
 }
 
 @media (max-width: 991px) {
@@ -555,8 +570,14 @@
     margin: 0;
   }
 
-  .listings-section {
-    overflow: hidden;
+  .listings-list {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .map-popup {
+    display: initial;
   }
 }
 .listings--none .ant-typography {

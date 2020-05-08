@@ -59,9 +59,6 @@ export const ListingCard = ({ listing, map }: IProps) => {
               {`${formatPrice(price)}`}
               <span>/night</span>
             </Title>
-            <Text strong ellipsis className="map-card__title">
-              {name}
-            </Text>
           </div>
         </div>
       </Card>

@@ -8,6 +8,7 @@ import {
 } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
 import { ListingCard } from '../../../../lib/components';
 import { useViewport } from '../../../../lib/utils';
+import { Link } from 'react-router-dom';
 
 interface IProps {
   latitude: number;
@@ -46,12 +47,17 @@ export const ListingsMap = ({
       latitude={selectedListing.latitude}
       longitude={selectedListing.longitude}
       onClose={closePopup}
-      anchor="top"
+      tipSize={0}
+      sortByDepth={true}
+      captureScroll={true}
+      dynamicPosition={false}
+      closeButton={true}
+      closeOnClick={false}
       className="map-popup"
     >
-      <div style={{ padding: '10px' }}>
+      <Link to={`/listing/${selectedListing.id}`}>
         <ListingCard listing={selectedListing} map />
-      </div>
+      </Link>
     </Popup>
   ) : null;
 

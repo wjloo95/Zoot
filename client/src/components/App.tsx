@@ -73,7 +73,9 @@ const App = () => {
     <Router>
       <Layout id="app">
         {logInErrorBannerElement}
-        <AppHeader viewer={viewer} setViewer={setViewer} />
+        <div className="app-header-container">
+          <AppHeader viewer={viewer} setViewer={setViewer} />
+        </div>
         <Switch>
           <Route exact path="/listings" component={ListingsHome} />
           <Route exact path="/login">

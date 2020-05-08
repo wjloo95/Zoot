@@ -21,12 +21,15 @@
 }
 .app-header {
   display: flex;
-  position: fixed;
-  width: 100%;
   background: var(--main-header-bg-color);
   box-shadow: 0 2px 8px #f0f1f2;
   padding: 0;
+}
+
+.app-header-container {
   z-index: 99;
+  width: 100%;
+  /* position: fixed; */
 }
 .app-header-search-section {
   display: flex;
@@ -701,6 +704,7 @@ html {
   border-top: 1.5px solid #334355;
   margin-right: 15%;
   margin-left: 15%;
+  margin-top: 40px;
 }
 
 .app-footer > div {

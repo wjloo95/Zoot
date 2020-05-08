@@ -49,6 +49,7 @@ export const Listing = ({ viewer }: IProps) => {
   const listingCreateBookingElement = listing ? (
     <ListingCreateBooking
       price={listing.price}
+      minimum={listing.minimum}
       viewer={viewer}
       host={listing.host}
       bookingsIndex={listing.bookingsIndex}

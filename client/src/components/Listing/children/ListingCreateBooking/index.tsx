@@ -11,6 +11,7 @@ const { Paragraph, Title, Text } = Typography;
 
 interface IProps {
   price: number;
+  minimum: number;
   viewer: Viewer;
   host: ListingData['listing']['host'];
   bookingsIndex: ListingData['listing']['bookingsIndex'];
@@ -18,6 +19,7 @@ interface IProps {
 
 export const ListingCreateBooking = ({
   price,
+  minimum,
   viewer,
   host,
   bookingsIndex,
@@ -56,7 +58,11 @@ export const ListingCreateBooking = ({
         ? currentDate.isBefore(checkInDate)
         : false;
 
-      return dateIsBeforeEndOfDay;
+      const dateIsBeforeMinimum = checkInDate
+        ? currentDate.isBefore(checkInDate.add(minimum, 'd'))
+        : false;
+
+      return dateIsBeforeEndOfDay && dateIsBeforeMinimum;
     } else {
       return false;
     }

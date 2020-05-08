@@ -24,6 +24,7 @@ import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
 import { Stripe } from './Stripe';
 import { AppFooter } from './AppFooter';
 import { ComingSoon } from './ComingSoon';
+import ScrollToTop from './ScrollToTop';
 
 const initialViewer: Viewer = {
   id: null,
@@ -72,6 +73,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <Layout id="app">
         {logInErrorBannerElement}
         <div className="app-header-container">

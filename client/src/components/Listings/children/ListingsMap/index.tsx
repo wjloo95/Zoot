@@ -18,7 +18,7 @@ interface IProps {
   setSelectedListing: (listing: Listings_listings_result | null) => void;
 }
 
-const DEFAULT_ZOOM = 10;
+const DEFAULT_ZOOM = 9;
 const MAX_ZOOM = 18;
 const MIN_ZOOM = 4;
 

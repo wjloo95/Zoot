@@ -53,16 +53,18 @@ export const ListingCreateBooking = ({
   };
 
   const disabledCheckoutDate = (currentDate?: Moment) => {
+    const checkInCopy = checkInDate ? moment(checkInDate) : null;
     if (currentDate) {
       const dateIsBeforeEndOfDay = checkInDate
         ? currentDate.isBefore(checkInDate)
         : false;
 
-      const dateIsBeforeMinimum = checkInDate
-        ? currentDate.isBefore(checkInDate.add(minimum, 'd'))
-        : false;
+      const dateIsBeforeMinimum =
+        checkInDate && checkInCopy
+          ? currentDate.isBefore(checkInCopy.add(minimum, 'd'))
+          : false;
 
-      return dateIsBeforeEndOfDay && dateIsBeforeMinimum;
+      return dateIsBeforeEndOfDay || dateIsBeforeMinimum;
     } else {
       return false;
     }
@@ -155,6 +157,15 @@ export const ListingCreateBooking = ({
               disabled={checkOutInputDisabled}
               disabledDate={disabledCheckoutDate}
               onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
+              renderExtraFooter={() => {
+                return (
+                  <div>
+                    <Text type="secondary" className="ant-calendar-footer-text">
+                      Your stay must be a minimum of {minimum} nights.
+                    </Text>
+                  </div>
+                );
+              }}
             />
           </div>
         </div>

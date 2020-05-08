@@ -21,7 +21,7 @@ export const ListingsPagination = ({
       current={page}
       total={total}
       defaultPageSize={limit}
-      pageSizeOptions={['5', '10', '15', '20']}
+      pageSizeOptions={['6', '12', '18']}
       hideOnSinglePage
       showLessItems
       onChange={(page: number) => {

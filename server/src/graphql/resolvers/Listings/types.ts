@@ -16,6 +16,8 @@ export interface ListingsArgs {
 
 export interface ListingsData {
   region?: string | null;
+  latitude?: number | null;
+  longitude?: number | null;
   total: number;
   result: Listing[];
 }

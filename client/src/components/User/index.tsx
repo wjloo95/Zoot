@@ -77,7 +77,7 @@ export const User = ({ viewer, setViewer }: IProps) => {
       <Row gutter={12} justify="start">
         <Col xs={24}>{userProfileElement}</Col>
         <Col xs={24}>
-          <Tabs defaultActiveKey="1" keyboard size="large">
+          <Tabs keyboard defaultActiveKey="1" size="large">
             <TabPane tab="Listings" key="1">
               <UserListings id={id} limit={PAGE_LIMIT} />
             </TabPane>

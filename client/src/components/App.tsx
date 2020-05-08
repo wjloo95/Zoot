@@ -11,7 +11,7 @@ import {
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Layout, Affix, Spin } from 'antd';
+import { Layout, Spin } from 'antd';
 import { Viewer } from '../lib/types';
 import { AppHeader } from './AppHeader';
 import { useMutation } from '@apollo/react-hooks';
@@ -22,6 +22,7 @@ import {
 import { LOG_IN } from '../lib/graphql/mutations';
 import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
 import { Stripe } from './Stripe';
+import { AppFooter } from './AppFooter';
 
 const initialViewer: Viewer = {
   id: null,
@@ -72,9 +73,9 @@ const App = () => {
     <Router>
       <Layout id="app">
         {logInErrorBannerElement}
-        <Affix className="app__affix-header">
+        <div className="app-header-container">
           <AppHeader viewer={viewer} setViewer={setViewer} />
-        </Affix>
+        </div>
         <Switch>
           <Route exact path="/listings" component={ListingsHome} />
           <Route exact path="/login">
@@ -95,6 +96,7 @@ const App = () => {
           </Route>
           <Route component={NotFound} />
         </Switch>
+        <AppFooter />
       </Layout>
     </Router>
   );

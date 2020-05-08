@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, Col, Input, Row, Typography } from 'antd';
 
 import torontoImage from '../../assets/toronto.jpg';
-import dubaiImage from '../../assets/dubai.jpg';
+import franceImage from '../../assets/france.jpg';
 import losAngelesImage from '../../assets/los-angeles.jpg';
 import londonImage from '../../assets/london.jpg';
 
@@ -37,11 +37,6 @@ export const HomeHero = ({ onSearch }: IProps) => {
             </Card>
           </Link>
         </Col>
-        <Col xs={12} md={6}>
-          <Link to="/listings/Dubai">
-            <Card cover={<img alt="dubai" src={dubaiImage} />}>Dubai</Card>
-          </Link>
-        </Col>
         <Col xs={0} md={6}>
           <Link to="/listings/Los%20Angeles">
             <Card cover={<img alt="los-angeles" src={losAngelesImage} />}>
@@ -52,6 +47,11 @@ export const HomeHero = ({ onSearch }: IProps) => {
         <Col xs={0} md={6}>
           <Link to="/listings/London">
             <Card cover={<img alt="london" src={londonImage} />}>London</Card>
+          </Link>
+        </Col>
+        <Col xs={12} md={6}>
+          <Link to="/listings/Paris">
+            <Card cover={<img alt="france" src={franceImage} />}>Paris</Card>
           </Link>
         </Col>
       </Row>

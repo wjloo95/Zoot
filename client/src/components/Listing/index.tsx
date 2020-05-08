@@ -46,7 +46,7 @@ export const Listing = ({ viewer }: IProps) => {
     <ListingDetails listing={listing} />
   ) : null;
 
-  const ListingCreateBookingElement = listing ? (
+  const listingCreateBookingElement = listing ? (
     <ListingCreateBooking
       price={listing.price}
       viewer={viewer}
@@ -73,7 +73,7 @@ export const Listing = ({ viewer }: IProps) => {
             {listingDetailsElement}
           </Col>
           <Col xs={24} lg={10}>
-            {ListingCreateBookingElement}
+            {listingCreateBookingElement}
           </Col>
         </Row>
       </Content>

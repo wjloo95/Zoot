@@ -5,6 +5,7 @@ import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/
 import { EnvironmentFilled, UserOutlined, StarFilled } from '@ant-design/icons';
 
 import placeholder from '../../../../lib/assets/UserPlaceholder.png';
+import { ListingMap } from '../ListingMap';
 
 interface IProps {
   listing: ListingData['listing'];
@@ -23,6 +24,8 @@ export const ListingDetails = ({ listing }: IProps) => {
     room,
     street,
     city,
+    latitude,
+    longitude,
     numOfGuests,
     bedrooms,
     bathrooms,
@@ -119,6 +122,8 @@ export const ListingDetails = ({ listing }: IProps) => {
         {rulesElement}
         {notesElement}
       </div>
+
+      <ListingMap latitude={latitude} longitude={longitude} />
     </div>
   );
 };

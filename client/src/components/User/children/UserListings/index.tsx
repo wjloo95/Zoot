@@ -70,33 +70,35 @@ export const UserListings = ({ id, limit }: IProps) => {
   };
 
   const userListingsList = userListings ? (
-    <List
-      header={
-        <>
-          {total > 0 && (
-            <Title level={2} underline>{`${total} Total Listings`}</Title>
-          )}
-          <Paragraph className="user-listings__description">
-            This section highlights the listings this user currently hosts and
-            has made available for bookings.
-          </Paragraph>
-        </>
-      }
-      grid={{
-        column: 3,
-        gutter: 8,
-        xs: 1,
-        sm: 2,
-        lg: 4,
-      }}
-      dataSource={result ? result : undefined}
-      locale={{ emptyText: 'This user has not listed a property!' }}
-      renderItem={(userListing) => (
-        <List.Item>
-          <ListingCard listing={userListing} />
-        </List.Item>
+    <>
+      {total > 0 && (
+        <Title level={2} underline>{`${total} Total Listings`}</Title>
       )}
-    />
+      <Paragraph
+        className="user-listings__description"
+        style={{ marginBottom: '2em' }}
+      >
+        This section highlights the listings this user currently hosts and has
+        made available for bookings.
+      </Paragraph>
+
+      <List
+        grid={{
+          column: 3,
+          gutter: 8,
+          xs: 1,
+          sm: 2,
+          lg: 4,
+        }}
+        dataSource={result ? result : undefined}
+        locale={{ emptyText: 'This user has not listed a property!' }}
+        renderItem={(userListing) => (
+          <List.Item>
+            <ListingCard listing={userListing} />
+          </List.Item>
+        )}
+      />
+    </>
   ) : null;
 
   return loading ? (

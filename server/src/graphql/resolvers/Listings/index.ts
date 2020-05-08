@@ -25,7 +25,9 @@ export const listingsResolvers: IResolvers = {
         };
 
         if (location) {
-          const { country, state, city } = await Google.geocode(location);
+          const { country, state, city, lat, lng } = await Google.geocode(
+            location
+          );
 
           if (city) query.city = city;
           if (state) query.state = state;
@@ -38,6 +40,8 @@ export const listingsResolvers: IResolvers = {
           const cityText = city ? `${city}, ` : '';
           const stateText = state ? `${state}, ` : '';
           data.region = `${cityText}${stateText}${country}`;
+          data.latitude = lat;
+          data.longitude = lng;
         }
 
         let cursor = await db.listings.find(query);

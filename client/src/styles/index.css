@@ -25,17 +25,25 @@
   box-shadow: 0 2px 8px #f0f1f2;
   padding: 0;
 }
-.app-header__logo-search-section {
+
+.app-header-container {
+  z-index: 99;
+  width: 100%;
+  /* position: fixed; */
+}
+.app-header-search-section {
   display: flex;
   align-items: center;
   flex-grow: 1;
 }
-.app-header__logo {
-  display: inline-block;
-  padding: 0 20px;
+.app-header-logo {
+  display: flex;
+  height: 100%;
+  padding: 5px 60px;
 }
-.app-header__logo img {
-  width: 36px;
+.app-header-logo img {
+  width: 90px;
+  height: 100%;
 }
 .app-header__search-input {
   display: flex;
@@ -52,7 +60,7 @@
   border: 1px solid #f0f1f2;
   box-shadow: 0 2px 4px rgba(29, 34, 108, 0.1);
 }
-.app-header__menu-section {
+.app-header-menu-section {
   float: right;
 }
 .app-header-skeleton {
@@ -93,6 +101,26 @@
   top: 64px;
   left: 0;
   z-index: 99;
+}
+
+/* Map Card Styles */
+.map-card__cover-img {
+  width: 100%;
+  height: 100px;
+  background-size: cover;
+  background-position: 50%;
+}
+.map-card__price.ant-typography {
+  color: #1d226c;
+  margin: 0;
+}
+.map-card__price.ant-typography span {
+  color: #bfbfbf;
+  font-weight: 400;
+}
+.map-card__title.ant-typography,
+.map-card__address.ant-typography {
+  display: block;
 }
 
 /* Listing Card Styles */
@@ -163,6 +191,11 @@
     padding-bottom: 0;
   }
 }
+
+.home {
+  margin-top: 40px;
+}
+
 .home-hero,
 .page-skeleton__paragraph {
   padding-bottom: 40px;
@@ -491,26 +524,99 @@
 }
 
 .listings {
-  padding: 60px 60px;
+  margin-left: 40px;
+  margin-top: 40px;
+  margin-right: 20px;
   display: flex;
 }
 .map {
-  width: 50%;
-  height: 50vh;
+  width: 70%;
   margin-left: 20px;
-  background-image: url('../../src/components/ListingsHome/assets/los-angeles.jpg');
+}
+
+.map > div {
+  padding: 0;
+  margin: 0;
 }
 
 .listings-section {
   width: 100%;
 }
 
-@media (max-width: 75em) {
+.listings-list {
+  height: 700px;
+  overflow-x: hidden;
+  overflow-y: visible;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #ebebeb;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b2bec3;
+}
+.map-popup {
+  display: none;
+}
+
+.mapboxgl-popup-content {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.mapboxgl-popup-content > button {
+  z-index: 100;
+  background-color: #b2bec383;
+  right: 5px;
+  top: 5px;
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  font-weight: bolder;
+}
+
+.mapboxgl-popup-content > button:hover {
+  background-color: #7a8386;
+  color: antiquewhite;
+}
+
+@media (max-width: 991px) {
   .listings {
-    padding-left: 20px;
-    padding-right: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
     display: flex;
     flex-direction: column;
+  }
+  .map {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .map > div {
+    position: absolute;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+  }
+
+  .listings-list {
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+  }
+
+  .map-popup {
+    display: initial;
+  }
+
+  .map-popup .ant-card-body {
+    padding: 10px;
   }
 }
 .listings--none .ant-typography {
@@ -577,18 +683,41 @@ html {
   align-items: center;
   justify-content: center;
 }
-.app__affix-header {
-  z-index: 99;
-}
 .app__affix-footer {
   position: absolute;
   bottom: 10px;
   right: 10px;
 }
-@media (max-width: 36em) {
+@media (max-width: 768px) {
   .app__affix-footer {
     display: none;
   }
+}
+
+.app-footer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  padding: 10px 20px;
+  text-align: center;
+  background-color: transparent;
+  border-top: 1.5px solid #334355;
+  margin-right: 15%;
+  margin-left: 15%;
+  margin-top: 40px;
+}
+
+.app-footer > div {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.app-footer-text {
+  font-size: 18px;
+}
+.app-footer svg {
+  margin-right: 10px;
+  width: 2.5em;
+  height: 2.5em;
 }
 
 /* Login Styles */
@@ -691,9 +820,7 @@ html {
   color: #1d226c;
   display: inline-block;
 }
-.user-listings .ant-list-pagination {
-  padding-bottom: 20px;
-}
+
 .user-listings__description.ant-typography {
   font-size: 15px;
 }

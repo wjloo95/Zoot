@@ -83,7 +83,7 @@ export const ListingsMap = ({
         mapboxApiAccessToken={`${process.env.REACT_APP_MAPBOX_TOKEN}`}
         mapStyle="mapbox://styles/mapbox/bright-v8"
         width={'100%'}
-        height={600}
+        height={'80%'}
         {...viewport}
         onViewportChange={(viewport) => {
           setViewport(viewport);

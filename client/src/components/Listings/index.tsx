@@ -95,6 +95,7 @@ export const Listings = () => {
         />
         <ListingsSortSection sort={sort} setSort={setSort} />
         <List
+          className="listings-list"
           grid={{
             column: 3,
             gutter: 8,

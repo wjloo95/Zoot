@@ -522,14 +522,18 @@
 }
 
 .map > div {
-  position: absolute;
-  top: 11%;
   padding: 0;
   margin: 0;
 }
 
 .listings-section {
   width: 100%;
+}
+
+.listings-list {
+  height: 800px;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
 @media (max-width: 991px) {
@@ -546,10 +550,13 @@
 
   .map > div {
     position: absolute;
-    top: 11%;
     width: 100%;
     padding: 0;
     margin: 0;
+  }
+
+  .listings-section {
+    overflow: hidden;
   }
 }
 .listings--none .ant-typography {

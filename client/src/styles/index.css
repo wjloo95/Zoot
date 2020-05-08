@@ -560,7 +560,7 @@
 
 .mapboxgl-popup-content > button {
   z-index: 100;
-  background-color: #b2bec3a2;
+  background-color: #b2bec383;
   right: 5px;
   top: 5px;
   width: 20px;
@@ -570,7 +570,8 @@
 }
 
 .mapboxgl-popup-content > button:hover {
-  background-color: #b2bec3;
+  background-color: #7a8386;
+  color: antiquewhite;
 }
 
 @media (max-width: 991px) {

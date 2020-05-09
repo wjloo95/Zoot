@@ -12,14 +12,12 @@ import franceImage from './assets/france.jpg';
 import losAngelesImage from './assets/los-angeles.jpg';
 import londonImage from './assets/london.jpg';
 
-import { displayErrorMessage } from '../../lib/utils';
 import {
   ListingsVariables,
   Listings as ListingsData,
 } from '../../lib/graphql/queries/Listings/__generated__/Listings';
 import { LISTINGS } from '../../lib/graphql/queries';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
-import { searchValid } from '../../lib/utils';
 
 import { Col, Row, Typography, Layout, Button, Card } from 'antd';
 const { Content } = Layout;
@@ -29,8 +27,6 @@ const PAGE_LIMIT = 6;
 const PAGE_NUMBER = 1;
 
 export const ListingsHome = () => {
-  let history = useHistory();
-
   const { data, loading } = useQuery<ListingsData, ListingsVariables>(
     LISTINGS,
     {
@@ -43,15 +39,6 @@ export const ListingsHome = () => {
     }
   );
 
-  const onSearch = (value: string) => {
-    const trimmedValue = value.trim();
-    if (searchValid(value)) {
-      displayErrorMessage('Please enter a valid search term!');
-    } else {
-      history.push(`/listings/${trimmedValue}`);
-    }
-  };
-
   const topListingsSection = loading ? (
     <HomeListingsSkeleton />
   ) : data ? (
@@ -60,7 +47,7 @@ export const ListingsHome = () => {
 
   return (
     <>
-      <HomeHero onSearch={onSearch} />
+      <HomeHero />
       <div className="listings-home-bottom">
         <Row gutter={12} className="home-hero__cards">
           <Col xs={12} md={6}>

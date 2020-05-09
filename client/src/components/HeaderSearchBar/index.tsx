@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { SearchOutlined } from '@ant-design/icons';
 import './style.css';
 import { searchValid, displayErrorMessage } from '../../lib/utils';
@@ -8,9 +8,27 @@ interface IProps {
   placeholder: string;
 }
 
-export const LandingSearchBar = ({ placeholder }: IProps) => {
+export const HeaderSearchBar = ({ placeholder }: IProps) => {
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
+  const { location } = history;
+
+  useEffect(() => {
+    const pathnameSubStrings = location.pathname.split('/');
+
+    if (!location.pathname.includes('/listings')) {
+      setSearchValue('');
+      return;
+    }
+
+    if (
+      location.pathname.includes('/listings') &&
+      pathnameSubStrings.length === 3
+    ) {
+      setSearchValue(pathnameSubStrings[2]);
+      return;
+    }
+  }, [location]);
 
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();
@@ -25,11 +43,12 @@ export const LandingSearchBar = ({ placeholder }: IProps) => {
   };
 
   return (
-    <div className="landing-search-bar">
+    <div className="header-search-bar">
       <input
         type="text"
-        className="landing-search-input"
+        className="header-search-input"
         placeholder={placeholder}
+        value={searchValue}
         onChange={(e) => {
           setSearchValue(e.target.value);
         }}
@@ -40,8 +59,8 @@ export const LandingSearchBar = ({ placeholder }: IProps) => {
           }
         }}
       ></input>
-      <div className="landing-search-button" onClick={handleSearch}>
-        <SearchOutlined className="landing-search-icon" />
+      <div className="header-search-button" onClick={handleSearch}>
+        <SearchOutlined className="header-search-icon" />
       </div>
     </div>
   );

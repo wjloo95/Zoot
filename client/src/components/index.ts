@@ -8,3 +8,5 @@ export * from './Login';
 export * from './AppHeader';
 export * from './Stripe';
 export * from './AppFooter';
+export * from './LandingSearchBar';
+export * from './HeaderSearchBar';

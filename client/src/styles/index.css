@@ -3,15 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');
 
 :root {
-  --main-bg-color: #f7f9f9;
-  --main-header-bg-color: #f7f9f9;
-  --listings-bg-color: #f7f9f9;
+  --main-bg-color: #eeecee;
+  --main-header-bg-color: #eeecee;
+  --listings-bg-color: #eeecee;
 }
 
 [data-theme='dark'] {
   --primary-color: #98b5c1;
   --secondary-color: #818cab;
-  --font-color: #f7f9f9;
+  --font-color: #eeecee;
   --bg-color: #455a5e;
   --heading-color: #818cab;
 }
@@ -35,28 +35,31 @@ body {
   display: flex;
   background: var(--main-header-bg-color);
   box-shadow: 0 2px 8px #f0f1f2;
+  width: 100%;
   padding: 0;
+  z-index: 99;
 }
 
-.app-header-container {
-  z-index: 99;
-  width: 100%;
-}
 .app-header-search-section {
   display: flex;
   align-items: center;
   flex-grow: 1;
 }
+
 .app-header-logo {
-  margin: 0 40px;
+  margin-top: 10px;
+  margin-bottom: 17px;
+  margin-left: 40px;
+  max-width: 130px;
 }
 .app-header-logo img {
-  margin-top: 5px;
+  width: 30%;
+  min-width: 120px;
 }
 
-@media (max-width: 75em) {
+@media (max-width: 991px) {
   .app-header-logo {
-    margin: 0 20px;
+    margin-left: 20px;
   }
 }
 .app-header__search-input {
@@ -76,6 +79,7 @@ body {
 }
 .app-header-menu-section {
   float: right;
+  background: var(--main-header-bg-color);
 }
 .app-header-skeleton {
   display: flex;
@@ -261,7 +265,7 @@ body {
 }
 
 .ant-btn-primary {
-  color: #f7f9f9;
+  color: #eeecee;
   background-color: #98b5c1;
   border-color: #98b5c1;
 }
@@ -325,7 +329,7 @@ body {
   padding-top: 0;
   padding-bottom: 0;
   height: 0;
-  color: #fff;
+  color: #eeecee;
   font-weight: 700;
   position: relative;
   bottom: 40px;
@@ -581,7 +585,7 @@ body {
 }
 .listings-filters {
   padding: 10px 0;
-  background: #fff;
+  background: #eeecee;
 }
 .listings-filters
   .ant-select-selection--single
@@ -786,7 +790,7 @@ html {
   padding: 10px 20px;
   text-align: center;
   background-color: transparent;
-  border-top: 1.5px solid #334355;
+  border-top: 1.5px solid #455a5e;
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 40px;
@@ -831,7 +835,7 @@ html {
   display: flex;
   align-items: center;
   padding: 1px;
-  color: #fff;
+  color: #eeecee;
   cursor: pointer;
 }
 .log-in-card-button:hover {
@@ -857,7 +861,7 @@ html {
 }
 
 .log-in-card__google-button {
-  background-color: #fff;
+  background-color: #eeecee;
 }
 .log-in-card__google-button:active {
   background: #4285f4;
@@ -868,7 +872,7 @@ html {
 }
 
 .log-in-card__google-button-text:active {
-  color: #fff;
+  color: #eeecee;
 }
 
 /* User Page Styles */

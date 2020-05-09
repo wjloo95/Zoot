@@ -1,16 +1,10 @@
 import React from 'react';
-import { Input } from 'antd';
 
 import BookingsVideo from '../../assets/MainVideo.mp4';
 import Logo from '../../assets/NewLogoCropped.png';
+import { LandingSearchBar } from '../../../LandingSearchBar';
 
-const { Search } = Input;
-
-interface IProps {
-  onSearch: (value: string) => void;
-}
-
-export const HomeHero = ({ onSearch }: IProps) => {
+export const HomeHero = () => {
   return (
     <div className="listings-video-container">
       <div className="listings-header">
@@ -29,13 +23,7 @@ export const HomeHero = ({ onSearch }: IProps) => {
       <div className="listings-overlay"></div>
       <div className="home-hero__search">
         <h1 className="home-hero__title">Find a place you'll love to stay</h1>
-        <Search
-          placeholder="Search 'San Francisco'"
-          size="large"
-          enterButton
-          className="home-hero__search-input"
-          onSearch={onSearch}
-        />
+        <LandingSearchBar placeholder="Search 'San Francisco'" />
       </div>
     </div>
   );

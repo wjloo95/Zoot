@@ -1,0 +1,69 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+.homepage-hero {
+  position: relative;
+  overflow: hidden;
+}
+
+.homepage-video {
+  height: 100%;
+  width: 100%;
+  /* position: absolute; */
+  background-color: black;
+}
+
+.homepage-hero-content {
+  position: absolute;
+  color: antiquewhite;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0;
+}
+
+.hero-text {
+  text-align: center;
+  padding: 10px;
+}
+
+.hero-text img {
+  height: 100px;
+  width: 100px;
+}
+
+.hero-nav {
+  width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-card {
+  position: relative;
+  cursor: pointer;
+  flex: 1;
+  border-radius: 15%;
+  max-width: 300px;
+  height: 150px;
+  margin: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: url('./assets/airplane-wing-towards-clouds-731217.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}

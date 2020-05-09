@@ -37,6 +37,10 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
     }
   }, [location]);
 
+  if (location.pathname === '/') {
+    return null;
+  }
+
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();
     if (searchValid(value)) {
@@ -59,22 +63,24 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
     ) : null;
 
   return (
-    <AntHeader className="app-header">
-      <div className="app-header-search-section">
-        <div className="app-header-logo">
-          <Link to="/">
-            <Avatar
-              src={logo2}
-              shape="square"
-              style={{ width: '90px', height: '100%', verticalAlign: 'top' }}
-            />
-          </Link>
+    <div className="app-header-container">
+      <AntHeader className="app-header">
+        <div className="app-header-search-section">
+          <div className="app-header-logo">
+            <Link to="/">
+              <Avatar
+                src={logo2}
+                shape="square"
+                style={{ width: '90px', height: '100%', verticalAlign: 'top' }}
+              />
+            </Link>
+          </div>
+          {headerSearch}
         </div>
-        {headerSearch}
-      </div>
-      <div className="app-header-menu-section">
-        <MenuItems viewer={viewer} setViewer={setViewer} />
-      </div>
-    </AntHeader>
+        <div className="app-header-menu-section">
+          <MenuItems viewer={viewer} setViewer={setViewer} />
+        </div>
+      </AntHeader>
+    </div>
   );
 };

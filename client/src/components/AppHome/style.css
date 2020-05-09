@@ -9,61 +9,106 @@ body {
   overflow-x: hidden;
 }
 
-.homepage-hero {
-  position: relative;
+.v-header {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  color: aliceblue;
+}
+
+.container {
+  max-width: 960px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  margin: auto;
+  text-align: center;
+}
+
+.fullscreen-video-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
   overflow: hidden;
 }
 
 .homepage-video {
-  height: 100%;
-  width: 100%;
-  /* position: absolute; */
-  background-color: black;
+  min-width: 100%;
+  min-height: 100%;
 }
 
-.homepage-hero-content {
+.header-overlay {
+  height: 100vh;
+  width: 100vw;
   position: absolute;
-  color: antiquewhite;
   top: 0;
+  left: 0;
+  z-index: 1;
+  transition: background-color 1.5s ease-in;
+}
+
+.header-content {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: center;
-  padding: 0;
-}
-
-.hero-text {
-  text-align: center;
-  padding: 10px;
-}
-
-.hero-text img {
-  height: 100px;
-  width: 100px;
+  z-index: 2;
 }
 
 .hero-nav {
-  width: 50%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: space-around;
+  width: 100vw;
+
+  margin-bottom: 20px;
+}
+
+.header-content img {
+  width: 20%;
+  height: 20%;
 }
 
 .hero-card {
-  position: relative;
   cursor: pointer;
-  flex: 1;
-  border-radius: 15%;
-  max-width: 300px;
-  height: 150px;
-  margin: 20px;
+  padding: 15px;
+  color: #eff0ec;
+  transition: background-color 0.5s ease-in;
+  transition: border-top 0.5s ease-out;
+}
+
+.hero-card:hover {
+  background: rgba(255, 255, 255, 0.466);
+}
+
+.information-card {
+  /* position: relative; */
   display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: url('./assets/airplane-wing-towards-clouds-731217.jpg');
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  align-items: space-around;
+}
+
+.video-card {
+  /* position: absolute; */
+  width: 30vw;
+  height: 40vh;
+  z-index: 3;
+  transition: opacity 0.7s linear;
+}
+
+@media (max-width: 75em) {
+  .information-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .video-card {
+    position: absolute;
+    width: 50vw;
+    height: 60vh;
+    z-index: 3;
+    transition: opacity 0.7s linear;
+  }
 }

@@ -1,121 +1,114 @@
 import React, { useState } from 'react';
 import './style.css';
 
-import MainVideo from './assets/MainVideo.mp4';
+import MainVideo from './assets/coverr-aerial-view-of-rocky-mountains-1585320758193.mp4';
 import ExperiencesVideo from './assets/FoodVideo.mp4';
-import PlaneVideo from './assets/PlaneVideo.mp4';
 import BookingsVideo from './assets/BookingsVideo.mp4';
+import FlightsVideo from './assets/PlaneVideo.mp4';
 
 import ZootLogo from '../AppHeader/assets/Logo1NoBG.png';
+import { Link } from 'react-router-dom';
 
 export const AppHome = () => {
-  const [currentVideo, setCurrentVideo] = useState(MainVideo);
+  const [menuOptionSelected, setmenuOptionSelected] = useState<string | null>(
+    null
+  );
+
+  const backdropColor = menuOptionSelected ? 'rgb(0,0,0,0.5)' : '#263a3a49';
+
+  const cardContent =
+    menuOptionSelected === FlightsVideo
+      ? 'Book a flight to your next destination!'
+      : menuOptionSelected === BookingsVideo
+      ? 'Find the perfect place to stay!'
+      : menuOptionSelected === ExperiencesVideo
+      ? 'Embark on your next exciting adventure!'
+      : null;
 
   return (
-    <>
-      <div className="homepage-hero">
+    <div className="v-header container">
+      <div className="fullscreen-video-wrap">
         <video
           autoPlay
           loop
           muted
           playsInline
           src={MainVideo}
-          style={{
-            opacity: currentVideo === MainVideo ? 1 : 0,
-            transition: 'opacity, 0.25s ease-in-out',
-          }}
-          className="homepage-video homepage-video-main"
+          className="homepage-video"
         ></video>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          src={PlaneVideo}
-          style={{
-            opacity: currentVideo === PlaneVideo ? 1 : 0,
-            transition: 'opacity, 0.25s ease-in-out',
-          }}
-          className="homepage-video homepage-video-flights"
-        ></video>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          src={BookingsVideo}
-          style={{
-            opacity: currentVideo === BookingsVideo ? 1 : 0,
-            transition: 'opacity, 0.25s ease-in-out',
-          }}
-          className="homepage-video homepage-video-bookings"
-        ></video>
-        <video
-          autoPlay
-          loop
-          muted
-          playsInline
-          src={ExperiencesVideo}
-          style={{
-            opacity: currentVideo === ExperiencesVideo ? 1 : 0,
-            transition: 'opacity, 0.25s ease-in-out',
-          }}
-          className="homepage-video homepage-video-experiences"
-        ></video>
-        <div className="homepage-hero-content">
-          <div className="hero-text">
-            <img src={ZootLogo} />
-            <p>Start your adventure!</p>
+      </div>
+      <div
+        className="header-overlay"
+        style={{
+          backgroundColor: backdropColor,
+        }}
+      ></div>
+      <div className="header-content">
+        <img src={ZootLogo} />
+        <div className="hero-nav">
+          <div
+            className="hero-card hero-card-flights"
+            onClick={() => {
+              setmenuOptionSelected(FlightsVideo);
+            }}
+          >
+            Flights
           </div>
-          <div className="hero-nav">
-            <div
-              className="hero-card hero-card-flights"
-              onMouseEnter={() => {
-                setCurrentVideo(PlaneVideo);
-              }}
-              onMouseLeave={() => {
-                setCurrentVideo(MainVideo);
-              }}
-            >
-              Plan your Flight!
-            </div>
-            <div
-              className="hero-card hero-card-bookings"
-              onMouseEnter={() => {
-                setCurrentVideo(BookingsVideo);
-              }}
-              onMouseLeave={() => {
-                setCurrentVideo(MainVideo);
-              }}
-            >
-              Book your Stay!
-            </div>
-            <div
-              className="hero-card hero-card-experiences"
-              onMouseEnter={() => {
-                setCurrentVideo(ExperiencesVideo);
-              }}
-              onMouseLeave={() => {
-                setCurrentVideo(MainVideo);
-              }}
-            >
-              Have an Adventure!
-            </div>
+          <div
+            className="hero-card hero-card-bookings"
+            onClick={() => {
+              setmenuOptionSelected(BookingsVideo);
+            }}
+          >
+            Accommodations
+          </div>
+          <div
+            className="hero-card hero-card-experiences"
+            onClick={() => {
+              setmenuOptionSelected(ExperiencesVideo);
+            }}
+          >
+            Experiences
           </div>
         </div>
+        <div className="information-card">
+          <Link to="/comingsoon">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src={FlightsVideo}
+              style={{ opacity: menuOptionSelected === FlightsVideo ? 1 : 0 }}
+              className="video-card"
+            ></video>
+          </Link>
+          <Link to="/listings">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src={BookingsVideo}
+              style={{ opacity: menuOptionSelected === BookingsVideo ? 1 : 0 }}
+              className="video-card"
+            ></video>
+          </Link>
+          <Link to="/comingsoon">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              src={ExperiencesVideo}
+              style={{
+                opacity: menuOptionSelected === ExperiencesVideo ? 1 : 0,
+              }}
+              className="video-card"
+            ></video>
+          </Link>
+        </div>
       </div>
-      <div className="homepage-content">
-        <h1>TEXT</h1>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolores
-          omnis aut est qui asperiores facilis non sequi libero! Nesciunt
-          repellendus quaerat laboriosam illo soluta expedita labore eos, sit
-          perspiciatis debitis! Lorem ipsum dolor, sit amet consectetur
-          adipisicing elit. Earum blanditiis recusandae, corporis expedita
-          nesciunt omnis veniam laboriosam nihil fugiat dolor explicabo, quaerat
-          asperiores dolores error voluptatibus in numquam ullam? Nemo.
-        </p>
-      </div>
-    </>
+    </div>
   );
 };

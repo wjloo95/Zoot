@@ -25,6 +25,7 @@ import { Stripe } from './Stripe';
 import { AppFooter } from './AppFooter';
 import { ComingSoon } from './ComingSoon';
 import ScrollToTop from './ScrollToTop';
+import { AppHome } from './AppHome';
 
 const initialViewer: Viewer = {
   id: null,
@@ -72,37 +73,38 @@ const App = () => {
   ) : null;
 
   return (
-    <Router>
-      <ScrollToTop />
-      <Layout id="app">
-        {logInErrorBannerElement}
-        <div className="app-header-container">
+    <>
+      <Router>
+        <ScrollToTop />
+        <Layout id="app">
+          {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
-        </div>
-        <Switch>
-          <Route exact path="/listings" component={ListingsHome} />
-          <Route exact path="/login">
-            <Login setViewer={setViewer} />
-          </Route>
-          <Route exact path="/host">
-            <Host viewer={viewer} />
-          </Route>
-          <Route exact path="/listing/:id">
-            <Listing viewer={viewer} />
-          </Route>
-          <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/user/:id">
-            <User viewer={viewer} setViewer={setViewer} />
-          </Route>
-          <Route exact path="/stripe">
-            <Stripe viewer={viewer} setViewer={setViewer} />
-          </Route>
-          <Route exact path="/comingsoon" component={ComingSoon} />
-          <Route component={NotFound} />
-        </Switch>
-        <AppFooter />
-      </Layout>
-    </Router>
+          <Switch>
+            <Route exact path="/" component={AppHome} />
+            <Route exact path="/listings" component={ListingsHome} />
+            <Route exact path="/login">
+              <Login setViewer={setViewer} />
+            </Route>
+            <Route exact path="/host">
+              <Host viewer={viewer} />
+            </Route>
+            <Route exact path="/listing/:id">
+              <Listing viewer={viewer} />
+            </Route>
+            <Route exact path="/listings/:location?" component={Listings} />
+            <Route exact path="/user/:id">
+              <User viewer={viewer} setViewer={setViewer} />
+            </Route>
+            <Route exact path="/stripe">
+              <Stripe viewer={viewer} setViewer={setViewer} />
+            </Route>
+            <Route exact path="/comingsoon" component={ComingSoon} />
+            <Route component={NotFound} />
+          </Switch>
+          <AppFooter />
+        </Layout>
+      </Router>
+    </>
   );
 };
 

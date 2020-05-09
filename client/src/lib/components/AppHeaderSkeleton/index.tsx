@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Avatar } from 'antd';
-import logo2 from '../../../components/AppHeader/assets/Logo2.png';
+import logo2 from '../../../components/AppHeader/assets/NewLogoCropped.png';
 
 const { Header } = Layout;
 

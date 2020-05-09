@@ -66,8 +66,9 @@ body {
 }
 
 .header-content img {
-  width: 20%;
-  height: 20%;
+  margin-top: 10px;
+  width: 30%;
+  height: 8%;
 }
 
 .hero-card {

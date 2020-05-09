@@ -5,7 +5,7 @@ import { MenuItems } from './children';
 import { Viewer } from '../../lib/types';
 import { searchValid } from '../../lib/utils';
 import { displayErrorMessage } from '../../lib/utils';
-import logo2 from './assets/Logo2.png';
+import Logo from './assets/NewLogoCropped.png';
 
 const { Header: AntHeader } = Layout;
 const { Search } = Input;
@@ -37,7 +37,7 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
     }
   }, [location]);
 
-  if (location.pathname === '/') {
+  if (location.pathname === '/' || location.pathname === '/listings') {
     return null;
   }
 
@@ -69,7 +69,7 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
           <div className="app-header-logo">
             <Link to="/">
               <Avatar
-                src={logo2}
+                src={Logo}
                 shape="square"
                 style={{ width: '90px', height: '100%', verticalAlign: 'top' }}
               />

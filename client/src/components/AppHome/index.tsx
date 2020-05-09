@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import './style.css';
 
 import MainVideo from './assets/coverr-aerial-view-of-rocky-mountains-1585320758193.mp4';
-import ExperiencesVideo from './assets/FoodVideo.mp4';
-import BookingsVideo from './assets/BookingsVideo.mp4';
-import FlightsVideo from './assets/PlaneVideo.mp4';
+// import ExperiencesVideo from './assets/FoodVideo.mp4';
+// import BookingsVideo from './assets/BookingsVideo.mp4';
+// import FlightsVideo from './assets/PlaneVideo.mp4';
 
-import ZootLogo from '../AppHeader/assets/Logo1NoBG.png';
-import { Link } from 'react-router-dom';
+import Logo from '../AppHeader/assets/NewLogoCropped.png';
+// import { Link } from 'react-router-dom';
 
 export const AppHome = () => {
   const [menuOptionSelected, setmenuOptionSelected] = useState<string | null>(
@@ -16,14 +16,14 @@ export const AppHome = () => {
 
   const backdropColor = menuOptionSelected ? 'rgb(0,0,0,0.5)' : '#263a3a49';
 
-  const cardContent =
-    menuOptionSelected === FlightsVideo
-      ? 'Book a flight to your next destination!'
-      : menuOptionSelected === BookingsVideo
-      ? 'Find the perfect place to stay!'
-      : menuOptionSelected === ExperiencesVideo
-      ? 'Embark on your next exciting adventure!'
-      : null;
+  // const cardContent =
+  //   menuOptionSelected === FlightsVideo
+  //     ? 'Book a flight to your next destination!'
+  //     : menuOptionSelected === BookingsVideo
+  //     ? 'Find the perfect place to stay!'
+  //     : menuOptionSelected === ExperiencesVideo
+  //     ? 'Embark on your next exciting adventure!'
+  //     : null;
 
   return (
     <div className="v-header container">
@@ -44,8 +44,8 @@ export const AppHome = () => {
         }}
       ></div>
       <div className="header-content">
-        <img src={ZootLogo} />
-        <div className="hero-nav">
+        <img src={Logo} />
+        {/* <div className="hero-nav">
           <div
             className="hero-card hero-card-flights"
             onClick={() => {
@@ -70,8 +70,8 @@ export const AppHome = () => {
           >
             Experiences
           </div>
-        </div>
-        <div className="information-card">
+        </div> */}
+        {/* <div className="information-card">
           <Link to="/comingsoon">
             <video
               autoPlay
@@ -107,7 +107,7 @@ export const AppHome = () => {
               className="video-card"
             ></video>
           </Link>
-        </div>
+        </div> */}
       </div>
     </div>
   );

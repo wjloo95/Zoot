@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactMapGL, { Marker } from 'react-map-gl';
-import { Typography } from 'antd';
 import { EnvironmentFilled } from '@ant-design/icons';
 import { useViewport } from '../../../../lib/utils';
-
-const { Title } = Typography;
 
 interface IProps {
   latitude: number;

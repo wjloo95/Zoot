@@ -24,9 +24,7 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
 
   const headerSearch =
     location.pathname !== '/listings' ? (
-      <div className="app-header__search-input">
-        <HeaderSearchBar placeholder="Search 'San Francisco'" />
-      </div>
+      <HeaderSearchBar placeholder="Search 'San Francisco'" />
     ) : null;
 
   return (

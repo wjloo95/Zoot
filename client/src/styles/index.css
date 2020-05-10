@@ -555,8 +555,10 @@ body {
 }
 
 .listings {
+  border-top: 2.5px solid var(--dark-font-color);
   margin-left: 40px;
-  margin-top: 40px;
+  padding-top: 40px;
+  margin-top: 5px;
   margin-right: 20px;
   display: flex;
 }
@@ -731,7 +733,7 @@ html {
   padding: 10px 20px;
   text-align: center;
   background-color: transparent;
-  border-top: 1.5px solid #455a5e;
+  border-top: 2.5px solid var(--dark-font-color);
   margin-right: 15%;
   margin-left: 15%;
   margin-top: 40px;

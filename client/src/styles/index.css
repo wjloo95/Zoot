@@ -79,6 +79,18 @@ body {
 .app-header-menu-section {
   float: right;
   background: var(--bg-color);
+  padding-top: 10px;
+}
+
+.ant-menu {
+  background: var(--bg-color);
+}
+
+.ant-menu li {
+  background: var(--bg-color);
+}
+.ant-menu li div {
+  background: var(--bg-color);
 }
 .error-banner {
   position: fixed;

@@ -88,7 +88,8 @@ export const ListingsMap = ({
     <div className="map">
       <ReactMapGL
         mapboxApiAccessToken={`${process.env.REACT_APP_MAPBOX_TOKEN}`}
-        mapStyle="mapbox://styles/mapbox/bright-v8"
+        // mapStyle="mapbox://styles/mapbox/bright-v8"
+        mapStyle="mapbox://styles/wjloo95/cka0ndtyh0hwl1jp8gnbnyept"
         width={'100%'}
         height={'800px'}
         {...viewport}

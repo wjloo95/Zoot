@@ -29,7 +29,8 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
       <Title level={3}>Location</Title>
       <ReactMapGL
         mapboxApiAccessToken={`${process.env.REACT_APP_MAPBOX_TOKEN}`}
-        mapStyle="mapbox://styles/mapbox/bright-v8"
+        // mapStyle="mapbox://styles/mapbox/bright-v8"
+        mapStyle="mapbox://styles/wjloo95/cka0ndtyh0hwl1jp8gnbnyept"
         {...viewport}
         onViewportChange={(viewport) => {
           setViewport(viewport);

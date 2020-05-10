@@ -19,9 +19,6 @@ import {
 import { LISTINGS } from '../../lib/graphql/queries';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
 
-import { Col, Row, Typography, Layout, Button, Card } from 'antd';
-const { Paragraph, Title } = Typography;
-
 const PAGE_LIMIT = 6;
 const PAGE_NUMBER = 1;
 
@@ -49,50 +46,22 @@ export const ListingsHome = () => {
       <HomeHero />
       <div className="listings-home-bottom">
         <HomeSuggestions />
-        <div className="home__cta-section">
-          <Title level={2} className="home__cta-section-title">
+        <div className="listings-home-US">
+          <h2 className="listings-home-US-title">
             Your guide for all things rental
-          </Title>
-          <Paragraph>
-            Helping you make the best decisions in renting your last minute
-            locations.
-          </Paragraph>
-          <Button>
-            <Link to="/listings/United%20States">
-              Highly Rated Listings in the United States
-            </Link>
-          </Button>
+          </h2>
+          <p>
+            Zoot has over 500,000 listings across the globe for your next
+            getaway
+          </p>
+          <Link
+            to="/listings/United%20States"
+            className="listings-home-US-button"
+          >
+            Highly Rated Listings in the United States
+          </Link>
         </div>
         {topListingsSection}
-        {/* <div className='home__listings'>
-          <Title level={4} className="home__listings-title">
-            Listings of any kind
-          </Title>
-          <Row gutter={12}>
-            <Col xs={24} sm={12}>
-              <Link to="/listings/San%20Francisco">
-                <div className="home__listings-img-cover">
-                  <img
-                    src={sanFranciscoImage}
-                    alt="San Francisco"
-                    className="home__listings-img"
-                  />
-                </div>
-              </Link>
-            </Col>
-            <Col xs={24} sm={12}>
-              <Link to="/listings/Cancún">
-                <div className="home__listings-img-cover">
-                  <img
-                    src={cancunImage}
-                    alt="Cancún"
-                    className="home__listings-img"
-                  />
-                </div>
-              </Link>
-            </Col>
-          </Row>
-        </div> */}
       </div>
     </>
   );

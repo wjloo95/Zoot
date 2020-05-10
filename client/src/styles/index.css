@@ -36,13 +36,20 @@ body {
 
 .menu {
   width: 100%;
-  padding: 0 60px;
   line-height: 63px;
   border: 0;
 }
-@media (max-width: 75em) {
+
+.menu-responsive {
+  display: none;
+}
+
+@media (max-width: 52em) {
   .menu {
-    padding: 0 20px;
+    display: none;
+  }
+  .menu-responsive {
+    display: block;
   }
 }
 .app-header {
@@ -52,6 +59,26 @@ body {
   width: 100%;
   padding: 0;
   z-index: 99;
+}
+
+.app-header-menu-section {
+  float: right;
+  background: var(--bg-color);
+  padding-top: 5px;
+}
+@media (max-width: 52em) {
+  .app-header-menu-section {
+    padding-top: 12px;
+  }
+}
+@media (max-width: 28em) {
+  .app-header-menu-section {
+    padding-top: 7px;
+  }
+  .ant-menu-submenu-title {
+    padding: 0;
+    padding-right: 5px;
+  }
 }
 
 .app-header-search-section {
@@ -68,18 +95,19 @@ body {
 }
 .app-header-logo img {
   width: 30%;
-  min-width: 120px;
+  min-width: 100px;
+  transition: all 0.25s linear;
+}
+@media (max-width: 28em) {
+  .app-header-logo img {
+    min-width: 70px;
+  }
 }
 
 @media (max-width: 991px) {
   .app-header-logo {
     margin-left: var(--responsive-left-margin);
   }
-}
-.app-header-menu-section {
-  float: right;
-  background: var(--bg-color);
-  padding-top: 10px;
 }
 
 .ant-menu {

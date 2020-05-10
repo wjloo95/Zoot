@@ -35,7 +35,7 @@ export const LandingSearchBar = ({ placeholder }: IProps) => {
         }}
         onKeyPress={(e) => {
           var key = e.keyCode || e.which;
-          if (key == 13) {
+          if (key === 13) {
             onSearch(searchValue);
           }
         }}

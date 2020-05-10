@@ -1,7 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Menu, Avatar } from 'antd';
-import { HomeOutlined, LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import {
+  HomeOutlined,
+  LogoutOutlined,
+  UserOutlined,
+  TeamOutlined,
+  RocketOutlined,
+} from '@ant-design/icons';
 
 import { Viewer } from '../../../../lib/types';
 import { useMutation } from '@apollo/react-hooks';
@@ -41,7 +47,7 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
 
   const subMenuLogin =
     viewer.id && viewer.avatar ? (
-      <SubMenu title={<Avatar src={viewer.avatar} />}>
+      <SubMenu title={<Avatar size="large" src={viewer.avatar} />}>
         <Item key={`/user/${viewer.id}`}>
           <Link to={`/user/${viewer.id}`}>
             <UserOutlined />
@@ -61,15 +67,72 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
       </Item>
     );
 
-  return (
-    <Menu mode="horizontal" selectable={false} className="menu">
-      <Item key="/listings">
-        <Link to="/listings">
-          <HomeOutlined />
-          Listings
+  const subMenuResponsive =
+    viewer.id && viewer.avatar ? (
+      <SubMenu title={<Avatar size="large" src={viewer.avatar} />}>
+        <Item key={`/user/${viewer.id}`}>
+          <Link to={`/user/${viewer.id}`}>
+            <UserOutlined />
+            Profile
+          </Link>
+        </Item>
+        <Item key="/listings">
+          <Link to="/listings">
+            <HomeOutlined />
+            Listings
+          </Link>
+        </Item>
+        <Item key="/flights">
+          <Link to="/flights">
+            <RocketOutlined />
+            Flights
+          </Link>
+        </Item>
+        <Item key="/experiences">
+          <Link to="/experiences">
+            <TeamOutlined />
+            Experiences
+          </Link>
+        </Item>
+        <Item key="/logout" onClick={handleLogOut}>
+          <LogoutOutlined />
+          Log out
+        </Item>
+      </SubMenu>
+    ) : (
+      <Item>
+        <Link to="/login">
+          <Button type="primary">Sign In</Button>
         </Link>
       </Item>
-      {subMenuLogin}
-    </Menu>
+    );
+
+  return (
+    <>
+      <Menu mode="horizontal" selectable={false} className="menu">
+        <Item key="/listings">
+          <Link to="/listings">
+            <HomeOutlined />
+            Listings
+          </Link>
+        </Item>
+        <Item key="/flights">
+          <Link to="/flights">
+            <RocketOutlined />
+            Flights
+          </Link>
+        </Item>
+        <Item key="/experiences">
+          <Link to="/experiences">
+            <TeamOutlined />
+            Experiences
+          </Link>
+        </Item>
+        {subMenuLogin}
+      </Menu>
+      <Menu mode="horizontal" selectable={false} className="menu-responsive">
+        {subMenuResponsive}
+      </Menu>
+    </>
   );
 };

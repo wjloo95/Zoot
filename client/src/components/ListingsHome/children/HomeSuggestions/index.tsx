@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card } from 'antd';
 
 import torontoImage from '../../assets/toronto.jpg';
 import losAngelesImage from '../../assets/los-angeles.jpg';
@@ -20,7 +19,6 @@ export const HomeSuggestions = () => {
             />
             <h1 className="suggestion-name">Toronto</h1>
           </div>
-          {/* <Card cover={<img alt="toronto" src={torontoImage} />}>Toronto</Card> */}
         </Link>
       </div>
       <div className="suggestion-container">
@@ -33,9 +31,6 @@ export const HomeSuggestions = () => {
             />
             <h1 className="suggestion-name">Los Angeles</h1>
           </div>
-          {/* <Card cover={<img alt="los-angeles" src={losAngelesImage} />}>
-            Los Angeles
-          </Card> */}
         </Link>
       </div>
       <div className="suggestion-container">
@@ -44,7 +39,6 @@ export const HomeSuggestions = () => {
             <img alt="london" src={londonImage} className="suggestion-image" />
             <h1 className="suggestion-name">London</h1>
           </div>
-          {/* <Card cover={<img alt="london" src={londonImage} />}>London</Card> */}
         </Link>
       </div>
       <div className="suggestion-container">

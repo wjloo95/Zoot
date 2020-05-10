@@ -3,7 +3,7 @@ import './style.css';
 
 import MainVideo from './assets/coverr-aerial-view-of-rocky-mountains-1585320758193.mp4';
 
-import Logo from '../AppHeader/assets/NewLogoCropped.png';
+import Logo from '../../lib/assets/DarkLogo.png';
 
 export const AppHome = () => {
   const [menuOptionSelected, setmenuOptionSelected] = useState<string | null>(

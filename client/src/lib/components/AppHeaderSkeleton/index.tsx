@@ -1,5 +1,5 @@
 import React from 'react';
-import Logo from '../../../components/AppHeader/assets/NewLogoCropped.png';
+import Logo from '../../../lib/assets/DarkLogo.png';
 
 export const AppHeaderSkeleton = () => {
   return (

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactMapGL, { Marker, Popup } from 'react-map-gl';
 
-import { HomeFilled } from '@ant-design/icons';
+import { EnvironmentFilled } from '@ant-design/icons';
 import {
   Listings as ListingsData,
   Listings_listings_result,
@@ -18,7 +18,7 @@ interface IProps {
   setSelectedListing: (listing: Listings_listings_result | null) => void;
 }
 
-const DEFAULT_ZOOM = 9;
+const DEFAULT_ZOOM = 10;
 const MAX_ZOOM = 18;
 const MIN_ZOOM = 4;
 
@@ -68,11 +68,13 @@ export const ListingsMap = ({
           latitude={listing.latitude}
           longitude={listing.longitude}
         >
-          <HomeFilled
+          <EnvironmentFilled
             style={{
-              fontSize: '30px',
+              fontSize: '25px',
               color: `${
-                selectedListing?.id === listing.id ? '#0984e3' : '#2d3436'
+                selectedListing?.id === listing.id
+                  ? 'var(--light-secondary-color)'
+                  : 'var(--primary-color)'
               }`,
               cursor: 'pointer',
             }}

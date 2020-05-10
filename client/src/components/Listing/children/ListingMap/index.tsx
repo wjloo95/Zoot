@@ -37,7 +37,9 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
         }}
       >
         <Marker latitude={latitude} longitude={longitude}>
-          <EnvironmentFilled style={{ fontSize: '30px', color: '#2d3436' }} />
+          <EnvironmentFilled
+            style={{ fontSize: '30px', color: 'var(--light-secondary-color)' }}
+          />
         </Marker>
       </ReactMapGL>
     </div>

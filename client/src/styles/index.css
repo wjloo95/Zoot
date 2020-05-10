@@ -106,12 +106,16 @@ body {
   margin: 0;
 }
 .map-card__price.ant-typography span {
-  color: var(--light-font-color);
+  color: var(--dark-secondary-color);
   font-weight: 400;
 }
 .map-card__title.ant-typography,
 .map-card__address.ant-typography {
   display: block;
+}
+
+.mapboxgl-popup-content .ant-card-body {
+  padding: 10px 12px;
 }
 
 /* Listing Card Styles */
@@ -457,10 +461,6 @@ body {
   height: 700px;
   overflow-x: hidden;
   overflow-y: visible;
-}
-
-.map-popup {
-  display: none;
 }
 
 .mapboxgl-popup-content {

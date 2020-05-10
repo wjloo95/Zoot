@@ -7,6 +7,12 @@ import {
   NotFound,
   User,
   Login,
+  Stripe,
+  AppFooter,
+  ScrollToTop,
+  AppHome,
+  Flights,
+  Experiences,
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -21,8 +27,6 @@ import {
 } from '../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { LOG_IN } from '../lib/graphql/mutations';
 import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
-import { Stripe } from './Stripe';
-import { AppFooter } from './AppFooter';
 
 const initialViewer: Viewer = {
   id: null,
@@ -70,35 +74,39 @@ const App = () => {
   ) : null;
 
   return (
-    <Router>
-      <Layout id="app">
-        {logInErrorBannerElement}
-        <div className="app-header-container">
+    <>
+      <Router>
+        <ScrollToTop />
+        <Layout id="app">
+          {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
-        </div>
-        <Switch>
-          <Route exact path="/listings" component={ListingsHome} />
-          <Route exact path="/login">
-            <Login setViewer={setViewer} />
-          </Route>
-          <Route exact path="/host">
-            <Host viewer={viewer} />
-          </Route>
-          <Route exact path="/listing/:id">
-            <Listing viewer={viewer} />
-          </Route>
-          <Route exact path="/listings/:location?" component={Listings} />
-          <Route exact path="/user/:id">
-            <User viewer={viewer} setViewer={setViewer} />
-          </Route>
-          <Route exact path="/stripe">
-            <Stripe viewer={viewer} setViewer={setViewer} />
-          </Route>
-          <Route component={NotFound} />
-        </Switch>
-        <AppFooter />
-      </Layout>
-    </Router>
+          <Switch>
+            <Route exact path="/" component={AppHome} />
+            <Route exact path="/listings" component={ListingsHome} />
+            <Route exact path="/login">
+              <Login setViewer={setViewer} />
+            </Route>
+            <Route exact path="/host">
+              <Host viewer={viewer} />
+            </Route>
+            <Route exact path="/listing/:id">
+              <Listing viewer={viewer} />
+            </Route>
+            <Route exact path="/listings/:location?" component={Listings} />
+            <Route exact path="/user/:id">
+              <User viewer={viewer} setViewer={setViewer} />
+            </Route>
+            <Route exact path="/stripe">
+              <Stripe viewer={viewer} setViewer={setViewer} />
+            </Route>
+            <Route exact path="/flights" component={Flights} />
+            <Route exact path="/experiences" component={Experiences} />
+            <Route component={NotFound} />
+          </Switch>
+          <AppFooter />
+        </Layout>
+      </Router>
+    </>
   );
 };
 

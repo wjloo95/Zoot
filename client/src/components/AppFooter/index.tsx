@@ -1,12 +1,16 @@
 import React from 'react';
-import { Layout } from 'antd';
 import { GithubFilled, LinkedinFilled, MailTwoTone } from '@ant-design/icons';
-
-const { Footer } = Layout;
+import { useHistory } from 'react-router-dom';
 
 export const AppFooter = () => {
+  const history = useHistory();
+  const { location } = history;
+
+  if (location.pathname === '/') {
+    return null;
+  }
   return (
-    <Footer className="app-footer">
+    <div className="app-footer">
       <div className="app-footer-icons">
         <a
           href="https://github.com/wjloo95"
@@ -29,6 +33,6 @@ export const AppFooter = () => {
       <div className="app-footer-text">
         Zoot Travel © 2020 Created by Will Loo
       </div>
-    </Footer>
+    </div>
   );
 };

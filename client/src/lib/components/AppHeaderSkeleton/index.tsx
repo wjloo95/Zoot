@@ -1,21 +1,14 @@
 import React from 'react';
-import { Layout, Avatar } from 'antd';
-import logo2 from '../../../components/AppHeader/assets/Logo2.png';
-
-const { Header } = Layout;
+import Logo from '../../../lib/assets/DarkLogo.png';
 
 export const AppHeaderSkeleton = () => {
   return (
-    <Header className="app-header">
+    <div className="app-header">
       <div className="app-header-search-section">
         <div className="app-header-logo">
-          <Avatar
-            src={logo2}
-            shape="square"
-            style={{ width: '90px', height: '100%', verticalAlign: 'top' }}
-          />
+          <img src={Logo} alt="Zoot" />
         </div>
       </div>
-    </Header>
+    </div>
   );
 };

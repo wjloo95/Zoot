@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 
-import googleLogo from './assets/google_logo.jpg';
-import facebookLogo from './assets/f_logo_RGB-White_58.png';
+import googleLogo from './assets/GoogleLogo.png';
+import Logo from '../../lib/assets/DarkLogo.png';
 
 import { Viewer } from '../../lib/types';
 
@@ -22,9 +22,9 @@ import {
 } from '../../lib/utils/';
 import { ErrorBanner } from '../../lib/components';
 
-import { Card, Layout, Typography, Spin } from 'antd';
-const { Content } = Layout;
-const { Text, Title } = Typography;
+import { Spin } from 'antd';
+import LoginBackground from '../../lib/assets/LoginBackground.jpg';
+import './style.css';
 interface IProps {
   setViewer: (viewer: Viewer) => void;
 }
@@ -81,52 +81,32 @@ export const Login = ({ setViewer }: IProps) => {
   ) : null;
 
   return loading ? (
-    <Content className="log-in">
+    <div className="log-in">
       <Spin size="large" tip="Logging you in..." />
-    </Content>
+    </div>
   ) : (
-    <Content className="log-in">
+    <div
+      className="log-in"
+      style={{ backgroundImage: `url(${LoginBackground})` }}
+    >
       {logInErrorBanner}
-      <Card className="log-in-card">
-        <div className="log-in-card__intro">
-          <Title level={1} className="log-in-card__intro-title">
-            <span role="img" aria-label="wave">
-              ✈️🏠
-            </span>
-          </Title>
-          <Title level={3} className="log-in-card__intro-title">
-            Log in to Zoot!
-          </Title>
-          <Text>Sign in to get started on your next adventure!</Text>
+      <div className="log-in-card">
+        <img src={Logo} alt="Zoot" />
+        <div className="log-in-card-intro">
+          <h1>Log in to get started!</h1>
         </div>
-        <button className="log-in-card-button log-in-card__facebook-button">
-          <img
-            src={facebookLogo}
-            alt="Facebook Logo"
-            className="log-in-card-button-logo log-in-card__facebook-button-logo"
-          />
-          <span className="log-in-card-button-text log-in-card__facebook-button-text">
-            Continue with Facebook
-          </span>
-        </button>
-        <button
-          className="log-in-card-button log-in-card__google-button"
-          onClick={handleAuthorize}
-        >
+        <button className="log-in-card-button" onClick={handleAuthorize}>
           <img
             src={googleLogo}
             alt="Google Logo"
-            className="log-in-card-button-logo log-in-card__google-button-logo"
+            className="log-in-card-button-logo"
           />
-          <span className="log-in-card-button-text log-in-card__google-button-text">
-            Sign in with Google
-          </span>
+          <span className="log-in-card-button-text ">Sign in with Google</span>
         </button>
-        <Text type="secondary">
-          Note: By signing in, you will be redirected to the selected host's
-          consent form to sign in through their portal.
-        </Text>
-      </Card>
-    </Content>
+        Note: By signing in, you will be redirected to sign in through Google's
+        portal.
+      </div>
+      <div className="log-in-overlay"></div>
+    </div>
   );
 };

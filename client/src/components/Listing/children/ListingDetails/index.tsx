@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Divider, Tag, Typography } from 'antd';
+import { Avatar, Divider, Typography } from 'antd';
 import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { EnvironmentFilled, UserOutlined, StarFilled } from '@ant-design/icons';
 
@@ -11,7 +11,7 @@ interface IProps {
   listing: ListingData['listing'];
 }
 
-const { Paragraph, Title } = Typography;
+const { Paragraph } = Typography;
 
 export const ListingDetails = ({ listing }: IProps) => {
   const [avatarImage, setAvatarImage] = useState(listing.host.avatar);
@@ -45,7 +45,7 @@ export const ListingDetails = ({ listing }: IProps) => {
 
   const descriptionElement = description.length ? (
     <>
-      <Title level={3}>Description</Title>
+      <h2>Description</h2>
       <Paragraph ellipsis={{ rows: 3, expandable: true }}>
         {description}
       </Paragraph>
@@ -54,14 +54,14 @@ export const ListingDetails = ({ listing }: IProps) => {
 
   const rulesElement = rules.length ? (
     <>
-      <Title level={3}>House Rules</Title>
+      <h2>House Rules</h2>
       <Paragraph ellipsis={{ rows: 3, expandable: true }}>{rules}</Paragraph>
     </>
   ) : null;
 
   const notesElement = notes.length ? (
     <>
-      <Title level={3}>Additional Notes</Title>
+      <h2>Additional Notes</h2>
       <Paragraph ellipsis={{ rows: 3, expandable: true }}>{notes}</Paragraph>
     </>
   ) : null;
@@ -79,11 +79,8 @@ export const ListingDetails = ({ listing }: IProps) => {
           </Link>
           <Divider type="vertical" />
           {street}
-          <Divider type="vertical" />
         </Paragraph>
-        <Title level={2} className="listing-details__title">
-          {name}
-        </Title>
+        <h1 className="listing-details__title">{name}</h1>
         <UserOutlined />
         {numOfGuests} Guests
         <Divider type="vertical" />
@@ -103,20 +100,18 @@ export const ListingDetails = ({ listing }: IProps) => {
             src={avatarImage}
             size={64}
           />
-          <Title level={2} className="listing-details__host-name">
-            {host.name}
-          </Title>
+          <h1 className="listing-details__host-name">{host.name}</h1>
         </Link>
       </div>
 
       <Divider />
 
       <div className="listing-details__section">
-        <div className="listing-details__about-items">
-          <Tag color="magenta">{property}</Tag>
-          <Tag color="magenta">{room}</Tag>
-          <Tag color="magenta">{bedrooms} Bedrooms</Tag>
-          <Tag color="magenta">{bathrooms} Bathrooms</Tag>
+        <div className="listing-details-tags">
+          <span>{property}</span>
+          <span>{room}</span>
+          <span>{bedrooms} Bedrooms</span>
+          <span>{bathrooms} Bathrooms</span>
         </div>
         {descriptionElement}
         {rulesElement}

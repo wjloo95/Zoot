@@ -26,17 +26,20 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
 
   return (
     <div className="listing-details__map">
-      <Title level={3}>Location</Title>
+      <h2>Location</h2>
       <ReactMapGL
         mapboxApiAccessToken={`${process.env.REACT_APP_MAPBOX_TOKEN}`}
-        mapStyle="mapbox://styles/mapbox/bright-v8"
+        // mapStyle="mapbox://styles/mapbox/bright-v8"
+        mapStyle="mapbox://styles/wjloo95/cka0ndtyh0hwl1jp8gnbnyept"
         {...viewport}
         onViewportChange={(viewport) => {
           setViewport(viewport);
         }}
       >
         <Marker latitude={latitude} longitude={longitude}>
-          <EnvironmentFilled style={{ fontSize: '30px', color: '#2d3436' }} />
+          <EnvironmentFilled
+            style={{ fontSize: '30px', color: 'var(--light-secondary-color)' }}
+          />
         </Marker>
       </ReactMapGL>
     </div>

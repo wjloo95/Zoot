@@ -11,6 +11,7 @@ const { Paragraph, Title, Text } = Typography;
 
 interface IProps {
   price: number;
+  minimum: number;
   viewer: Viewer;
   host: ListingData['listing']['host'];
   bookingsIndex: ListingData['listing']['bookingsIndex'];
@@ -18,6 +19,7 @@ interface IProps {
 
 export const ListingCreateBooking = ({
   price,
+  minimum,
   viewer,
   host,
   bookingsIndex,
@@ -51,12 +53,18 @@ export const ListingCreateBooking = ({
   };
 
   const disabledCheckoutDate = (currentDate?: Moment) => {
+    const checkInCopy = checkInDate ? moment(checkInDate) : null;
     if (currentDate) {
       const dateIsBeforeEndOfDay = checkInDate
         ? currentDate.isBefore(checkInDate)
         : false;
 
-      return dateIsBeforeEndOfDay;
+      const dateIsBeforeMinimum =
+        checkInDate && checkInCopy
+          ? currentDate.isBefore(checkInCopy.add(minimum, 'd'))
+          : false;
+
+      return dateIsBeforeEndOfDay || dateIsBeforeMinimum;
     } else {
       return false;
     }
@@ -119,7 +127,7 @@ export const ListingCreateBooking = ({
   }
 
   return (
-    <div className="listing-create-booking listing-booking">
+    <div className="listing-booking">
       <Card className="listing-booking__card">
         <div>
           <Paragraph>
@@ -149,6 +157,15 @@ export const ListingCreateBooking = ({
               disabled={checkOutInputDisabled}
               disabledDate={disabledCheckoutDate}
               onChange={(dateValue) => verifyAndSetCheckOutDate(dateValue)}
+              renderExtraFooter={() => {
+                return (
+                  <div>
+                    <Text type="secondary" className="ant-calendar-footer-text">
+                      Your stay must be a minimum of {minimum} nights.
+                    </Text>
+                  </div>
+                );
+              }}
             />
           </div>
         </div>

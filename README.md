@@ -14,7 +14,7 @@
 
 ## ➤ Introduction
 
-Zoot is here to help you plan your next adventure! From securing bookings and scoping out flights, to finding activities for your destination, Zoot has it all! You can also keep track of where you've been so you can revisit the unforgettable memories you've made.
+Zoot is here to help you plan your next adventure! From securing bookings and scoping out flights, to finding activities for your destination, we have it all! 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#technologies)
 
 ## ➤ Technologies

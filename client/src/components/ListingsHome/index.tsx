@@ -12,6 +12,8 @@ import {
 import sanFranciscoImage from './assets/san-francisco.jpg';
 import cancunImage from './assets/cancun.jpg';
 
+import './style.css';
+
 import {
   ListingsVariables,
   Listings as ListingsData,

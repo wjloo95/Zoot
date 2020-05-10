@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 
-import './style.css';
-
 import torontoImage from '../../assets/toronto.jpg';
 import losAngelesImage from '../../assets/los-angeles.jpg';
 import londonImage from '../../assets/london.jpg';

@@ -7,6 +7,12 @@ import {
   NotFound,
   User,
   Login,
+  Stripe,
+  AppFooter,
+  ScrollToTop,
+  AppHome,
+  Flights,
+  Experiences,
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -21,11 +27,6 @@ import {
 } from '../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { LOG_IN } from '../lib/graphql/mutations';
 import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
-import { Stripe } from './Stripe';
-import { AppFooter } from './AppFooter';
-import { ComingSoon } from './ComingSoon';
-import ScrollToTop from './ScrollToTop';
-import { AppHome } from './AppHome';
 
 const initialViewer: Viewer = {
   id: null,
@@ -98,7 +99,8 @@ const App = () => {
             <Route exact path="/stripe">
               <Stripe viewer={viewer} setViewer={setViewer} />
             </Route>
-            <Route exact path="/comingsoon" component={ComingSoon} />
+            <Route exact path="/flights" component={Flights} />
+            <Route exact path="/experiences" component={Experiences} />
             <Route component={NotFound} />
           </Switch>
           <AppFooter />

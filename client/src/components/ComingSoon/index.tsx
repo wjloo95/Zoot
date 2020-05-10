@@ -5,13 +5,19 @@ import { Empty, Layout, Typography } from 'antd';
 const { Content } = Layout;
 const { Text } = Typography;
 
-export const ComingSoon = () => {
+interface IProps {
+  page: string;
+}
+
+export const ComingSoon = ({ page }: IProps) => {
   return (
     <Content className="not-found">
       <Empty
         description={
           <Fragment>
-            <Text className="not-found__description-title">Coming Soon!</Text>
+            <Text className="not-found__description-title">
+              {page} is coming soon!
+            </Text>
             <Text className="not-found__description-subtitle">
               The team is in the process of putting this feature together.
               Please come back later once we have completed development!

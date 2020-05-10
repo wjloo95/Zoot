@@ -10,6 +10,12 @@
   justify-content: flex-start;
   align-items: center;
 }
+@media (max-width: 75em) {
+  .listings-video-container {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+}
 
 .listings-overlay {
   width: 100%;
@@ -26,7 +32,11 @@
   flex-direction: column;
   align-items: center;
 }
-
+@media (max-width: 36em) {
+  .listings-header {
+    margin-top: 30px;
+  }
+}
 .listings-header-nav {
   margin-top: 50px;
   font-size: 20px;
@@ -52,6 +62,7 @@
   .listings-header-nav {
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
   }
 
   .listings-header-nav a {
@@ -72,10 +83,10 @@
   z-index: 99;
 }
 
-@media (max-width: 75em) {
-  .listings-video-container {
-    padding-left: 20px;
-    padding-right: 20px;
+@media (max-width: 36em) {
+  .listings-video-container img {
+    width: 150px;
+    height: 70px;
   }
 }
 

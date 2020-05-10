@@ -422,7 +422,6 @@ body {
 }
 
 .listings {
-  border-top: 2.5px solid var(--dark-font-color);
   padding-top: 40px;
   margin-top: 5px;
   margin-left: var(--main-left-margin);

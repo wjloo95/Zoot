@@ -1,8 +1,14 @@
 <a href="/">
+	<br/>
+	<br/>
 	<p align="center">
 	  <img src="./client/src/lib/assets/DarkLogo.png" alt="Zoot" width="300" />
 	</p>
+	<br/>
+	<br/>
 </a>
+
+
 
 [![-----------------------------------------------------](https://raw.githubusercontent.com/andreasbm/readme/master/assets/lines/colored.png)](#introduction)
 

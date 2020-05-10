@@ -24,6 +24,7 @@ import { ErrorBanner } from '../../lib/components';
 
 import { Spin } from 'antd';
 import LoginBackground from '../../lib/assets/LoginBackground.jpg';
+import './style.css';
 interface IProps {
   setViewer: (viewer: Viewer) => void;
 }

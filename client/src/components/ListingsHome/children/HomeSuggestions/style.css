@@ -1,0 +1,55 @@
+.listings-suggestions {
+  padding-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  width: 80%;
+  overflow: hidden;
+}
+
+.suggestion-container,
+.suggestion-card,
+.suggestion-image {
+  border-radius: 15px;
+  width: 100%;
+}
+.suggestion-container {
+  margin: 5px;
+}
+
+.suggestion-card {
+  position: relative;
+}
+
+.suggestion-name {
+  position: absolute;
+  color: var(--light-font-color);
+  top: 10px;
+  left: 20px;
+  z-index: 2;
+}
+
+.suggestion-image {
+  overflow: hidden;
+  filter: grayscale(0.6);
+  transition: filter 0.25s ease-in;
+}
+
+.suggestion-container:hover .suggestion-image {
+  filter: grayscale(0);
+}
+
+@media (max-width: 62em) {
+  .suggestion-container:nth-child(4) {
+    display: none;
+  }
+}
+@media (max-width: 48em) {
+  .suggestion-container:nth-child(3) {
+    display: none;
+  }
+}
+@media (max-width: 36em) {
+  .suggestion-container:nth-child(2) {
+    display: none;
+  }
+}

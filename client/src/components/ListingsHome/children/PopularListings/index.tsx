@@ -9,7 +9,7 @@ interface IProps {
 
 const { Title } = Typography;
 
-export const HomeListings = ({ listings }: IProps) => {
+export const PopularListings = ({ listings }: IProps) => {
   return (
     <div className="home-listings">
       <Title level={4} className="home-listings__title">

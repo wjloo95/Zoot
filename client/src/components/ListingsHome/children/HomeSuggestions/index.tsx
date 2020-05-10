@@ -2,34 +2,59 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card } from 'antd';
 
+import './style.css';
+
 import torontoImage from '../../assets/toronto.jpg';
 import losAngelesImage from '../../assets/los-angeles.jpg';
 import londonImage from '../../assets/london.jpg';
-import franceImage from '../../assets/france.jpg';
+import parisImage from '../../assets/france.jpg';
 
 export const HomeSuggestions = () => {
   return (
-    <div className="home-hero__cards">
-      <div>
+    <div className="listings-suggestions">
+      <div className="suggestion-container">
         <Link to="/listings/Toronto">
-          <Card cover={<img alt="toronto" src={torontoImage} />}>Toronto</Card>
+          <div className="suggestion-card">
+            <img
+              alt="toronto"
+              src={torontoImage}
+              className="suggestion-image"
+            />
+            <h1 className="suggestion-name">Toronto</h1>
+          </div>
+          {/* <Card cover={<img alt="toronto" src={torontoImage} />}>Toronto</Card> */}
         </Link>
       </div>
-      <div>
+      <div className="suggestion-container">
         <Link to="/listings/Los%20Angeles">
-          <Card cover={<img alt="los-angeles" src={losAngelesImage} />}>
+          <div className="suggestion-card">
+            <img
+              alt="los-angeles"
+              src={losAngelesImage}
+              className="suggestion-image"
+            />
+            <h1 className="suggestion-name">Los Angeles</h1>
+          </div>
+          {/* <Card cover={<img alt="los-angeles" src={losAngelesImage} />}>
             Los Angeles
-          </Card>
+          </Card> */}
         </Link>
       </div>
-      <div>
+      <div className="suggestion-container">
         <Link to="/listings/London">
-          <Card cover={<img alt="london" src={londonImage} />}>London</Card>
+          <div className="suggestion-card">
+            <img alt="london" src={londonImage} className="suggestion-image" />
+            <h1 className="suggestion-name">London</h1>
+          </div>
+          {/* <Card cover={<img alt="london" src={londonImage} />}>London</Card> */}
         </Link>
       </div>
-      <div>
+      <div className="suggestion-container">
         <Link to="/listings/Paris">
-          <Card cover={<img alt="france" src={franceImage} />}>Paris</Card>
+          <div className="suggestion-card">
+            <img alt="paris" src={parisImage} className="suggestion-image" />
+            <h1 className="suggestion-name">Paris</h1>
+          </div>
         </Link>
       </div>
     </div>

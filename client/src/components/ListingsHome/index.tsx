@@ -5,7 +5,7 @@ import { useHistory, Link } from 'react-router-dom';
 import {
   HomeHero,
   HomeListingsSkeleton,
-  HomeListings,
+  PopularListings,
   HomeSuggestions,
 } from './children';
 
@@ -41,7 +41,7 @@ export const ListingsHome = () => {
   const topListingsSection = loading ? (
     <HomeListingsSkeleton />
   ) : data ? (
-    <HomeListings listings={data.listings.result} />
+    <PopularListings listings={data.listings.result} />
   ) : null;
 
   return (

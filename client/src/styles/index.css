@@ -48,7 +48,7 @@ body {
 .app-header {
   display: flex;
   background: var(--bg-color);
-  box-shadow: 0 2px 8px #f0f1f2;
+  box-shadow: 0 2px 8px var(--dark-font-color);
   width: 100%;
   padding: 0;
   z-index: 99;
@@ -224,35 +224,21 @@ body {
 .host__form-image-upload img {
   width: 125px;
 }
-.listing-bookings h3.ant-typography,
-.listing-bookings h4.ant-typography {
-  color: var(--dark-font-color);
-}
-.listing-bookings__section {
-  font-size: 15px;
-  padding: 5px 0;
-}
-.listing-bookings__item {
-  margin: 20px 0;
-}
-.listing-bookings__history {
-  margin-bottom: 20px;
-}
-.listing-bookings__history > div {
-  font-size: 13px;
-  margin-bottom: 5px;
-}
-.listing-bookings__stars {
-  font-size: 13px;
+
+.ant-divider {
+  background: var(--dark-font-color);
 }
 .listing-booking {
-  max-width: 400px;
+  max-width: 500px;
   margin: 0 auto;
+  margin-top: 40px;
   display: block;
+  box-shadow: 0 10px 10px -8px var(--dark-font-color);
 }
 @media (max-width: 62em) {
   .listing-booking {
     padding-top: 40px;
+    margin-top: 0px;
   }
 }
 .listing-booking__card-title.ant-typography {
@@ -260,7 +246,7 @@ body {
   margin-bottom: 5px;
 }
 .listing-booking__card-title.ant-typography span {
-  color: var(--dark-secondary-color);
+  color: var(--light-secondary-color);
   font-weight: 400;
 }
 .listing-booking__card {
@@ -313,9 +299,16 @@ body {
 .listing-booking-modal__cta {
   width: 100px;
 }
-.listing-details h3.ant-typography,
-.listing-details h4.ant-typography {
+
+.ant-typography mark {
+  background-color: var(--bg-color);
+  color: var(--light-secondary-color);
+}
+
+.listing-details h2 {
   color: var(--dark-font-color);
+  font-size: 30px;
+  font-weight: bold;
 }
 .listing-details__image {
   width: 100%;
@@ -329,14 +322,14 @@ body {
     height: 380px;
   }
 }
-.listing-details__title.ant-typography {
-  margin-top: 5px !important;
+.listing-details__title {
+  margin-top: 5px;
   margin-bottom: 5px;
-}
-.listing-details__title.ant-typography span {
-  color: var(--dark-secondary-color);
+  font-size: 40px;
+  color: var(--dark-font-color);
   font-weight: 400;
 }
+
 .listing-details__city-address.ant-typography,
 .listing-details__ratings.ant-typography {
   margin: 5px 0;
@@ -346,17 +339,30 @@ body {
 }
 .listing-details__host-name {
   font-family: Sacramento, cursive;
+  color: var(--dark-font-color);
+  font-size: 40px;
+  font-weight: bold;
   display: inline-block;
   padding-left: 10px;
+  margin: 0;
   position: relative;
-  top: 5px;
+  top: 10px;
 }
 .listing-details__section {
   font-size: 15px;
 }
-.listing-details__about-items {
+.listing-details-tags {
   padding-bottom: 15px;
 }
+.listing-details-tags span {
+  cursor: default;
+  padding: 6px;
+  margin-right: 10px;
+  font-size: 12px;
+  background-color: var(--light-secondary-color);
+  color: var(--light-font-color);
+}
+
 .listing-details__amenities-row {
   padding: 5px 0;
 }
@@ -378,7 +384,6 @@ body {
   font-size: 13px;
 }
 .listing {
-  padding-top: 20px;
   margin-left: var(--main-left-margin);
   margin-right: var(--main-right-margin);
 }

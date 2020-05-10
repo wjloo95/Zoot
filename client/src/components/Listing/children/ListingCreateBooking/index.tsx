@@ -127,7 +127,7 @@ export const ListingCreateBooking = ({
   }
 
   return (
-    <div className="listing-create-booking listing-booking">
+    <div className="listing-booking">
       <Card className="listing-booking__card">
         <div>
           <Paragraph>

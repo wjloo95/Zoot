@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { MenuItems } from './children';
 import { Viewer } from '../../lib/types';
-import Logo from './assets/NewLogoCropped.png';
+import Logo from '../../lib/assets/DarkLogo.png';
 import { HeaderSearchBar } from '../HeaderSearchBar';
 
 interface IProps {

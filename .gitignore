@@ -12,9 +12,6 @@ build/
 
 # data files
 *.csv
-*.jpg
-*.mp4
-*.png
 
 npm-debug.log*
 yarn-debug.log*

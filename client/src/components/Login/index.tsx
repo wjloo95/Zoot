@@ -3,7 +3,7 @@ import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Redirect } from 'react-router-dom';
 
 import googleLogo from './assets/GoogleLogo.png';
-import Logo from '../../lib/assets/NewLogoCropped.png';
+import Logo from '../../lib/assets/DarkLogo.png';
 
 import { Viewer } from '../../lib/types';
 

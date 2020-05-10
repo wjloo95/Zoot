@@ -1,11 +1,7 @@
 import React from 'react';
 
 import BookingsVideo from '../../assets/MainVideo.mp4';
-import BeachVideo from '../../../AppHome/assets/coverr-positano-landscape-1570959933887.mp4';
-import PexelVideo from '../../assets/Pexels Videos 2547258.mp4';
-import BridgeVideo from '../../assets/Bridge In Place.mp4';
-import Logo from '../../assets/LightLogoCropped.png';
-import RedLogo from '../../assets/RedLightLogoCropped.png';
+import Logo from '../../../../lib/assets/LightLogo.png';
 import { LandingSearchBar } from '../../../LandingSearchBar';
 import { Link } from 'react-router-dom';
 

@@ -9,9 +9,6 @@ import {
   HomeSuggestions,
 } from './children';
 
-import sanFranciscoImage from './assets/san-francisco.jpg';
-import cancunImage from './assets/cancun.jpg';
-
 import './style.css';
 
 import {

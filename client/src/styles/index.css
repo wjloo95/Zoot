@@ -86,12 +86,6 @@ body {
   background: var(--bg-color);
 }
 
-.ant-menu li {
-  background: var(--bg-color);
-}
-.ant-menu li div {
-  background: var(--bg-color);
-}
 .error-banner {
   position: fixed;
   width: 100%;

@@ -756,7 +756,9 @@ html {
   align-items: center;
   justify-content: center;
   height: 100vh;
-  background-image: url(https://www.publicdomainpictures.net/pictures/190000/velka/travel-background-1469438406Duy.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .log-in-overlay {

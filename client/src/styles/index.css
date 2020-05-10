@@ -734,8 +734,8 @@ html {
   text-align: center;
   background-color: transparent;
   border-top: 2.5px solid var(--dark-font-color);
-  margin-right: 15%;
-  margin-left: 15%;
+  margin-right: 20px;
+  margin-left: 40px;
   margin-top: 40px;
 }
 
@@ -750,6 +750,12 @@ html {
   margin-right: 10px;
   width: 2.5em;
   height: 2.5em;
+}
+
+@media (max-width: 991px) {
+  .app-footer {
+    margin-left: 20px;
+  }
 }
 
 /* Login Styles */

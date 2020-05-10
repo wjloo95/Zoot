@@ -1,6 +1,6 @@
 <a href="/">
 	<p align="center">
-	  <img src="./client/src/components/AppHeader/assets/Logo2.png" alt="Zoot" width="300" />
+	  <img src="./client/src/lib/assets/DarkLogo.png" alt="Zoot" width="300" />
 	</p>
 </a>
 

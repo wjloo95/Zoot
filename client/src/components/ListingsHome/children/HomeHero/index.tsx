@@ -22,7 +22,6 @@ export const HomeHero = () => {
       ></video>
       <div className="listings-overlay"></div>
       <div className="home-hero__search">
-        <h1 className="home-hero__title">Find a place you'll love to stay</h1>
         <LandingSearchBar placeholder="Search 'San Francisco'" />
       </div>
     </div>

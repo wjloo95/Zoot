@@ -9,7 +9,7 @@
   height: 13%;
   display: flex;
   justify-content: space-between;
-  /* background: #455a5e; */
+  z-index: 5;
 }
 
 .landing-search-input {

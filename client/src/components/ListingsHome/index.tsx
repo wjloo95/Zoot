@@ -2,15 +2,15 @@ import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { useHistory, Link } from 'react-router-dom';
 
-import { HomeHero, HomeListingsSkeleton, HomeListings } from './children';
+import {
+  HomeHero,
+  HomeListingsSkeleton,
+  HomeListings,
+  HomeSuggestions,
+} from './children';
 
-import mapBackground from './assets/map-background.jpg';
 import sanFranciscoImage from './assets/san-francisco.jpg';
 import cancunImage from './assets/cancun.jpg';
-import torontoImage from './assets/toronto.jpg';
-import franceImage from './assets/france.jpg';
-import losAngelesImage from './assets/los-angeles.jpg';
-import londonImage from './assets/london.jpg';
 
 import {
   ListingsVariables,
@@ -20,7 +20,6 @@ import { LISTINGS } from '../../lib/graphql/queries';
 import { ListingsSort } from '../../lib/graphql/globalTypes';
 
 import { Col, Row, Typography, Layout, Button, Card } from 'antd';
-const { Content } = Layout;
 const { Paragraph, Title } = Typography;
 
 const PAGE_LIMIT = 6;
@@ -49,32 +48,7 @@ export const ListingsHome = () => {
     <>
       <HomeHero />
       <div className="listings-home-bottom">
-        <Row gutter={12} className="home-hero__cards">
-          <Col xs={12} md={6}>
-            <Link to="/listings/Toronto">
-              <Card cover={<img alt="toronto" src={torontoImage} />}>
-                Toronto
-              </Card>
-            </Link>
-          </Col>
-          <Col xs={0} md={6}>
-            <Link to="/listings/Los%20Angeles">
-              <Card cover={<img alt="los-angeles" src={losAngelesImage} />}>
-                Los Angeles
-              </Card>
-            </Link>
-          </Col>
-          <Col xs={0} md={6}>
-            <Link to="/listings/London">
-              <Card cover={<img alt="london" src={londonImage} />}>London</Card>
-            </Link>
-          </Col>
-          <Col xs={12} md={6}>
-            <Link to="/listings/Paris">
-              <Card cover={<img alt="france" src={franceImage} />}>Paris</Card>
-            </Link>
-          </Col>
-        </Row>
+        <HomeSuggestions />
         <div className="home__cta-section">
           <Title level={2} className="home__cta-section-title">
             Your guide for all things rental
@@ -90,7 +64,7 @@ export const ListingsHome = () => {
           </Button>
         </div>
         {topListingsSection}
-        <div className="home__listings">
+        {/* <div className='home__listings'>
           <Title level={4} className="home__listings-title">
             Listings of any kind
           </Title>
@@ -118,7 +92,7 @@ export const ListingsHome = () => {
               </Link>
             </Col>
           </Row>
-        </div>
+        </div> */}
       </div>
     </>
   );

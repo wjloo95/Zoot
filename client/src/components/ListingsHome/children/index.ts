@@ -1,3 +1,4 @@
 export * from './HomeHero';
-export * from './HomeListings';
+export * from './PopularListings';
 export * from './HomeListingsSkeleton';
+export * from './HomeSuggestions';

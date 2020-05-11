@@ -92,7 +92,6 @@ export const ListingsMap = ({
         height={'800px'}
         {...viewport}
         onViewportChange={(viewport) => {
-          console.log(viewport.zoom);
           setViewport(viewport);
         }}
       >

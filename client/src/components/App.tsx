@@ -10,7 +10,7 @@ import {
   Stripe,
   AppFooter,
   ScrollToTop,
-  AppHome,
+  // AppHome,
   Flights,
   Experiences,
 } from './index';

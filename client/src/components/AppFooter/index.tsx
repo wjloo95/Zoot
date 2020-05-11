@@ -1,14 +1,7 @@
 import React from 'react';
 import { GithubFilled, LinkedinFilled, MailTwoTone } from '@ant-design/icons';
-import { useHistory } from 'react-router-dom';
 
 export const AppFooter = () => {
-  const history = useHistory();
-  const { location } = history;
-
-  if (location.pathname === '/') {
-    return null;
-  }
   return (
     <div className="app-footer">
       <div className="app-footer-icons">

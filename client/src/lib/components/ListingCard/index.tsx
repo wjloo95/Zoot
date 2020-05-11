@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils';
 
 import { UserOutlined, CompassOutlined, StarFilled } from '@ant-design/icons';
-import { Card, Typography } from 'antd';
-const { Text, Title } = Typography;
 
 interface IProps {
   listing: {
@@ -40,64 +38,60 @@ export const ListingCard = ({ listing, map }: IProps) => {
     ) : (
       <>No Reviews</>
     );
+
   return map ? (
-    <Link to={`/listing/${id}`}>
-      <Card
-        hoverable
-        cover={
-          <div
-            style={{ backgroundImage: `url(${image})` }}
-            className="map-card__cover-img"
-          />
-        }
-      >
-        <div className="map-card__details">
-          <div className="map-card__description">
-            <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
+    <>
+      <div className="listing-card-container">
+        <div
+          style={{ backgroundImage: `url(${image})` }}
+          className="map-card-cover-img"
+        />
+        <div className="map-card-details">
+          <div className="map-card-description">
+            <StarFilled
+              style={{
+                color: 'var(--light-secondary-color)',
+                marginRight: '3px',
+              }}
+            />
             {starSection}
-            <Title level={4} className="map-card__price">
+            <h4 className="listing-card-price">
               {`${formatPrice(price)}`}
               <span>/night</span>
-            </Title>
+            </h4>
           </div>
         </div>
-      </Card>
-    </Link>
+      </div>
+    </>
   ) : (
     <Link to={`/listing/${id}`}>
-      <Card
-        hoverable
-        cover={
-          <div
-            style={{ backgroundImage: `url(${image})` }}
-            className="listing-card__cover-img"
-          />
-        }
-      >
-        <div className="listing-card__details">
-          <div className="listing-card__description">
+      <div className="listing-card-container">
+        <div
+          style={{ backgroundImage: `url(${image})` }}
+          className="listing-card-cover-img"
+        />
+        <div className="listing-card-details">
+          <div className="listing-card-description">
             <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
             {starSection}
-            <Title level={4} className="listing-card__price">
+            <h4 className="listing-card-price">
               {`${formatPrice(price)}`}
               <span>/night</span>
-            </Title>
-            <Text strong ellipsis className="listing-card__title">
-              {name}
-            </Text>
+            </h4>
+            <span className="listing-card-title">{name}</span>
           </div>
           <div className="listing-card-bottom">
             <div className="listing-card-bottom-address">
               <CompassOutlined />
-              <Text ellipsis>{street}</Text>
+              <span className="listing-card-street">{street}</span>
             </div>
             <div className="listing-card-bottom-guests">
               <UserOutlined />
-              <Text>{numOfGuests} guests</Text>
+              <span>{numOfGuests} guests</span>
             </div>
           </div>
         </div>
-      </Card>
+      </div>
     </Link>
   );
 };

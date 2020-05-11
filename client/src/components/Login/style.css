@@ -2,11 +2,17 @@
 .log-in {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+@media (max-width: 62em) {
+  .log-in {
+    justify-content: center;
+  }
 }
 
 .log-in-overlay {
@@ -19,18 +25,18 @@
 }
 
 .log-in-card {
+  height: 100%;
   width: 50%;
   text-align: center;
   padding: 50px 30px;
   background-color: var(--bg-color);
-  border-radius: 15px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   z-index: 2;
   font-size: 18px;
-  opacity: 70%;
+  opacity: 80%;
   transition: opacity 0.5s ease-in;
 }
 
@@ -42,12 +48,14 @@
 @media (max-width: 62em) {
   .log-in-card {
     width: 60%;
+    border-radius: 15px;
+    height: auto;
   }
 }
 @media (max-width: 48em) {
   .log-in-card {
     width: 90%;
-    opacity: 100%;
+    /* opacity: 100%; */
   }
 }
 
@@ -60,8 +68,7 @@
 }
 
 .log-in-card:hover ~ .log-in-overlay {
-  /* backdrop-filter: blur(8px); */
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .log-in-card-intro h1 {

@@ -123,54 +123,84 @@ body {
 }
 
 /* Map Card Styles */
-.map-card__cover-img {
+.map-card-cover-img {
   width: 100%;
   height: 100px;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
   background-size: cover;
   background-position: 50%;
 }
-.map-card__price.ant-typography {
-  color: var(--dark-font-color);
-  margin: 0;
-}
-.map-card__price.ant-typography span {
-  color: var(--dark-secondary-color);
-  font-weight: 400;
-}
-.map-card__title.ant-typography,
-.map-card__address.ant-typography {
-  display: block;
+
+.mapboxgl-popup-content {
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
 }
 
-.mapboxgl-popup-content .ant-card-body {
-  padding: 10px 12px;
+.mapboxgl-popup-content > button {
+  z-index: 100;
+  background-color: #b2bec383;
+  right: 10px;
+  top: 10px;
+  width: 25px;
+  height: 25px;
+  font-weight: bolder;
+  border-radius: 10px;
+}
+
+.mapboxgl-popup-content > button:hover {
+  background-color: #7a8386;
+  color: var(--light-font-color);
 }
 
 /* Listing Card Styles */
-.listing-card__cover-img {
+.listing-card-container {
+  cursor: pointer;
+  border-radius: 15px;
+  border: 1px solid var(--bg-color);
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+.listing-card-cover-img {
   width: 100%;
   height: 195px;
   background-size: cover;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
   background-position: 50%;
 }
-.listing-card__rating-tag {
-  position: absolute;
-  top: 5px;
-  right: 0;
+.listing-card-details {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 15px;
 }
-.listing-card__description {
-  padding-bottom: 12px;
+.map-card-details {
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 10px;
 }
-.listing-card__price.ant-typography {
+.listing-card-description,
+.map-card-description {
   color: var(--dark-font-color);
 }
-.listing-card__price.ant-typography span {
+.listing-card-description {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 14px;
+}
+.listing-card-price {
+  color: var(--dark-font-color);
+  margin: 0;
+  font-weight: bolder;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-size: 16px;
+}
+.listing-card-price span {
   color: var(--dark-secondary-color);
   font-weight: 400;
-}
-.listing-card__title.ant-typography,
-.listing-card__address.ant-typography {
-  display: block;
 }
 .listing-card-bottom i,
 .listing-card-bottom span {
@@ -185,6 +215,7 @@ body {
   color: var(--dark-secondary-color);
 }
 .listing-card-bottom {
+  padding-top: 8px;
   display: flex;
   justify-content: space-between;
 }
@@ -195,7 +226,18 @@ body {
   white-space: nowrap;
   float: left;
 }
+.listing-card-street {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 
+.listing-card-title {
+  color: var(--primary-color);
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .listing-card-bottom-guests {
   display: flex;
   width: 30%;
@@ -493,28 +535,6 @@ body {
   height: 700px;
   overflow-x: hidden;
   overflow-y: visible;
-}
-
-.mapboxgl-popup-content {
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.mapboxgl-popup-content > button {
-  z-index: 100;
-  background-color: #b2bec383;
-  right: 5px;
-  top: 5px;
-  width: 20px;
-  height: 20px;
-  padding: 0;
-  font-weight: bolder;
-}
-
-.mapboxgl-popup-content > button:hover {
-  background-color: #7a8386;
-  color: antiquewhite;
 }
 
 @media (max-width: 991px) {

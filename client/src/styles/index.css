@@ -533,6 +533,7 @@ body {
 
 .listings-list {
   height: 700px;
+  padding-right: 5px;
   overflow-x: hidden;
   overflow-y: visible;
 }
@@ -552,6 +553,7 @@ body {
 
   .listings-list {
     height: 100%;
+    padding-right: 0;
     overflow-x: hidden;
     overflow-y: hidden;
   }

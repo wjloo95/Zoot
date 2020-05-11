@@ -40,7 +40,7 @@ export const ListingCard = ({ listing, map }: IProps) => {
     );
 
   return map ? (
-    <Link to={`/listing/${id}`}>
+    <>
       <div className="listing-card-container">
         <div
           style={{ backgroundImage: `url(${image})` }}
@@ -62,7 +62,7 @@ export const ListingCard = ({ listing, map }: IProps) => {
           </div>
         </div>
       </div>
-    </Link>
+    </>
   ) : (
     <Link to={`/listing/${id}`}>
       <div className="listing-card-container">

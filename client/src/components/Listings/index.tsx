@@ -79,8 +79,6 @@ export const Listings = () => {
 
   const listings = data ? data.listings : null;
   const listingsRegion = listings ? listings.region : null;
-  const listingsLat = listings ? listings.latitude : null;
-  const listingsLng = listings ? listings.longitude : null;
   const resultListings = listings ? listings.result : null;
 
   const listingsSectionElement =
@@ -141,8 +139,6 @@ export const Listings = () => {
         {listingsSectionElement}
       </div>
       <ListingsMap
-        latitude={listingsLat || 0.0023}
-        longitude={listingsLng || 78.4559}
         listings={resultListings}
         selectedListing={selectedListing}
         setSelectedListing={setSelectedListing}

@@ -7,34 +7,30 @@ import {
   Listings_listings_result,
 } from '../../../../lib/graphql/queries/Listings/__generated__/Listings';
 import { ListingCard } from '../../../../lib/components';
-import { useViewport } from '../../../../lib/utils';
+import { useViewport, calcMid, calcZoom } from '../../../../lib/utils';
 import { Link } from 'react-router-dom';
 
 interface IProps {
-  latitude: number;
-  longitude: number;
   listings: ListingsData['listings']['result'] | null;
   selectedListing: Listings_listings_result | null;
   setSelectedListing: (listing: Listings_listings_result | null) => void;
 }
 
-const DEFAULT_ZOOM = 10;
 const MAX_ZOOM = 18;
-const MIN_ZOOM = 4;
 
 export const ListingsMap = ({
-  latitude,
-  longitude,
   listings,
   selectedListing,
   setSelectedListing,
 }: IProps) => {
+  const [latitude, longitude, max] = calcMid(listings);
+  let currZoom = calcZoom(max);
+
   const initialViewport = {
     latitude,
     longitude,
-    zoom: DEFAULT_ZOOM,
+    zoom: currZoom,
     maxZoom: MAX_ZOOM,
-    minZoom: MIN_ZOOM,
   };
   const [viewport, setViewport] = useViewport(initialViewport);
 
@@ -96,6 +92,7 @@ export const ListingsMap = ({
         height={'800px'}
         {...viewport}
         onViewportChange={(viewport) => {
+          console.log(viewport.zoom);
           setViewport(viewport);
         }}
       >

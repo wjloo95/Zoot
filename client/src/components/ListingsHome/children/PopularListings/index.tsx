@@ -18,7 +18,7 @@ export const PopularListings = ({ listings }: IProps) => {
       <List
         grid={{
           column: 3,
-          gutter: 8,
+          gutter: 15,
           xs: 1,
           sm: 2,
           lg: 4,

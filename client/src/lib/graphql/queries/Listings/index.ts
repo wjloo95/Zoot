@@ -9,8 +9,6 @@ export const LISTINGS = gql`
   ) {
     listings(location: $location, sort: $sort, limit: $limit, page: $page) {
       region
-      latitude
-      longitude
       total
       result {
         id

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import googleLogo from './assets/GoogleLogo.png';
 import Logo from '../../lib/assets/DarkLogo.png';
@@ -91,7 +91,9 @@ export const Login = ({ setViewer }: IProps) => {
     >
       {logInErrorBanner}
       <div className="log-in-card">
-        <img src={Logo} alt="Zoot" />
+        <Link to="/">
+          <img src={Logo} alt="Zoot" />
+        </Link>
         <div className="log-in-card-intro">
           <h1>Log in to get started!</h1>
         </div>

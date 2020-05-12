@@ -37,32 +37,40 @@ export const userResolvers: IResolvers = {
       { input }: AddFavoriteArgs,
       { db }: { db: Database }
     ): Promise<Listing | null> => {
-      const currentListing = await db.listings.findOne({
-        _id: new ObjectID(input.id),
-      });
+      try {
+        const currentListing = await db.listings.findOne({
+          _id: new ObjectID(input.id),
+        });
 
-      await db.users.findOneAndUpdate(
-        { _id: new ObjectID(input.userId) },
-        { $addToSet: { favoriteListings: currentListing?._id } }
-      );
+        await db.users.findOneAndUpdate(
+          { _id: new ObjectID(input.userId) },
+          { $addToSet: { favoriteListings: currentListing?._id } }
+        );
 
-      return currentListing;
+        return currentListing;
+      } catch (error) {
+        throw new Error(`Failed to add favorite: ${error}`);
+      }
     },
     removeFavorite: async (
       _root: undefined,
       { input }: AddFavoriteArgs,
       { db }: { db: Database }
     ): Promise<Listing | null> => {
-      const currentListing = await db.listings.findOne({
-        _id: new ObjectID(input.id),
-      });
-      await db.users.findOneAndUpdate(
-        { _id: new ObjectID(input.userId) },
-        { $pull: { favoriteListings: currentListing?._id } },
-        { returnOriginal: false }
-      );
+      try {
+        const currentListing = await db.listings.findOne({
+          _id: new ObjectID(input.id),
+        });
+        await db.users.findOneAndUpdate(
+          { _id: new ObjectID(input.userId) },
+          { $pull: { favoriteListings: currentListing?._id } },
+          { returnOriginal: false }
+        );
 
-      return currentListing;
+        return currentListing;
+      } catch (error) {
+        throw new Error(`Failed to remove favorite: ${error}`);
+      }
     },
   },
   User: {

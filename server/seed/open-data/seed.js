@@ -5,9 +5,9 @@ const streamToMongoDB = require('stream-to-mongo-db').streamToMongoDB;
 const { MongoClient } = require('mongodb');
 
 const dbURL =
-  'mongodb+srv://wjloo95:xdartDKxHHQzKyNn@cluster0-rdi5y.mongodb.net/airbnb?retryWrites=true&w=majority';
+  'mongodb+srv://wjloo95:xdartDKxHHQzKyNn@cluster0-rdi5y.mongodb.net/zoot?retryWrites=true&w=majority';
 
-const extractFieldIndex = [4, 7, 10, 14, 17, 34, 38, 39, 44, 47, 48];
+const extractFieldIndex = [4, 7, 10, 14, 17, 18, 34, 38, 39, 44, 47, 48];
 
 const hostFieldsIndex = [19, 21, 22, 23, 24, 28];
 
@@ -19,7 +19,7 @@ const connectDatabase = async () => {
     useUnifiedTopology: true,
   });
 
-  const db = client.db('airbnb');
+  const db = client.db('zoot');
   const collections = {
     listings: db.collection('listings'),
     premium_listings: db.collection('premium_listings'),
@@ -31,17 +31,20 @@ const connectDatabase = async () => {
 };
 
 const streamData = async () => {
-  const db = await connectDatabase();
+  // const db = await connectDatabase();
 
-  const test = fs
-    .createReadStream('../airbnb-input/airbnb-listings.csv')
+  fs.createReadStream('../airbnb-input/airbnb-listings.csv')
     .pipe(
       parse({
         delimiter: ';',
         columns: true,
-        on_record: (value, context) => {
-          return value['Number of Reviews'] >= 100 || value['Price'] >= 500
-            ? { ...value, bookings: [], bookingsIndex: {} }
+        on_record: (value, { records }) => {
+          // return value['Number of Reviews'] >= 100 || value['Price'] >= 500
+          //   ? { ...value, bookings: [], bookingsIndex: {} }
+          //   : null;
+          return records < 250000 &&
+            (value['Number of Reviews'] >= 10 || value['Price'] >= 200)
+            ? value
             : null;
         },
         cast: (value, { header, index, column }) => {
@@ -62,13 +65,17 @@ const streamData = async () => {
         },
       })
     )
-    .pipe(streamToMongoDB({ dbURL, collection: 'listings' }));
+    .pipe(
+      streamToMongoDB({
+        dbURL,
+        collection: 'listings',
+      })
+    );
 };
 
 const createUsers = async () => {
   const db = await connectDatabase();
 
-  // await db.premium_listings.find().forEach(async (data) => {
   await db.listings.find().forEach(async (data) => {
     const newListingID = data._id;
 
@@ -80,27 +87,16 @@ const createUsers = async () => {
       about: data['Host About'],
       avatar: data['Host Thumbnail Url'],
       bookings: [],
+      favoriteListings: [],
     };
 
-    // const newUser = await db.premium_users.updateOne(
     const newUser = await db.users.findOneAndUpdate(
       { id: data['Host ID'] },
       { $setOnInsert: hostData, $push: { listings: newListingID } },
       { upsert: true, returnOriginal: false }
     );
 
-    // await db.premium_listings.updateMany({}, [
     await db.listings.updateOne({ _id: newListingID }, [
-      {
-        $unset: [
-          'Host ID',
-          'Host Name',
-          'Host Since',
-          'Host Location',
-          'Host About',
-          'Host Thumbnail Url',
-        ],
-      },
       {
         $set: { host: `${newUser.value._id}` },
       },
@@ -114,36 +110,45 @@ const createUsers = async () => {
 const fixNames = async () => {
   const db = await connectDatabase();
 
-  // await db.premium_listings.updateMany(
-  // await db.listings.updateMany(
-  //   {},
-  //   {
-  //     $rename: {
-  //       Name: 'name',
-  //       Description: 'description',
-  //       Notes: 'notes',
-  //       'House Rules': 'rules',
-  //       'Picture Url': 'image',
-  //       Street: 'street',
-  //       City: 'city',
-  //       State: 'state',
-  //       Country: 'country',
-  //       Latitude: 'latitude',
-  //       Longitude: 'longitude',
-  //       'Property Type': 'property',
-  //       'Room Type': 'room',
-  //       Accommodates: 'numOfGuests',
-  //       Bathrooms: 'bathrooms',
-  //       Bedrooms: 'bedrooms',
-  //       Price: 'price',
-  //       'Minimum Nights': 'minimum',
-  //       'Number of Reviews': 'reviews',
-  //       'Review Scores Rating': 'rating',
-  //     },
-  //   }
-  // );
+  await db.listings.updateMany(
+    {},
+    {
+      $rename: {
+        Name: 'name',
+        Description: 'description',
+        Notes: 'notes',
+        'House Rules': 'rules',
+        'Picture Url': 'image',
+        'XL Picture Url': 'largeImage',
+        Street: 'street',
+        City: 'city',
+        State: 'state',
+        Country: 'country',
+        Latitude: 'latitude',
+        Longitude: 'longitude',
+        'Property Type': 'property',
+        'Room Type': 'room',
+        Accommodates: 'numOfGuests',
+        Bathrooms: 'bathrooms',
+        Bedrooms: 'bedrooms',
+        Price: 'price',
+        'Minimum Nights': 'minimum',
+        'Number of Reviews': 'reviews',
+        'Review Scores Rating': 'rating',
+      },
+      $unset: {
+        'Host ID': '',
+        'Host Name': '',
+        'Host Since': '',
+        'Host Location': '',
+        'Host About': '',
+        'Host Thumbnail Url': '',
+      },
+    }
+  );
 
   await db.users.updateMany({}, { $unset: { id: '' } });
+
   console.log('Done!');
   return;
 };

@@ -462,6 +462,11 @@ body {
     margin-left: var(--responsive-left-margin);
   }
 }
+
+.favorite-button {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
 .listings-filters {
   padding: 10px 0;
   background: var(--bg-color);

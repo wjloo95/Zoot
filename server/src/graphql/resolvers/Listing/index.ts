@@ -66,6 +66,7 @@ export const listingResolvers: IResolvers = {
         _id: new ObjectID(),
         host: viewer._id,
         image: imageUrl,
+        largeImage: imageUrl,
         bookings: [],
         bookingsIndex: {},
         latitude: lat,

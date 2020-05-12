@@ -33,6 +33,7 @@ export interface Listing {
   notes: string;
   rules: string;
   image: string;
+  largeImage: string;
   street: string;
   city: string;
   state: string;
@@ -63,6 +64,7 @@ export interface User {
   income: number;
   bookings: ObjectID[];
   listings: ObjectID[];
+  favoriteListings: ObjectID[];
   authorized?: boolean;
 }
 

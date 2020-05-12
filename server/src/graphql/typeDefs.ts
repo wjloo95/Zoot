@@ -51,6 +51,16 @@ export const typeDefs = gql`
     checkOut: String!
   }
 
+  input AddFavoriteInput {
+    id: ID!
+    userId: ID!
+  }
+
+  input RemoveFavoriteInput {
+    id: ID!
+    userId: ID!
+  }
+
   type Booking {
     id: ID!
     listing: Listing!
@@ -74,6 +84,7 @@ export const typeDefs = gql`
     notes: String!
     rules: String!
     image: String!
+    largeImage: String!
     street: String!
     city: String!
     state: String!
@@ -107,6 +118,7 @@ export const typeDefs = gql`
     hasWallet: Boolean!
     income: Int
     bookings(limit: Int!, page: Int!): Bookings
+    favoriteListings(limit: Int!, page: Int!): Listings
     listings(limit: Int!, page: Int!): Listings!
   }
 
@@ -137,5 +149,7 @@ export const typeDefs = gql`
     disconnectStripe: Viewer!
     hostListing(input: HostListingInput!): Listing!
     createBooking(input: CreateBookingInput!): Booking!
+    addFavorite(input: AddFavoriteInput!): Listing!
+    removeFavorite(input: RemoveFavoriteInput!): Listing!
   }
 `;

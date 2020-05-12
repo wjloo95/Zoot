@@ -22,9 +22,7 @@ const connectDatabase = async () => {
   const db = client.db('zoot');
   const collections = {
     listings: db.collection('listings'),
-    premium_listings: db.collection('premium_listings'),
     users: db.collection('users'),
-    premium_users: db.collection('premium_users'),
   };
 
   return collections;
@@ -40,8 +38,8 @@ const streamData = async () => {
           // return value['Number of Reviews'] >= 100 || value['Price'] >= 500
           //   ? { ...value, bookings: [], bookingsIndex: {} }
           //   : null;
-          return records < 250000 &&
-            (value['Number of Reviews'] >= 10 || value['Price'] >= 200)
+          return records < 200000 &&
+            (value['Number of Reviews'] >= 10 || value['Price'] >= 100)
             ? { ...value, bookings: [], bookingsIndex: {} }
             : null;
         },

@@ -8,7 +8,12 @@ import {
   UserVariables,
 } from '../../lib/graphql/queries/User/__generated__/User';
 import { useParams } from 'react-router-dom';
-import { UserProfile, UserBookings, UserListings } from './children';
+import {
+  UserProfile,
+  UserBookings,
+  UserListings,
+  UserFavorites,
+} from './children';
 import { Viewer } from '../../lib/types';
 import { ErrorBanner, PageSkeleton } from '../../lib/components';
 
@@ -83,6 +88,9 @@ export const User = ({ viewer, setViewer }: IProps) => {
             </TabPane>
             <TabPane tab="Bookings" key="2">
               <UserBookings id={id} limit={PAGE_LIMIT} />
+            </TabPane>
+            <TabPane tab="Favorites" key="3">
+              <UserFavorites id={id} limit={PAGE_LIMIT} />
             </TabPane>
           </Tabs>
         </Col>

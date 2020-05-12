@@ -35,11 +35,8 @@ const streamData = async () => {
         delimiter: ';',
         columns: true,
         on_record: (value, { records }) => {
-          // return value['Number of Reviews'] >= 100 || value['Price'] >= 500
-          //   ? { ...value, bookings: [], bookingsIndex: {} }
-          //   : null;
           return records < 200000 &&
-            (value['Number of Reviews'] >= 10 || value['Price'] >= 100)
+            (value['Number of Reviews'] >= 5 || value['Price'] >= 100)
             ? { ...value, bookings: [], bookingsIndex: {} }
             : null;
         },
@@ -99,6 +96,7 @@ const createUsers = async () => {
     ]);
   });
 
+  await db.users.updateMany({}, { $unset: { id: '' } });
   console.log('Done!');
   return;
 };
@@ -143,12 +141,10 @@ const fixNames = async () => {
     }
   );
 
-  await db.users.updateMany({}, { $unset: { id: '' } });
-
   console.log('Done!');
   return;
 };
 
-streamData();
-// createUsers();
+// streamData();
+createUsers();
 // fixNames();

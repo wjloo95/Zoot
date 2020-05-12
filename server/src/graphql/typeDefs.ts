@@ -108,6 +108,11 @@ export const typeDefs = gql`
     result: [Listing!]!
   }
 
+  type Favorites {
+    total: Int!
+    result: [ID!]!
+  }
+
   type User {
     id: ID!
     name: String!
@@ -118,7 +123,7 @@ export const typeDefs = gql`
     hasWallet: Boolean!
     income: Int
     bookings(limit: Int!, page: Int!): Bookings
-    favoriteListings(limit: Int!, page: Int!): Listings
+    favoriteListings(limit: Int!, page: Int!): Favorites
     listings(limit: Int!, page: Int!): Listings!
   }
 

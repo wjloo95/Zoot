@@ -35,14 +35,8 @@ export const userResolvers: IResolvers = {
     addFavorite: async (
       _root: undefined,
       { input }: AddFavoriteArgs,
-      { db, req }: { db: Database; req: Request }
+      { db }: { db: Database }
     ): Promise<Listing | null> => {
-      // const viewer = await authorize(db, req);
-
-      // if (!viewer) {
-      //   throw new Error('Viewer cannot be found');
-      // }
-
       const currentListing = await db.listings.findOne({
         _id: new ObjectID(input.id),
       });
@@ -57,21 +51,15 @@ export const userResolvers: IResolvers = {
     removeFavorite: async (
       _root: undefined,
       { input }: AddFavoriteArgs,
-      { db, req }: { db: Database; req: Request }
+      { db }: { db: Database }
     ): Promise<Listing | null> => {
-      // const viewer = await authorize(db, req);
-
-      // if (!viewer) {
-      //   throw new Error('Viewer cannot be found');
-      // }
-
       const currentListing = await db.listings.findOne({
         _id: new ObjectID(input.id),
       });
 
       await db.users.findOneAndUpdate(
         { _id: new ObjectID(input.userId) },
-        { $pull: { favoriteListings: currentListing?._id } }
+        { $addToSet: { favoriteListings: currentListing?._id } }
       );
 
       return currentListing;
@@ -141,22 +129,26 @@ export const userResolvers: IResolvers = {
       user: User,
       { limit, page }: UserListsArgs,
       { db }: { db: Database }
-    ): Promise<UserListsData<Listing> | null> => {
+    ): Promise<UserListsData<ObjectID> | null> => {
       try {
-        const data: UserListsData<Listing> = {
+        const data: UserListsData<ObjectID> = {
           total: 0,
           result: [],
         };
 
-        let cursor = await db.listings.find({
-          _id: { $in: user.favoriteListings },
-        });
+        let cursor = await db.listings.find(
+          {
+            _id: { $in: user.favoriteListings },
+          },
+          {}
+        );
 
         cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
         cursor = cursor.limit(limit);
 
         data.total = await cursor.count();
-        data.result = await cursor.toArray();
+        let results = await cursor.toArray();
+        data.result = results.map((result) => result._id);
 
         return data;
       } catch (error) {

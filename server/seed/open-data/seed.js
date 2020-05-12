@@ -146,5 +146,5 @@ const fixNames = async () => {
 };
 
 // streamData();
-createUsers();
-// fixNames();
+// createUsers();
+fixNames();

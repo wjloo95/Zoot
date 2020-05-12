@@ -26,6 +26,11 @@ export enum RoomType {
   SHARED_ROOM = "SHARED_ROOM",
 }
 
+export interface AddFavoriteInput {
+  id: string;
+  userId: string;
+}
+
 export interface ConnectStripeInput {
   code: string;
 }
@@ -48,6 +53,11 @@ export interface HostListingInput {
 
 export interface LogInInput {
   code: string;
+}
+
+export interface RemoveFavoriteInput {
+  id: string;
+  userId: string;
 }
 
 //==============================================================

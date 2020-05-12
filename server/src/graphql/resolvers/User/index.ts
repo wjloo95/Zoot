@@ -129,26 +129,22 @@ export const userResolvers: IResolvers = {
       user: User,
       { limit, page }: UserListsArgs,
       { db }: { db: Database }
-    ): Promise<UserListsData<ObjectID> | null> => {
+    ): Promise<UserListsData<Listing> | null> => {
       try {
-        const data: UserListsData<ObjectID> = {
+        const data: UserListsData<Listing> = {
           total: 0,
           result: [],
         };
 
-        let cursor = await db.listings.find(
-          {
-            _id: { $in: user.favoriteListings },
-          },
-          {}
-        );
+        let cursor = await db.listings.find({
+          _id: { $in: user.favoriteListings },
+        });
 
         cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
         cursor = cursor.limit(limit);
 
         data.total = await cursor.count();
-        let results = await cursor.toArray();
-        data.result = results.map((result) => result._id);
+        data.result = await cursor.toArray();
 
         return data;
       } catch (error) {

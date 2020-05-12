@@ -41,3 +41,10 @@ export interface AddFavoriteInput {
 export interface AddFavoriteArgs {
   input: AddFavoriteInput;
 }
+export interface RemoveFavoriteInput {
+  id: string;
+  userId: string;
+}
+export interface RemoveFavoriteArgs {
+  input: AddFavoriteInput;
+}

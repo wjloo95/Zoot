@@ -110,7 +110,7 @@ export const typeDefs = gql`
 
   type Favorites {
     total: Int!
-    result: [ID!]!
+    result: [Listing!]!
   }
 
   type User {

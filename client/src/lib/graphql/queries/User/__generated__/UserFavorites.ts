@@ -20,7 +20,7 @@ export interface UserFavorites_user_favoriteListings_result {
 }
 
 export interface UserFavorites_user_favoriteListings {
-  __typename: "Listings";
+  __typename: "Favorites";
   total: number;
   result: UserFavorites_user_favoriteListings_result[];
 }

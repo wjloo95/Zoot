@@ -4,9 +4,11 @@ import {
   ListingsData,
   ListingsSort,
   ListingsQuery,
+  LocationsData,
 } from './types';
 import { Database } from '../../../lib/types';
 import { Google } from '../../../lib/api';
+import { usStates } from './locationData';
 
 export const listingsResolvers: IResolvers = {
   Query: {
@@ -67,6 +69,33 @@ export const listingsResolvers: IResolvers = {
         return data;
       } catch (error) {
         throw new Error(`Failed to query listings: ${error}`);
+      }
+    },
+    locations: async (
+      _root: undefined,
+      _args: {},
+      { db }: { db: Database }
+    ): Promise<LocationsData> => {
+      try {
+        let cities = await db.listings.distinct('city');
+        let states = await db.listings.distinct('state');
+        let countries = await db.listings.distinct('country');
+
+        cities = cities.filter((city) => isNaN(Number(city)));
+        cities = cities.filter((city) => {
+          var letters = /^[A-Za-z]+$/;
+          return city.match(letters);
+        });
+        states = states.filter((state) => isNaN(Number(state)));
+        states = states.filter((state) => {
+          var letters = /^[A-Za-z]+$/;
+          return state.match(letters);
+        });
+
+        const locations = [...usStates, ...countries];
+        return { result: locations };
+      } catch (error) {
+        throw new Error(`Failed to get locations: ${error}`);
       }
     },
   },

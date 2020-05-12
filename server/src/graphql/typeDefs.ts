@@ -113,6 +113,10 @@ export const typeDefs = gql`
     result: [Listing!]!
   }
 
+  type Locations {
+    result: [String!]!
+  }
+
   type User {
     id: ID!
     name: String!
@@ -145,6 +149,7 @@ export const typeDefs = gql`
       limit: Int!
       page: Int!
     ): Listings!
+    locations: Locations!
   }
 
   type Mutation {

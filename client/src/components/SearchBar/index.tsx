@@ -3,6 +3,7 @@ import { SearchOutlined } from '@ant-design/icons';
 import './style.css';
 import { searchValid, displayErrorMessage } from '../../lib/utils';
 import { useHistory } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
 
 interface IProps {
   placeholder: string;
@@ -11,6 +12,7 @@ interface IProps {
 
 export const SearchBar = ({ placeholder, type }: IProps) => {
   const [searchValue, setSearchValue] = useState('');
+  // const {data, loading, error} = useQuery()
   const history = useHistory();
   const { location } = history;
 

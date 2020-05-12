@@ -41,7 +41,7 @@ export const ListingCard = ({ listing, map }: IProps) => {
 
   return map ? (
     <>
-      <div className="listing-card-container">
+      <div className="map-card-container">
         <div
           style={{ backgroundImage: `url(${image})` }}
           className="map-card-cover-img"

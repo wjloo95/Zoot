@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { MenuItems } from './children';
 import { Viewer } from '../../lib/types';
 import Logo from '../../lib/assets/DarkLogo.png';
-import { HeaderSearchBar } from '../HeaderSearchBar';
+import { SearchBar } from '../index';
 
 interface IProps {
   viewer: Viewer;
@@ -24,7 +24,7 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
 
   const headerSearch =
     location.pathname !== '/listings' ? (
-      <HeaderSearchBar placeholder="Search 'San Francisco'" />
+      <SearchBar placeholder="Search 'San Francisco'" type="header" />
     ) : null;
 
   return (

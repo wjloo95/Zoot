@@ -2,8 +2,8 @@ import React from 'react';
 
 import BookingsVideo from '../../assets/MainVideo.mp4';
 import Logo from '../../../../lib/assets/LightLogo.png';
-import { LandingSearchBar } from '../../../LandingSearchBar';
 import { Link, useHistory } from 'react-router-dom';
+import { SearchBar } from '../../../index';
 
 export const HomeHero = () => {
   const history = useHistory();
@@ -48,7 +48,7 @@ export const HomeHero = () => {
       ></video>
       <div className="listings-overlay"></div>
       <div className="home-hero__search">
-        <LandingSearchBar placeholder="Search 'San Francisco'" />
+        <SearchBar placeholder="Search 'San Francisco'" type="landing" />
       </div>
     </div>
   );

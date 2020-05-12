@@ -6,27 +6,30 @@ import { useHistory } from 'react-router-dom';
 
 interface IProps {
   placeholder: string;
+  type: string;
 }
 
-export const HeaderSearchBar = ({ placeholder }: IProps) => {
+export const SearchBar = ({ placeholder, type }: IProps) => {
   const [searchValue, setSearchValue] = useState('');
   const history = useHistory();
   const { location } = history;
 
   useEffect(() => {
-    const pathnameSubStrings = location.pathname.split('/');
+    if (type === 'header') {
+      const pathnameSubStrings = location.pathname.split('/');
 
-    if (!location.pathname.includes('/listings')) {
-      setSearchValue('');
-      return;
-    }
+      if (!location.pathname.includes('/listings')) {
+        setSearchValue('');
+        return;
+      }
 
-    if (
-      location.pathname.includes('/listings') &&
-      pathnameSubStrings.length === 3
-    ) {
-      setSearchValue(pathnameSubStrings[2]);
-      return;
+      if (
+        location.pathname.includes('/listings') &&
+        pathnameSubStrings.length === 3
+      ) {
+        setSearchValue(pathnameSubStrings[2]);
+        return;
+      }
     }
   }, [location]);
 
@@ -43,10 +46,10 @@ export const HeaderSearchBar = ({ placeholder }: IProps) => {
   };
 
   return (
-    <div className="header-search-bar">
+    <div className={`${type}-search-bar`}>
       <input
         type="text"
-        className="header-search-input"
+        className={`${type}-search-input`}
         placeholder={placeholder}
         value={searchValue}
         onChange={(e) => {
@@ -59,8 +62,8 @@ export const HeaderSearchBar = ({ placeholder }: IProps) => {
           }
         }}
       ></input>
-      <div className="header-search-button" onClick={handleSearch}>
-        <SearchOutlined className="header-search-icon" />
+      <div className={`${type}-search-button`} onClick={handleSearch}>
+        <SearchOutlined className={`${type}-search-icon`} />
       </div>
     </div>
   );

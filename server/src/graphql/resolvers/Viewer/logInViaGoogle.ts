@@ -62,6 +62,7 @@ export const logInViaGoogle = async (
         location: 'No Location Provided',
         bookings: [],
         listings: [],
+        favoriteListings: [],
         token,
       },
     },

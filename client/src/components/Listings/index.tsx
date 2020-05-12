@@ -30,7 +30,7 @@ interface IParams {
 const PAGE_LIMIT = 6;
 
 export const Listings = () => {
-  const [sort, setSort] = useState(ListingsSort.RATINGS_VALUE);
+  const [sort, setSort] = useState(ListingsSort.RATINGS_COUNT);
   const [page, setPage] = useState(1);
   const [pageLimit, setPageLimit] = useState(PAGE_LIMIT);
   const [

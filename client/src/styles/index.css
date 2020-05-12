@@ -159,8 +159,12 @@ body {
 .listing-card-container {
   cursor: pointer;
   border-radius: 15px;
-  border: 1px solid var(--bg-color);
   box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.25s ease-in;
+}
+.listing-card-container:hover {
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.5);
+  transform: translateY(-3px);
 }
 .listing-card-cover-img {
   width: 100%;
@@ -539,6 +543,7 @@ body {
 .listings-list {
   height: 700px;
   padding-right: 5px;
+  padding-top: 5px;
   overflow-x: hidden;
   overflow-y: visible;
 }

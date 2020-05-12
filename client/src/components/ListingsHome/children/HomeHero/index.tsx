@@ -11,7 +11,10 @@ export const HomeHero = () => {
   const flightStyles =
     history.location.pathname === '/flights' ? ' listings-header-active' : '';
   const listingStyles =
-    history.location.pathname === '/listings' ? ' listings-header-active' : '';
+    history.location.pathname === '/listings' ||
+    history.location.pathname === '/'
+      ? ' listings-header-active'
+      : '';
   const experienceStyles =
     history.location.pathname === '/experiences'
       ? ' listings-header-active'
@@ -20,7 +23,9 @@ export const HomeHero = () => {
   return (
     <div className="listings-video-container">
       <div className="listings-header">
-        <img src={Logo} alt="Zoot" />
+        <Link to="/">
+          <img src={Logo} alt="Zoot" />
+        </Link>
         <div className="listings-header-nav">
           <Link to="/flights" className={flightStyles}>
             <div>Flights</div>

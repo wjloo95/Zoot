@@ -10,14 +10,10 @@ export const HomeSuggestions = () => {
   return (
     <div className="listings-suggestions">
       <div className="suggestion-container">
-        <Link to="/listings/Toronto">
+        <Link to="/listings/London">
           <div className="suggestion-card">
-            <img
-              alt="toronto"
-              src={torontoImage}
-              className="suggestion-image"
-            />
-            <h1 className="suggestion-name">Toronto</h1>
+            <img alt="london" src={londonImage} className="suggestion-image" />
+            <h1 className="suggestion-name">London</h1>
           </div>
         </Link>
       </div>
@@ -34,10 +30,14 @@ export const HomeSuggestions = () => {
         </Link>
       </div>
       <div className="suggestion-container">
-        <Link to="/listings/London">
+        <Link to="/listings/Toronto">
           <div className="suggestion-card">
-            <img alt="london" src={londonImage} className="suggestion-image" />
-            <h1 className="suggestion-name">London</h1>
+            <img
+              alt="toronto"
+              src={torontoImage}
+              className="suggestion-image"
+            />
+            <h1 className="suggestion-name">Toronto</h1>
           </div>
         </Link>
       </div>

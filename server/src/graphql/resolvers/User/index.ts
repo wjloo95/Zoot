@@ -56,8 +56,7 @@ export const userResolvers: IResolvers = {
       const currentListing = await db.listings.findOne({
         _id: new ObjectID(input.id),
       });
-
-      const newUser = await db.users.findOneAndUpdate(
+      await db.users.findOneAndUpdate(
         { _id: new ObjectID(input.userId) },
         { $pull: { favoriteListings: currentListing?._id } },
         { returnOriginal: false }

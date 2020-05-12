@@ -40,7 +40,7 @@ export const Listing = ({ viewer }: IProps) => {
   }
 
   const listing = data ? data.listing : null;
-  const image = listing ? listing.image : null;
+  const image = listing ? listing.largeImage : null;
 
   const listingDetailsElement = listing ? (
     <ListingDetails listing={listing} />

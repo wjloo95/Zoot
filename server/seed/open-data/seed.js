@@ -31,8 +31,6 @@ const connectDatabase = async () => {
 };
 
 const streamData = async () => {
-  // const db = await connectDatabase();
-
   fs.createReadStream('../airbnb-input/airbnb-listings.csv')
     .pipe(
       parse({
@@ -44,7 +42,7 @@ const streamData = async () => {
           //   : null;
           return records < 250000 &&
             (value['Number of Reviews'] >= 10 || value['Price'] >= 200)
-            ? value
+            ? { ...value, bookings: [], bookingsIndex: {} }
             : null;
         },
         cast: (value, { header, index, column }) => {
@@ -153,6 +151,6 @@ const fixNames = async () => {
   return;
 };
 
-// streamData();
+streamData();
 // createUsers();
-fixNames();
+// fixNames();

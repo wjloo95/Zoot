@@ -43,7 +43,7 @@ export const userResolvers: IResolvers = {
 
       await db.users.findOneAndUpdate(
         { _id: new ObjectID(input.userId) },
-        { $push: { favoriteListings: currentListing?._id } }
+        { $addToSet: { favoriteListings: currentListing?._id } }
       );
 
       return currentListing;
@@ -57,9 +57,10 @@ export const userResolvers: IResolvers = {
         _id: new ObjectID(input.id),
       });
 
-      await db.users.findOneAndUpdate(
+      const newUser = await db.users.findOneAndUpdate(
         { _id: new ObjectID(input.userId) },
-        { $addToSet: { favoriteListings: currentListing?._id } }
+        { $pull: { favoriteListings: currentListing?._id } },
+        { returnOriginal: false }
       );
 
       return currentListing;

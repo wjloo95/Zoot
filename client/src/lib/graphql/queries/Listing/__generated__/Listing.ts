@@ -44,6 +44,7 @@ export interface Listing_listing {
   notes: string;
   rules: string;
   image: string;
+  largeImage: string;
   host: Listing_listing_host;
   property: string;
   room: string;

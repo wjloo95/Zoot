@@ -9,6 +9,7 @@ export const LISTING = gql`
       notes
       rules
       image
+      largeImage
       host {
         id
         name

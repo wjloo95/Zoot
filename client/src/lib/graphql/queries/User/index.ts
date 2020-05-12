@@ -61,3 +61,24 @@ export const USER_LISTINGS = gql`
     }
   }
 `;
+
+export const USER_FAVORITES = gql`
+  query UserFavorites($id: ID!, $listingsPage: Int!, $limit: Int!) {
+    user(id: $id) {
+      id
+      favoriteListings(limit: $limit, page: $listingsPage) {
+        total
+        result {
+          id
+          name
+          image
+          street
+          reviews
+          rating
+          price
+          numOfGuests
+        }
+      }
+    }
+  }
+`;

@@ -4,6 +4,7 @@ import { Database, User, Booking, Listing } from '../../../lib/types';
 import { Request } from 'express';
 import { authorize } from '../../../lib/utils';
 import { ObjectID } from 'mongodb';
+import { AddFavoriteArgs } from '../Listing/types';
 
 export const userResolvers: IResolvers = {
   Query: {
@@ -28,6 +29,41 @@ export const userResolvers: IResolvers = {
       } catch (error) {
         throw new Error(`Failed to find user: ${error}`);
       }
+    },
+  },
+  Mutation: {
+    addFavorite: async (
+      _root: undefined,
+      { input }: AddFavoriteArgs,
+      { db }: { db: Database }
+    ): Promise<Listing | null> => {
+      const currentListing = await db.listings.findOne({
+        _id: new ObjectID(input.id),
+      });
+
+      await db.users.findOneAndUpdate(
+        { _id: new ObjectID(input.userId) },
+        { $addToSet: { favoriteListings: currentListing?._id } }
+      );
+
+      return currentListing;
+    },
+    removeFavorite: async (
+      _root: undefined,
+      { input }: AddFavoriteArgs,
+      { db }: { db: Database }
+    ): Promise<Listing | null> => {
+      const currentListing = await db.listings.findOne({
+        _id: new ObjectID(input.id),
+      });
+
+      const newUser = await db.users.findOneAndUpdate(
+        { _id: new ObjectID(input.userId) },
+        { $pull: { favoriteListings: currentListing?._id } },
+        { returnOriginal: false }
+      );
+
+      return currentListing;
     },
   },
   User: {
@@ -88,6 +124,32 @@ export const userResolvers: IResolvers = {
         return data;
       } catch (error) {
         throw new Error(`Failed to query user listings: ${error}`);
+      }
+    },
+    favoriteListings: async (
+      user: User,
+      { limit, page }: UserListsArgs,
+      { db }: { db: Database }
+    ): Promise<UserListsData<Listing> | null> => {
+      try {
+        const data: UserListsData<Listing> = {
+          total: 0,
+          result: [],
+        };
+
+        let cursor = await db.listings.find({
+          _id: { $in: user.favoriteListings },
+        });
+
+        cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);
+        cursor = cursor.limit(limit);
+
+        data.total = await cursor.count();
+        data.result = await cursor.toArray();
+
+        return data;
+      } catch (error) {
+        throw new Error(`Failed to query user favorites: ${error}`);
       }
     },
   },

@@ -29,8 +29,6 @@ const connectDatabase = async () => {
 };
 
 const streamData = async () => {
-  // const db = await connectDatabase();
-
   fs.createReadStream('../airbnb-input/airbnb-listings.csv')
     .pipe(
       parse({

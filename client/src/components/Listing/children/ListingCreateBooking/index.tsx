@@ -5,7 +5,7 @@ import { formatPrice, displayErrorMessage } from '../../../../lib/utils';
 import { Viewer } from '../../../../lib/types';
 import { Listing as ListingData } from '../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { BookingsIndex } from './types';
-import { CreateBookingModal } from './children';
+import { CreateBookingModal, FavoriteToggle } from './children';
 
 const { Paragraph, Title, Text } = Typography;
 
@@ -129,6 +129,7 @@ export const ListingCreateBooking = ({
   return (
     <div className="listing-booking">
       <Card className="listing-booking__card">
+        <FavoriteToggle viewer={viewer} />
         <div>
           <Paragraph>
             <Title level={2} className="listing-booking__card-title">

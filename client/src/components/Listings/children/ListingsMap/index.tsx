@@ -70,7 +70,7 @@ export const ListingsMap = ({
               color: `${
                 selectedListing?.id === listing.id
                   ? 'var(--light-secondary-color)'
-                  : 'var(--primary-color)'
+                  : 'var(--dark-font-color)'
               }`,
               cursor: 'pointer',
             }}

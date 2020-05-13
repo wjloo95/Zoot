@@ -20,7 +20,14 @@ export const HomeSkeleton = () => {
       : ExperiencesFrame;
 
   return (
-    <div className="listings-video-container">
+    <div
+      className="listings-video-container"
+      style={{
+        backgroundImage: `url(${currentImage})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
+    >
       <div className="listings-header">
         <img src={Logo} alt="Zoot" className="listings-header-logo" />
         <div className="listings-header-nav">
@@ -59,12 +66,12 @@ export const HomeSkeleton = () => {
           </div>
         </div>
       </div>
-      <img
+      {/* <img
         src={currentImage}
         alt="Loading"
         className="listings-video listings-skeleton-image"
         style={{ height: '55vh' }}
-      />
+      /> */}
       <div className="listings-overlay"></div>
       <div className="home-hero__search">
         <div className={`landing-search-bar`}>

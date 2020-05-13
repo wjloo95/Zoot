@@ -47,9 +47,7 @@ export const HomeHero = () => {
         className="listings-video"
       ></video>
       <div className="listings-overlay"></div>
-      <div className="home-hero__search">
-        <SearchBar placeholder="Search 'San Francisco'" type="landing" />
-      </div>
+      <SearchBar placeholder="Search 'San Francisco'" type="landing" />
     </div>
   );
 };

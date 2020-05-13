@@ -134,10 +134,7 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
   );
 
   const suggestionsListComponent =
-    showSuggestions &&
-    searchValue.length > 1 &&
-    filteredSuggestions.length &&
-    type === 'landing' ? (
+    showSuggestions && filteredSuggestions.length && type === 'landing' ? (
       <ul className={`${type}-suggestions`}>{suggestionsComponent}</ul>
     ) : null;
 

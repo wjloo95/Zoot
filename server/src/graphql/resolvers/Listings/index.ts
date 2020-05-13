@@ -8,7 +8,7 @@ import {
 } from './types';
 import { Database } from '../../../lib/types';
 import { Google } from '../../../lib/api';
-import { usStates } from './locationData';
+import { miscLocations } from './locationData';
 
 export const listingsResolvers: IResolvers = {
   Query: {
@@ -77,22 +77,9 @@ export const listingsResolvers: IResolvers = {
       { db }: { db: Database }
     ): Promise<LocationsData> => {
       try {
-        let cities = await db.listings.distinct('city');
-        let states = await db.listings.distinct('state');
         let countries = await db.listings.distinct('country');
 
-        cities = cities.filter((city) => isNaN(Number(city)));
-        cities = cities.filter((city) => {
-          var letters = /^[A-Za-z]+$/;
-          return city.match(letters);
-        });
-        states = states.filter((state) => isNaN(Number(state)));
-        states = states.filter((state) => {
-          var letters = /^[A-Za-z]+$/;
-          return state.match(letters);
-        });
-
-        const locations = [...usStates, ...countries];
+        const locations = [...miscLocations, ...countries];
         return { result: locations };
       } catch (error) {
         throw new Error(`Failed to get locations: ${error}`);

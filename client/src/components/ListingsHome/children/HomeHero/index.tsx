@@ -1,6 +1,6 @@
 import React from 'react';
 
-import BookingsVideo from '../../assets/MainVideo.mp4';
+import StaysVideo from '../../assets/StaysVideo.mp4';
 import Logo from '../../../../lib/assets/LightLogo.png';
 import { Link, useHistory } from 'react-router-dom';
 import { SearchBar } from '../../../index';
@@ -43,7 +43,7 @@ export const HomeHero = () => {
         loop
         muted
         playsInline
-        src={BookingsVideo}
+        src={StaysVideo}
         className="listings-video"
       ></video>
       <div className="listings-overlay"></div>

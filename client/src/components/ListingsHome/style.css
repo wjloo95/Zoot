@@ -79,16 +79,14 @@
 
 .listings-header-nav .listings-header-active {
   border-bottom: 2px solid var(--light-font-color);
-  color: var(--primary-color);
-}
-.listings-header-nav .listings-header-active:hover {
-  border-bottom: 2px solid var(--light-font-color);
-  color: var(--primary-color);
+  font-weight: bold;
+  color: var(--light-font-color);
 }
 
 .listings-header-nav a:hover {
-  border-bottom: 1px solid var(--light-font-color);
-  color: var(--primary-color);
+  border-bottom: 2px solid var(--light-font-color);
+  font-weight: bold;
+  color: var(--light-font-color);
 }
 
 .listings-video-container img {

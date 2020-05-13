@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import torontoImage from '../../assets/toronto.jpg';
+import newYorkImage from '../../assets/newyork.jpg';
 import losAngelesImage from '../../assets/los-angeles.jpg';
 import londonImage from '../../assets/london.jpg';
 import parisImage from '../../assets/france.jpg';
@@ -30,14 +30,14 @@ export const HomeSuggestions = () => {
         </Link>
       </div>
       <div className="suggestion-container">
-        <Link to="/listings/Toronto">
+        <Link to="/listings/New%20York">
           <div className="suggestion-card">
             <img
-              alt="toronto"
-              src={torontoImage}
+              alt="new-york"
+              src={newYorkImage}
               className="suggestion-image"
             />
-            <h1 className="suggestion-name">Toronto</h1>
+            <h1 className="suggestion-name">New York</h1>
           </div>
         </Link>
       </div>

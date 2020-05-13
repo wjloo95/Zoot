@@ -46,12 +46,10 @@ export const ListingsHome = () => {
       <div className="listings-home-bottom">
         <HomeSuggestions />
         <div className="listings-home-US">
-          <h2 className="listings-home-US-title">
-            Your guide for all things rental
-          </h2>
+          <h2 className="listings-home-US-title">Plan Your Next Escape!</h2>
           <p>
-            Zoot has over 500,000 listings across the globe for your next
-            getaway
+            Zoot has over 500,000 listings across the globe for trips of all
+            kinds
           </p>
           <Link
             to="/listings/United%20States"

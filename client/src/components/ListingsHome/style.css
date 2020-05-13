@@ -16,6 +16,11 @@
     padding-right: 20px;
   }
 }
+@media (max-width: 48em) {
+  .listings-video-container {
+    height: 50vh;
+  }
+}
 @media (max-width: 36em) {
   .listings-video-container {
     height: 60vh;
@@ -67,13 +72,19 @@
   .listings-header-nav {
     flex-direction: column;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 60px;
   }
 
   .listings-header-nav a {
     width: 60px;
     height: 30px;
     margin: 5px 0;
+  }
+}
+
+@media (max-width: 25em) {
+  .listings-header-nav {
+    margin-top: 30px;
   }
 }
 
@@ -97,7 +108,7 @@
   z-index: 99;
 }
 
-@media (max-width: 36em) {
+@media (max-width: 48em) {
   .listings-video-container img {
     width: 150px;
     height: 70px;
@@ -125,6 +136,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  z-index: 1;
 }
 
 @media (max-width: 75em) {

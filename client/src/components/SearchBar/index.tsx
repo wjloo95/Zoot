@@ -47,13 +47,16 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInput = e.target.value;
-    const filteredSuggestions = trie.getPrefix(currentInput).map((word) => {
-      const wordArr = word.split(' ');
-      const titleCased = wordArr.map(
-        (word) => word[0].toUpperCase() + word.substring(1)
-      );
-      return titleCased.join(' ');
-    });
+    const filteredSuggestions = currentInput.length
+      ? trie.getPrefix(currentInput).map((word) => {
+          const wordArr = word.split(' ');
+          const titleCased = wordArr.map(
+            (word) => word[0].toUpperCase() + word.substring(1)
+          );
+          return titleCased.join(' ');
+        })
+      : [];
+
     setActiveSuggestionIndex(0);
     setFilteredSuggestions(filteredSuggestions);
     toggleShowSuggestions(currentInput.length > 0);

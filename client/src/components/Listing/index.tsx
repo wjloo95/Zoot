@@ -40,7 +40,6 @@ export const Listing = ({ viewer }: IProps) => {
   }
 
   const listing = data ? data.listing : null;
-  console.log(listing);
   const image = listing
     ? listing.largeImage
       ? listing.largeImage

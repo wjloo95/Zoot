@@ -4,6 +4,7 @@ import './style.css';
 import { searchValid, displayErrorMessage } from '../../lib/utils';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
+import { Trie } from 'prefix-trie-ts';
 import { LOCATIONS } from '../../lib/graphql/queries';
 import { Locations as LocationsData } from '../../lib/graphql/queries/Listings/__generated__/Locations';
 
@@ -20,6 +21,7 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
 
   const { data, loading, error } = useQuery<LocationsData>(LOCATIONS);
   const suggestions = data ? data.locations.result : [];
+  const trie = new Trie(suggestions);
 
   const history = useHistory();
   const { location } = history;
@@ -45,10 +47,13 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInput = e.target.value;
-    const filteredSuggestions = suggestions.filter(
-      (suggestion) =>
-        suggestion.toLowerCase().indexOf(currentInput.toLowerCase()) > -1
-    );
+    const filteredSuggestions = trie.getPrefix(currentInput).map((word) => {
+      const wordArr = word.split(' ');
+      const titleCased = wordArr.map(
+        (word) => word[0].toUpperCase() + word.substring(1)
+      );
+      return titleCased.join(' ');
+    });
     setActiveSuggestionIndex(0);
     setFilteredSuggestions(filteredSuggestions);
     toggleShowSuggestions(currentInput.length > 0);
@@ -85,6 +90,11 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
         setSearchValue(filteredSuggestions[activeIndex]);
       }
     }
+
+    // Escape Key
+    if (key === 27) {
+      toggleShowSuggestions(false);
+    }
   };
 
   const onSearch = (value: string) => {
@@ -102,11 +112,8 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
 
   const suggestionsComponent = filteredSuggestions.map(
     (suggestion: string, index: number) => {
-      let className;
-
-      if (index === activeIndex) {
-        className = 'suggestion-active';
-      }
+      const className =
+        index === activeIndex ? 'suggestion-active' : 'suggestion-inactive';
 
       return (
         <li
@@ -124,8 +131,11 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
   );
 
   const suggestionsListComponent =
-    showSuggestions && searchValue.length > 1 && filteredSuggestions.length ? (
-      <ul className="suggestions">{suggestionsComponent}</ul>
+    showSuggestions &&
+    searchValue.length > 1 &&
+    filteredSuggestions.length &&
+    type === 'landing' ? (
+      <ul className={`${type}-suggestions`}>{suggestionsComponent}</ul>
     ) : null;
 
   return (

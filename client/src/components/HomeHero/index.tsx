@@ -5,21 +5,12 @@ import FlightsVideo from '../../lib/assets/FlightsVideo.mp4';
 import ExperiencesVideo from '../../lib/assets/ExperiencesVideo.mp4';
 import MainVideo from '../../lib/assets/MainVideo.mp4';
 import Logo from '../../lib/assets/LightLogo.png';
-import { Link, useHistory } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { SearchBar } from '../index';
 import './style.css';
 
 export const HomeHero = () => {
   const history = useHistory();
-
-  const flightStyles =
-    history.location.pathname === '/flights' ? ' listings-header-active' : '';
-  const listingStyles =
-    history.location.pathname === '/listings' ? ' listings-header-active' : '';
-  const experienceStyles =
-    history.location.pathname === '/experiences'
-      ? ' listings-header-active'
-      : '';
 
   const currentVideo =
     history.location.pathname === '/flights'
@@ -33,19 +24,19 @@ export const HomeHero = () => {
   return (
     <div className="listings-video-container">
       <div className="listings-header">
-        <Link to="/">
+        <NavLink to="/">
           <img src={Logo} alt="Zoot" />
-        </Link>
+        </NavLink>
         <div className="listings-header-nav">
-          <Link to="/flights" className={flightStyles}>
+          <NavLink to="/flights" activeClassName="listings-header-active">
             <div>Flights</div>
-          </Link>
-          <Link to="/listings" className={listingStyles}>
+          </NavLink>
+          <NavLink to="/listings" activeClassName="listings-header-active">
             <div>Stays</div>
-          </Link>
-          <Link to="/experiences" className={experienceStyles}>
+          </NavLink>
+          <NavLink to="/experiences" activeClassName="listings-header-active">
             <div>Experiences</div>
-          </Link>
+          </NavLink>
         </div>
       </div>
       <video

@@ -7,6 +7,7 @@ import MainVideo from '../../lib/assets/MainVideo.mp4';
 import Logo from '../../lib/assets/LightLogo.png';
 import { Link, useHistory } from 'react-router-dom';
 import { SearchBar } from '../index';
+import './style.css';
 
 export const HomeHero = () => {
   const history = useHistory();

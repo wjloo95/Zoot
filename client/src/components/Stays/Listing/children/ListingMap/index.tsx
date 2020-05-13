@@ -33,9 +33,17 @@ export const ListingMap = ({ latitude, longitude }: IProps) => {
           setViewport(viewport);
         }}
       >
-        <Marker latitude={latitude} longitude={longitude}>
+        <Marker
+          latitude={latitude}
+          longitude={longitude}
+          offsetTop={-30}
+          offsetLeft={-15}
+        >
           <EnvironmentFilled
-            style={{ fontSize: '30px', color: 'var(--light-secondary-color)' }}
+            style={{
+              fontSize: '30px',
+              color: 'var(--light-secondary-color)',
+            }}
           />
         </Marker>
       </ReactMapGL>

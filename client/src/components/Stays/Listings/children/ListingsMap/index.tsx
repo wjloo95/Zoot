@@ -66,6 +66,8 @@ export const ListingsMap = ({
           key={listing.id}
           latitude={listing.latitude}
           longitude={listing.longitude}
+          offsetTop={-25}
+          offsetLeft={-12.5}
         >
           <EnvironmentFilled
             style={{

@@ -33,17 +33,12 @@ interface IParams {
 
 export const FavoriteToggle = ({ viewer }: IProps) => {
   const { id } = useParams<IParams>();
-  const { pathname } = useLocation();
+  const location = useLocation();
   const [isFavorited, toggleFavorited] = useState(false);
   const [getFavorites, { loading }] = useLazyQuery<
     UserFavoritesData,
     UserFavoritesVariables
   >(USER_FAVORITES, {
-    variables: {
-      id: viewer.id ? viewer.id : '',
-      listingsPage: 0,
-      limit: 2147483647,
-    },
     onCompleted: (data) => {
       if (viewer.id) {
         if (data.user.favoriteListings) {
@@ -85,9 +80,16 @@ export const FavoriteToggle = ({ viewer }: IProps) => {
 
   useEffect(() => {
     if (viewer) {
-      getFavorites();
+      console.log(viewer.id);
+      getFavorites({
+        variables: {
+          id: viewer.id ? viewer.id : '',
+          listingsPage: 0,
+          limit: 2147483647,
+        },
+      });
     }
-  }, [pathname, getFavorites, viewer]);
+  }, [location, getFavorites, viewer]);
 
   return loading ? (
     <Spin className="favorite-button" />

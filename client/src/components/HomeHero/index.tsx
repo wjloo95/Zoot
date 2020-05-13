@@ -25,7 +25,7 @@ export const HomeHero = () => {
     <div className="listings-video-container">
       <div className="listings-header">
         <NavLink to="/">
-          <img src={Logo} alt="Zoot" />
+          <img src={Logo} alt="Zoot" className="listings-header-logo" />
         </NavLink>
         <div className="listings-header-nav">
           <NavLink to="/flights" activeClassName="listings-header-active">

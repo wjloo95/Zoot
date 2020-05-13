@@ -17,7 +17,7 @@ import {
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Layout, Spin } from 'antd';
+import { Layout } from 'antd';
 import { Viewer } from '../lib/types';
 import { AppHeader } from './AppHeader';
 import { useMutation } from '@apollo/react-hooks';
@@ -26,7 +26,7 @@ import {
   LogInVariables,
 } from '../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { LOG_IN } from '../lib/graphql/mutations';
-import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
+import { HomeSkeleton, ErrorBanner } from '../lib/components';
 
 const initialViewer: Viewer = {
   id: null,
@@ -60,12 +60,11 @@ const App = () => {
 
   if (!viewer.didRequest && !error) {
     return (
-      <Layout className="app-skeleton">
-        <AppHeaderSkeleton />
-        <div className="app-skeleton__spin-section">
-          <Spin size="large" tip="Getting Set Up" />
-        </div>
-      </Layout>
+      <Router>
+        <Layout className="app-skeleton">
+          <HomeSkeleton />
+        </Layout>
+      </Router>
     );
   }
 

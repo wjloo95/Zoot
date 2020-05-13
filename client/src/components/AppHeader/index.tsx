@@ -15,9 +15,9 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
   const { location } = history;
 
   if (
-    location.pathname === '/' ||
-    location.pathname === '/listings' ||
-    location.pathname === '/login'
+    ['/', '/listings', '/flights', '/experiences', '/login'].includes(
+      location.pathname
+    )
   ) {
     return null;
   }

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  ListingsHome,
+  StaysHome,
   Host,
   Listing,
   Listings,
@@ -10,9 +10,9 @@ import {
   Stripe,
   AppFooter,
   ScrollToTop,
-  // AppHome,
-  Flights,
-  Experiences,
+  AppHome,
+  FlightsHome,
+  ExperiencesHome,
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -81,8 +81,8 @@ const App = () => {
           {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
           <Switch>
-            <Route exact path="/" component={ListingsHome} />
-            <Route exact path="/listings" component={ListingsHome} />
+            <Route exact path="/" component={AppHome} />
+            <Route exact path="/listings" component={StaysHome} />
             <Route exact path="/login">
               <Login setViewer={setViewer} />
             </Route>
@@ -99,8 +99,8 @@ const App = () => {
             <Route exact path="/stripe">
               <Stripe viewer={viewer} setViewer={setViewer} />
             </Route>
-            <Route exact path="/flights" component={Flights} />
-            <Route exact path="/experiences" component={Experiences} />
+            <Route exact path="/flights" component={FlightsHome} />
+            <Route exact path="/experiences" component={ExperiencesHome} />
             <Route component={NotFound} />
           </Switch>
           <AppFooter />

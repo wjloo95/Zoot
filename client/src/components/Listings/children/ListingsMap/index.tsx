@@ -33,6 +33,9 @@ export const ListingsMap = ({
     maxZoom: MAX_ZOOM,
   };
   const [viewport, setViewport] = useViewport(initialViewport);
+  if (!listings || !listings.length) {
+    return null;
+  }
 
   const closePopup = () => {
     setSelectedListing(null);

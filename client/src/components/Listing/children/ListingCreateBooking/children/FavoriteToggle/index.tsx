@@ -80,7 +80,6 @@ export const FavoriteToggle = ({ viewer }: IProps) => {
 
   useEffect(() => {
     if (viewer) {
-      console.log(viewer.id);
       getFavorites({
         variables: {
           id: viewer.id ? viewer.id : '',

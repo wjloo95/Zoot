@@ -15,9 +15,9 @@
   --responsive-left-margin: 20px;
 }
 
-html {
+/* html {
   overflow: auto;
-}
+} */
 #root,
 body,
 html {

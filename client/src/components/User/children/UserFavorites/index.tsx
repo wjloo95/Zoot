@@ -63,7 +63,8 @@ export const UserFavorites = ({ id, limit }: IProps) => {
                 prev.user.favoriteListings &&
                 fetchMoreResult.user.favoriteListings
                   ? [
-                      ...prev.user.favoriteListings.result,
+                      // ...prev.user.favoriteListings.result,
+                      ...result,
                       ...fetchMoreResult.user.favoriteListings.result,
                     ]
                   : [],

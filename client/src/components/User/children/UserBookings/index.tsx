@@ -59,7 +59,8 @@ export const UserBookings = ({ id, limit }: IProps) => {
               result:
                 prev.user.bookings && fetchMoreResult.user.bookings
                   ? [
-                      ...prev.user.bookings.result,
+                      // ...prev.user.bookings.result,
+                      ...result,
                       ...fetchMoreResult.user.bookings.result,
                     ]
                   : [],

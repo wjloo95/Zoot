@@ -29,7 +29,6 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
   useEffect(() => {
     if (type === 'header') {
       const pathnameSubStrings = location.pathname.split('/');
-
       if (!location.pathname.includes('/listings')) {
         setSearchValue('');
         return;
@@ -43,7 +42,7 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
         return;
       }
     }
-  }, [location]);
+  }, [location, type]);
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInput = e.target.value;
@@ -138,6 +137,14 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
       <ul className={`${type}-suggestions`}>{suggestionsComponent}</ul>
     ) : null;
 
+  const buttonColor = location.pathname.includes('/listings')
+    ? 'var(--primary-color)'
+    : location.pathname.includes('/flights')
+    ? 'var(--light-secondary-color)'
+    : location.pathname.includes('/experiences')
+    ? 'var(--dark-secondary-color)'
+    : 'var(--dark-font-color)';
+
   return (
     <>
       <div className={`${type}-search-bar`}>
@@ -150,11 +157,15 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
           onChange={onChange}
           onKeyDown={onKeyDown}
         ></input>
-        <div className={`${type}-search-button`} onClick={handleSearch}>
+        <div
+          className={`${type}-search-button`}
+          onClick={handleSearch}
+          style={{ backgroundColor: buttonColor }}
+        >
           <SearchOutlined className={`${type}-search-icon`} />
         </div>
+        {suggestionsListComponent}
       </div>
-      {suggestionsListComponent}
     </>
   );
 };

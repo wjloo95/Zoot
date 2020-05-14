@@ -60,7 +60,8 @@ export const UserListings = ({ id, limit }: IProps) => {
             listings: {
               ...fetchMoreResult.user.listings,
               result: [
-                ...prev.user.listings.result,
+                // ...prev.user.listings.result,
+                ...result,
                 ...fetchMoreResult.user.listings.result,
               ],
             },

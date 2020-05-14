@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import StaysVideo from '../../lib/assets/StaysVideo.mp4';
 import FlightsVideo from '../../lib/assets/FlightsVideo.mp4';
@@ -14,7 +14,6 @@ import { SearchBar } from '../index';
 import './style.css';
 
 export const HomeHero = () => {
-  const [isLoaded, setLoaded] = useState(false);
   const history = useHistory();
 
   const currentVideo =
@@ -38,15 +37,11 @@ export const HomeHero = () => {
   return (
     <div
       className="listings-video-container"
-      style={
-        isLoaded
-          ? undefined
-          : {
-              backgroundImage: `url(${currentImage})`,
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-            }
-      }
+      style={{
+        backgroundImage: `url(${currentImage})`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+      }}
     >
       <div className="listings-header">
         <NavLink to="/">
@@ -71,8 +66,6 @@ export const HomeHero = () => {
         playsInline
         src={currentVideo}
         className="listings-video"
-        onLoadedData={() => setLoaded(true)}
-        style={isLoaded ? undefined : { display: 'none' }}
       ></video>
       <div className="listings-overlay"></div>
       <div className="home-hero__search">

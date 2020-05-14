@@ -19,7 +19,9 @@ export const HomeSkeleton = () => {
       ? StaysFrame
       : ExperiencesFrame;
 
-  return (
+  return ['/', '/flights', '/listings', '/experiences'].includes(
+    location.pathname
+  ) ? (
     <div
       className="listings-video-container"
       style={{
@@ -66,12 +68,6 @@ export const HomeSkeleton = () => {
           </div>
         </div>
       </div>
-      {/* <img
-        src={currentImage}
-        alt="Loading"
-        className="listings-video listings-skeleton-image"
-        style={{ height: '55vh' }}
-      /> */}
       <div className="listings-overlay"></div>
       <div className="home-hero__search">
         <div className={`landing-search-bar`}>
@@ -83,6 +79,14 @@ export const HomeSkeleton = () => {
           <div className={`landing-search-button`}>
             <SearchOutlined className={`landing-search-icon`} />
           </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="app-header">
+      <div className="app-header-search-section">
+        <div className="app-header-logo">
+          <img src={Logo} alt="Zoot" />
         </div>
       </div>
     </div>

@@ -81,7 +81,7 @@ export const Login = ({ setViewer }: IProps) => {
   ) : null;
 
   return loading ? (
-    <div className="log-in">
+    <div className="log-in" style={{ justifyContent: 'center' }}>
       <Spin size="large" tip="Logging you in..." />
     </div>
   ) : (

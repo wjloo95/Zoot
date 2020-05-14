@@ -27,7 +27,6 @@
 }
 
 .landing-search-button {
-  background: var(--dark-secondary-color);
   border-radius: 5px;
   width: 12%;
   cursor: pointer;

@@ -77,7 +77,6 @@ body {
 .app-header {
   display: flex;
   background: var(--bg-color);
-  box-shadow: 0 2px 8px var(--dark-font-color);
   width: 100%;
   padding: 0;
   z-index: 99;

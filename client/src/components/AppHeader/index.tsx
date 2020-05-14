@@ -27,8 +27,22 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
       <SearchBar placeholder="Search 'San Francisco'" type="header" />
     ) : null;
 
+  const headerColor = location.pathname.includes('/listings')
+    ? 'var(--primary-color)'
+    : location.pathname.includes('/flights')
+    ? 'var(--light-secondary-color)'
+    : location.pathname.includes('/experiences')
+    ? 'var(--dark-secondary-color)'
+    : 'var(--dark-font-color)';
+
   return (
-    <div className="app-header">
+    <div
+      className="app-header"
+      style={{
+        boxShadow: `0 2px 8px ${headerColor}`,
+        borderBottom: `1px solid ${headerColor}`,
+      }}
+    >
       <div className="app-header-search-section">
         <div className="app-header-logo">
           <Link to="/">

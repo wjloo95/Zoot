@@ -17,7 +17,6 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
   useEffect(() => {
     if (type === 'header') {
       const pathnameSubStrings = location.pathname.split('/');
-
       if (!location.pathname.includes('/listings')) {
         setSearchValue('');
         return;
@@ -45,6 +44,14 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
     onSearch(searchValue);
   };
 
+  const buttonColor = location.pathname.includes('/listings')
+    ? 'var(--primary-color)'
+    : location.pathname.includes('/flights')
+    ? 'var(--light-secondary-color)'
+    : location.pathname.includes('/experiences')
+    ? 'var(--dark-secondary-color)'
+    : 'var(--dark-font-color)';
+
   return (
     <div className={`${type}-search-bar`}>
       <input
@@ -62,7 +69,11 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
           }
         }}
       ></input>
-      <div className={`${type}-search-button`} onClick={handleSearch}>
+      <div
+        className={`${type}-search-button`}
+        onClick={handleSearch}
+        style={{ backgroundColor: buttonColor }}
+      >
         <SearchOutlined className={`${type}-search-icon`} />
       </div>
     </div>

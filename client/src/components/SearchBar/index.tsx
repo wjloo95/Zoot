@@ -19,7 +19,7 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
   const [filteredSuggestions, setFilteredSuggestions] = useState<string[]>([]);
   const [showSuggestions, toggleShowSuggestions] = useState(false);
 
-  const { data, loading, error } = useQuery<LocationsData>(LOCATIONS);
+  const { data } = useQuery<LocationsData>(LOCATIONS);
   const suggestions = data ? data.locations.result : [];
   const trie = new Trie(suggestions);
 

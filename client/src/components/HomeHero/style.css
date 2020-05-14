@@ -82,6 +82,11 @@
   font-weight: bold;
   color: var(--light-font-color);
 }
+.listings-header-nav .listings-header-active:hover {
+  border-bottom: 2px solid var(--light-font-color);
+  font-weight: bold;
+  color: var(--light-font-color);
+}
 
 .listings-header-nav a:hover {
   border-bottom: 2px solid var(--light-font-color);

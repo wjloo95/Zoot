@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import moment, { Moment } from 'moment';
-import { Button, Card, Divider, Typography, DatePicker } from 'antd';
+import { DatePicker } from 'antd';
 import { formatPrice, displayErrorMessage } from '../../../../../lib/utils';
 import { Viewer } from '../../../../../lib/types';
 import { Listing as ListingData } from '../../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { BookingsIndex } from './types';
 import { CreateBookingModal, FavoriteToggle } from './children';
-
-const { Paragraph, Title, Text } = Typography;
 
 interface IProps {
   price: number;
@@ -127,19 +125,16 @@ export const ListingCreateBooking = ({
   }
 
   return (
-    <div className="listing-booking">
-      <Card className="listing-booking__card">
+    <div className="listing-section listing-booking">
+      <div className="listing-booking__card">
         <FavoriteToggle viewer={viewer} />
         <div>
-          <Paragraph>
-            <Title level={2} className="listing-booking__card-title">
-              {`${formatPrice(price)}`}
-              <span>/day</span>
-            </Title>
-          </Paragraph>
-          <Divider />
+          <h2 className="listing-booking__card-title">
+            {`${formatPrice(price)}`}
+            <span>/day</span>
+          </h2>
           <div className="listing-booking__card-date-picker">
-            <Paragraph strong>Check In</Paragraph>
+            <strong>Check In</strong>
             <DatePicker
               value={checkInDate ? checkInDate : undefined}
               format={'YYYY/MM/DD'}
@@ -149,8 +144,14 @@ export const ListingCreateBooking = ({
               onOpenChange={() => setCheckOutDate(null)}
             />
           </div>
-          <div className="listing-booking__card-date-picker">
-            <Paragraph strong>Check Out</Paragraph>
+          <div
+            className="listing-booking__card-date-picker"
+            style={{
+              borderBottom: '1px solid var(--dark-font-secondary-color)',
+              marginBottom: '20px',
+            }}
+          >
+            <strong>Check Out</strong>
             <DatePicker
               value={checkOutDate ? checkOutDate : undefined}
               format={'YYYY/MM/DD'}
@@ -161,29 +162,24 @@ export const ListingCreateBooking = ({
               renderExtraFooter={() => {
                 return (
                   <div>
-                    <Text type="secondary" className="ant-calendar-footer-text">
+                    <span className="ant-calendar-footer-text">
                       Your stay must be a minimum of {minimum} nights.
-                    </Text>
+                    </span>
                   </div>
                 );
               }}
             />
           </div>
         </div>
-        <Divider />
-        <Button
+        <button
+          className="listing-booking__card-cta primary-button"
           disabled={buttonDisabled}
-          size="large"
-          type="primary"
-          className="listing-booking__card-cta"
           onClick={() => setModalVisible(true)}
         >
           Request to book!
-        </Button>
-        <Text type="secondary" mark>
-          {buttonMessage}
-        </Text>
-      </Card>
+        </button>
+        <mark className="listing-mark">{buttonMessage}</mark>
+      </div>
       {listingCreateBookingModalElement}
     </div>
   );

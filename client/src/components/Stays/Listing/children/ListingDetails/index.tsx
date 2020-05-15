@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Divider, Typography } from 'antd';
+import { Typography } from 'antd';
 import { Listing as ListingData } from '../../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { EnvironmentFilled, UserOutlined, StarFilled } from '@ant-design/icons';
 
@@ -67,37 +67,35 @@ export const ListingDetails = ({ listing }: IProps) => {
   ) : null;
 
   return (
-    <div className="listing-details">
+    <div className="listing-section listing-details">
       <div className="listing-details__information">
-        <Paragraph
-          type="secondary"
-          ellipsis
-          className="listing-details__city-address"
-        >
+        <div className="listing-details__city-address">
           <Link to={`/listings/${city}`}>
             <EnvironmentFilled /> {city}
           </Link>
-          <Divider type="vertical" />
+          <div className="vertical-divider"></div>
           {street}
-        </Paragraph>
+        </div>
         <h1 className="listing-details__title">{name}</h1>
         <UserOutlined />
         {numOfGuests} Guests
-        <Divider type="vertical" />
+        <div className="vertical-divider"></div>
         <StarFilled style={{ color: '#f6b93b', marginRight: '3px' }} />
         {starSection}
       </div>
 
       <div className="listing-details__section listing-details-host">
         <Link to={`/user/${host.id}`}>
-          <Avatar
-            onError={() => {
-              setAvatarImage(placeholder);
-              return false;
-            }}
-            src={avatarImage}
-            size={64}
-          />
+          <span className="listing-host-avatar">
+            <img
+              src={avatarImage}
+              alt="host"
+              onError={() => {
+                setAvatarImage(placeholder);
+                return false;
+              }}
+            />
+          </span>
           <h1 className="listing-details__host-name">{host.name}</h1>
         </Link>
       </div>

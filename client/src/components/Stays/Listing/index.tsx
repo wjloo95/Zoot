@@ -71,12 +71,8 @@ export const Listing = ({ viewer }: IProps) => {
       </div>
       <div className="listing">
         <div className="listing-sections">
-          <div className="listing-section listing-section-details">
-            {listingDetailsElement}
-          </div>
-          <div className="listing-section listing-section-booking">
-            {listingCreateBookingElement}
-          </div>
+          {listingDetailsElement}
+          {listingCreateBookingElement}
         </div>
       </div>
     </div>

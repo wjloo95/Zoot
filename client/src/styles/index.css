@@ -15,9 +15,6 @@
   --responsive-left-margin: 20px;
 }
 
-/* html {
-  overflow: auto;
-} */
 #root,
 body,
 html {
@@ -28,6 +25,10 @@ html {
   position: relative;
   background: var(--bg-color);
   min-height: 100vh;
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 body {
@@ -302,8 +303,10 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex: auto;
   padding: 40px 100px;
   max-width: 900px;
+  min-height: 0;
   margin: 0 auto;
 }
 @media (max-width: 62em) {
@@ -316,9 +319,12 @@ body {
   padding-bottom: 20px;
 }
 
-.host__form-title.ant-typography {
+.host__form-title {
   color: var(--dark-font-color);
   margin-bottom: 5px;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 1.4;
 }
 
 .host__form-image-upload img {
@@ -437,6 +443,10 @@ body {
 .listing-details__ratings.ant-typography {
   font-size: 13px;
 }
+
+.listing-details-host {
+  margin: 30px 0;
+}
 .listing-details__host-name {
   font-family: Sacramento, cursive;
   color: var(--dark-font-color);
@@ -486,10 +496,40 @@ body {
 .listing {
   margin-left: var(--main-left-margin);
   margin-right: var(--main-right-margin);
+  flex: auto;
+  min-height: 0;
 }
 @media (max-width: 75em) {
   .listing {
     margin-left: var(--responsive-left-margin);
+  }
+}
+
+.listing-sections {
+  justify-content: space-between;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.listing-section {
+  position: relative;
+  max-width: 100%;
+  min-height: 1px;
+  display: block;
+  flex: 0 0 100%;
+}
+
+@media (min-width: 992px) {
+  .listing-section-details {
+    display: block;
+    flex: 0 0 56.3%;
+    max-width: 56.3%;
+  }
+
+  .listing-section-booking {
+    display: block;
+    flex: 0 0 41.7%;
+    max-width: 41.7%;
   }
 }
 
@@ -618,21 +658,42 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-left: 20px;
+  margin-right: 20px;
 }
-.not-found__description-title.ant-typography {
+.not-found__description-title {
   display: block;
-  padding-bottom: 10px;
+  margin: 10px 0;
   color: var(--dark-font-color);
-  font-size: 22px;
+  font-size: 30px;
   font-weight: 700;
 }
-.not-found__description-subtitle.ant-typography {
+
+.not-found__description-subtitle {
   color: var(--dark-font-color);
+  margin-top: 10px;
   font-size: 16px;
 }
 .not-found__cta {
-  margin-top: 20px;
+  margin-top: 10px;
+  background-color: var(--dark-font-color);
+  color: var(--light-font-color);
+  padding: 10px;
 }
+.not-found_cta:hover > a {
+  color: var(--light-font-color);
+}
+
+/* No Listings Found */
+.no-listings-text {
+  margin-bottom: 1em;
+  color: var(--dark-font-color);
+}
+
+.no-listings-mark {
+  color: var(--light-secondary-color);
+}
+
 .stripe {
   display: flex;
   align-items: center;
@@ -643,6 +704,10 @@ body {
   height: 100%;
   background: var(--bg-color);
   display: flex;
+  flex: auto;
+  flex-direction: column;
+  min-height: 0;
+  box-sizing: border-box;
 }
 .app-skeleton__spin-section {
   height: 100%;

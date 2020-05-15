@@ -27,7 +27,6 @@ import { Store } from 'antd/lib/form/interface';
 
 import {
   Form,
-  Layout,
   Typography,
   Input,
   InputNumber,
@@ -35,7 +34,6 @@ import {
   Upload,
   Button,
 } from 'antd';
-const { Content } = Layout;
 const { Text, Title } = Typography;
 const { Item } = Form;
 
@@ -110,16 +108,16 @@ export const Host = ({ viewer }: IProps) => {
   }
 
   return loading ? (
-    <Content className="host-content">
+    <div className="host-content">
       <div className="host__form-header">
         <Title level={3} className="host__form-title">
           Please wait!
         </Title>
         <Text type="secondary">We're creating your listing now.</Text>
       </div>
-    </Content>
+    </div>
   ) : (
-    <Content className="host-content">
+    <div className="host-content">
       <Form
         layout="vertical"
         onFinish={handleHostListing}
@@ -416,6 +414,6 @@ export const Host = ({ viewer }: IProps) => {
           </Button>
         </Item>
       </Form>
-    </Content>
+    </div>
   );
 };

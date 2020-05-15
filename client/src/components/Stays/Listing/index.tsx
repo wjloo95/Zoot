@@ -11,9 +11,6 @@ import { PageSkeleton, ErrorBanner } from '../../../lib/components';
 import { ListingDetails, ListingCreateBooking } from './children';
 import { Viewer } from '../../../lib/types';
 
-import { Layout, Col, Row } from 'antd';
-const { Content } = Layout;
-
 interface IProps {
   viewer: Viewer;
 }
@@ -32,10 +29,10 @@ export const Listing = ({ viewer }: IProps) => {
 
   if (error) {
     return (
-      <Content className="listings">
+      <div className="listings">
         <ErrorBanner description="This listing may not exist or we might have encountered an error. Please try again soon." />
         <PageSkeleton />
-      </Content>
+      </div>
     );
   }
 
@@ -61,9 +58,9 @@ export const Listing = ({ viewer }: IProps) => {
   ) : null;
 
   return loading ? (
-    <Content className="listing">
+    <div className="listing">
       <PageSkeleton />
-    </Content>
+    </div>
   ) : (
     <div className="listing-container">
       <div style={{ position: 'relative' }}>
@@ -72,16 +69,16 @@ export const Listing = ({ viewer }: IProps) => {
           className="listing-details__image"
         />
       </div>
-      <Content className="listing">
-        <Row gutter={24} justify="space-between">
-          <Col xs={24} lg={14}>
+      <div className="listing">
+        <div className="listing-sections">
+          <div className="listing-section listing-section-details">
             {listingDetailsElement}
-          </Col>
-          <Col xs={24} lg={10}>
+          </div>
+          <div className="listing-section listing-section-booking">
             {listingCreateBookingElement}
-          </Col>
-        </Row>
-      </Content>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

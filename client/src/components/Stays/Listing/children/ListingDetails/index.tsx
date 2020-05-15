@@ -88,9 +88,7 @@ export const ListingDetails = ({ listing }: IProps) => {
         {starSection}
       </div>
 
-      <Divider />
-
-      <div className="listing-details__section">
+      <div className="listing-details__section listing-details-host">
         <Link to={`/user/${host.id}`}>
           <Avatar
             onError={() => {
@@ -103,8 +101,6 @@ export const ListingDetails = ({ listing }: IProps) => {
           <h1 className="listing-details__host-name">{host.name}</h1>
         </Link>
       </div>
-
-      <Divider />
 
       <div className="listing-details__section">
         <div className="listing-details-tags">

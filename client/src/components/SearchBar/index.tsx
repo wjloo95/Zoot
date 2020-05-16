@@ -4,7 +4,7 @@ import './style.css';
 import { searchValid, displayErrorMessage } from '../../lib/utils';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from '@apollo/react-hooks';
-import { Trie } from 'prefix-trie-ts';
+import { Trie } from '../../lib/utils';
 import { LOCATIONS } from '../../lib/graphql/queries';
 import { Locations as LocationsData } from '../../lib/graphql/queries/Listings/__generated__/Locations';
 
@@ -46,15 +46,8 @@ export const SearchBar = ({ placeholder, type }: IProps) => {
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const currentInput = e.target.value;
-    const filteredSuggestions = currentInput.length
-      ? trie.getPrefix(currentInput).map((word) => {
-          const wordArr = word.split(' ');
-          const titleCased = wordArr.map(
-            (word) => word[0].toUpperCase() + word.substring(1)
-          );
-          return titleCased.join(' ');
-        })
-      : [];
+
+    const filteredSuggestions = trie.getPrefixWords(currentInput);
 
     setActiveSuggestionIndex(0);
     setFilteredSuggestions(filteredSuggestions);

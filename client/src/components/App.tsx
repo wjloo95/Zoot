@@ -17,7 +17,6 @@ import {
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Layout } from 'antd';
 import { Viewer } from '../lib/types';
 import { AppHeader } from './AppHeader';
 import { useMutation } from '@apollo/react-hooks';
@@ -61,9 +60,9 @@ const App = () => {
   if (!viewer.didRequest && !error) {
     return (
       <Router>
-        <Layout className="app-skeleton">
+        <div className="app-skeleton">
           <HomeSkeleton />
-        </Layout>
+        </div>
       </Router>
     );
   }
@@ -76,7 +75,7 @@ const App = () => {
     <>
       <Router>
         <ScrollToTop />
-        <Layout id="app">
+        <div id="app">
           {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
           <Switch>
@@ -103,7 +102,7 @@ const App = () => {
             <Route component={NotFound} />
           </Switch>
           <AppFooter />
-        </Layout>
+        </div>
       </Router>
     </>
   );

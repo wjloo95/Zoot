@@ -1,13 +1,13 @@
 import React from 'react';
 
-import StaysVideo from '../../lib/assets/StaysVideo.mp4';
-import FlightsVideo from '../../lib/assets/FlightsVideo.mp4';
-import ExperiencesVideo from '../../lib/assets/ExperiencesVideo.mp4';
-import MainVideo from '../../lib/assets/MainVideo.mp4';
-import MainFrame from '../../lib/assets/MainFrame.jpeg';
-import FlightsFrame from '../../lib/assets/FlightsFrame.jpeg';
-import ExperiencesFrame from '../../lib/assets/ExperiencesFrame.jpeg';
-import StaysFrame from '../../lib/assets/StaysFrame.jpeg';
+import StaysVideo from '../../lib/assets/StaysResize.mp4';
+import FlightsVideo from '../../lib/assets/FlightsResize.mp4';
+import ExperiencesVideo from '../../lib/assets/ExperiencesResize.mp4';
+import MainVideo from '../../lib/assets/MainResize.mp4';
+import MainFrame from '../../lib/assets/MainResizeFrame.jpeg';
+import FlightsFrame from '../../lib/assets/FlightsResizeFrame.jpeg';
+import ExperiencesFrame from '../../lib/assets/ExperiencesResizeFrame.jpeg';
+import StaysFrame from '../../lib/assets/StaysResizeFrame.jpeg';
 import Logo from '../../lib/assets/LightLogo.png';
 import { NavLink, useHistory } from 'react-router-dom';
 import { SearchBar } from '../index';
@@ -41,6 +41,7 @@ export const HomeHero = () => {
         backgroundImage: `url(${currentImage})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
       }}
     >
       <div className="listings-header">

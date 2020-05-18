@@ -1,9 +1,9 @@
 import React from 'react';
 import Logo from '../../../lib/assets/LightLogo.png';
-import FlightsFrame from '../../assets/FlightsFrame.jpeg';
-import StaysFrame from '../../assets/StaysFrame.jpeg';
-import ExperiencesFrame from '../../assets/ExperiencesFrame.jpeg';
-import MainFrame from '../../assets/MainFrame.jpeg';
+import FlightsFrame from '../../assets/FlightsResizeFrame.jpeg';
+import StaysFrame from '../../assets/StaysResizeFrame.jpeg';
+import ExperiencesFrame from '../../assets/ExperiencesResizeFrame.jpeg';
+import MainFrame from '../../assets/MainResizeFrame.jpeg';
 import { SearchOutlined } from '@ant-design/icons';
 import { useLocation } from 'react-router-dom';
 
@@ -28,6 +28,7 @@ export const HomeSkeleton = () => {
         backgroundImage: `url(${currentImage})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
       }}
     >
       <div className="listings-header">

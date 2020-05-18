@@ -59,8 +59,8 @@ export const Stripe = ({ viewer, setViewer }: IProps) => {
   }
 
   return loading ? (
-    <Content className="stripe">
+    <div className="stripe">
       <Spin size="large" tip="Connecting your Stripe account..." />
-    </Content>
+    </div>
   ) : null;
 };

@@ -1,31 +1,22 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { Empty, Layout, Typography } from 'antd';
-
-const { Content } = Layout;
-const { Text } = Typography;
+import { FrownOutlined } from '@ant-design/icons';
 
 export const NotFound = () => {
   return (
-    <Content className="not-found">
-      <Empty
-        description={
-          <Fragment>
-            <Text className="not-found__description-title">
-              Uh oh! Something went wrong :(
-            </Text>
-            <Text className="not-found__description-subtitle">
-              The page you're looking for can't be found
-            </Text>
-          </Fragment>
-        }
+    <div className="not-found" style={{ marginTop: '15px' }}>
+      <h1 className="not-found__description-title">
+        Uh oh! Something went wrong.
+      </h1>
+      <FrownOutlined
+        style={{ fontSize: '40px', color: 'var(--dark-font-color)' }}
       />
-      <Link
-        to="/"
-        className="not-found__cta ant-btn ant-btn-primary ant-btn-lg"
-      >
+      <span className="not-found__description-subtitle">
+        The page you're looking for can't be found
+      </span>
+      <Link to="/" className="not-found__cta">
         Go to Home
       </Link>
-    </Content>
+    </div>
   );
 };

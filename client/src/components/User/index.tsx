@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Col, Layout, Row, Tabs } from 'antd';
+import { Col, Row, Tabs } from 'antd';
 
 import { USER } from '../../lib/graphql/queries';
 import {
@@ -17,7 +17,6 @@ import {
 import { Viewer } from '../../lib/types';
 import { ErrorBanner, PageSkeleton } from '../../lib/components';
 
-const { Content } = Layout;
 const { TabPane } = Tabs;
 
 interface IProps {
@@ -46,10 +45,10 @@ export const User = ({ viewer, setViewer }: IProps) => {
 
   if (error) {
     return (
-      <Content className="user">
+      <main className="user">
         <ErrorBanner description="This user may not exist or we've encountered an error. Please try again soon." />
         <PageSkeleton />
-      </Content>
+      </main>
     );
   }
 
@@ -73,11 +72,11 @@ export const User = ({ viewer, setViewer }: IProps) => {
   ) : null;
 
   return loading ? (
-    <Content className="user">
+    <main className="user">
       <PageSkeleton />
-    </Content>
+    </main>
   ) : (
-    <Content className="user">
+    <main className="user">
       {stripeErrorBanner}
       <Row gutter={12} justify="start">
         <Col xs={24}>{userProfileElement}</Col>
@@ -95,6 +94,6 @@ export const User = ({ viewer, setViewer }: IProps) => {
           </Tabs>
         </Col>
       </Row>
-    </Content>
+    </main>
   );
 };

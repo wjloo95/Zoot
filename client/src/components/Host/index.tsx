@@ -3,13 +3,7 @@ import { useMutation } from '@apollo/react-hooks';
 import { useHistory } from 'react-router-dom';
 
 import { Viewer } from '../../lib/types';
-import {
-  HomeOutlined,
-  BankOutlined,
-  TeamOutlined,
-  LoadingOutlined,
-  PlusOutlined,
-} from '@ant-design/icons';
+import { LoadingOutlined, PlusOutlined } from '@ant-design/icons';
 import {
   getBase64Value,
   validateImage,
@@ -27,7 +21,6 @@ import { Store } from 'antd/lib/form/interface';
 
 import {
   Form,
-  Layout,
   Typography,
   Input,
   InputNumber,
@@ -35,7 +28,6 @@ import {
   Upload,
   Button,
 } from 'antd';
-const { Content } = Layout;
 const { Text, Title } = Typography;
 const { Item } = Form;
 
@@ -86,11 +78,10 @@ export const Host = ({ viewer }: IProps) => {
       numOfGuests: values.numOfGuests,
       name: values.name,
       description: values.description,
-      rules: values.rules,
-      notes: values.notes,
+      rules: values.rules || '',
+      notes: values.notes || '',
       street: fullAddress,
-      image: imageBase64Value,
-      thumbnail: imageBase64Value,
+      image: imageBase64Value || '',
       price: values.price,
       bathrooms: values.bathrooms,
       bedrooms: values.bedrooms,
@@ -110,16 +101,16 @@ export const Host = ({ viewer }: IProps) => {
   }
 
   return loading ? (
-    <Content className="host-content">
+    <div className="host-content">
       <div className="host__form-header">
         <Title level={3} className="host__form-title">
           Please wait!
         </Title>
         <Text type="secondary">We're creating your listing now.</Text>
       </div>
-    </Content>
+    </div>
   ) : (
-    <Content className="host-content">
+    <div className="host-content">
       <Form
         layout="vertical"
         onFinish={handleHostListing}
@@ -143,16 +134,13 @@ export const Host = ({ viewer }: IProps) => {
           rules={[{ required: true, message: 'Please select a home type!' }]}
         >
           <Radio.Group>
-            <Radio.Button value={'Apartment'}>
-              <BankOutlined />
+            <Radio.Button value={'APARTMENT'}>
               <span>Apartment</span>
             </Radio.Button>
-            <Radio.Button value={'House'}>
-              <HomeOutlined />
+            <Radio.Button value={'HOUSE'}>
               <span>House</span>
             </Radio.Button>
-            <Radio.Button value={'Other'}>
-              <TeamOutlined />
+            <Radio.Button value={'OTHER'}>
               <span>Other</span>
             </Radio.Button>
           </Radio.Group>
@@ -164,17 +152,14 @@ export const Host = ({ viewer }: IProps) => {
           rules={[{ required: true, message: 'Please select a room type!' }]}
         >
           <Radio.Group>
-            <Radio.Button value={'Private room'}>
-              <BankOutlined />
+            <Radio.Button value={'PRIVATE_ROOM'}>
               <span>Private Room</span>
             </Radio.Button>
-            <Radio.Button value={'Entire home/apt'}>
-              <HomeOutlined />
+            <Radio.Button value={'ENTIRE_HOME'}>
               <span>Entire Home/Apartment</span>
             </Radio.Button>
-            <Radio.Button value={'Other'}>
-              <TeamOutlined />
-              <span>Other</span>
+            <Radio.Button value={'SHARED_ROOM'}>
+              <span>Shared Room</span>
             </Radio.Button>
           </Radio.Group>
         </Item>
@@ -248,7 +233,7 @@ export const Host = ({ viewer }: IProps) => {
         </Item>
 
         <Item
-          label="Description of listing"
+          label="Description"
           extra="Max character count of 400"
           name="description"
           rules={[
@@ -270,12 +255,12 @@ export const Host = ({ viewer }: IProps) => {
         </Item>
 
         <Item
-          label="Listing Rules"
+          label="Rules"
           extra="Max character count of 400"
           name="rules"
           rules={[
             {
-              required: true,
+              required: false,
               message: 'Please add any house rules for your listing!',
             },
           ]}
@@ -291,12 +276,12 @@ export const Host = ({ viewer }: IProps) => {
         </Item>
 
         <Item
-          label="Listing Notes"
+          label="Notes"
           extra="Max character count of 400"
           name="notes"
           rules={[
             {
-              required: true,
+              required: false,
               message:
                 'Please add any additional notes you may have for the tenant!',
             },
@@ -416,6 +401,6 @@ export const Host = ({ viewer }: IProps) => {
           </Button>
         </Item>
       </Form>
-    </Content>
+    </div>
   );
 };

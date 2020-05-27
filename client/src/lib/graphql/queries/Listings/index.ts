@@ -25,3 +25,11 @@ export const LISTINGS = gql`
     }
   }
 `;
+
+export const LOCATIONS = gql`
+  query Locations {
+    locations {
+      result
+    }
+  }
+`;

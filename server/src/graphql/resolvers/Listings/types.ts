@@ -25,3 +25,7 @@ export interface ListingsQuery {
   state?: string;
   city?: string;
 }
+
+export interface LocationsData {
+  result: string[];
+}

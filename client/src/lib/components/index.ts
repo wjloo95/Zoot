@@ -1,4 +1,4 @@
 export * from './ErrorBanner';
-export * from './AppHeaderSkeleton';
+export * from './HomeSkeleton';
 export * from './PageSkeleton';
 export * from './ListingCard';

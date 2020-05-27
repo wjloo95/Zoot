@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  ListingsHome,
+  StaysHome,
   Host,
   Listing,
   Listings,
@@ -10,14 +10,14 @@ import {
   Stripe,
   AppFooter,
   ScrollToTop,
-  // AppHome,
-  Flights,
-  Experiences,
+  AppHome,
+  FlightsHome,
+  ExperiencesHome,
+  MainHeader,
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import { Layout, Spin } from 'antd';
 import { Viewer } from '../lib/types';
 import { AppHeader } from './AppHeader';
 import { useMutation } from '@apollo/react-hooks';
@@ -26,7 +26,7 @@ import {
   LogInVariables,
 } from '../lib/graphql/mutations/LogIn/__generated__/LogIn';
 import { LOG_IN } from '../lib/graphql/mutations';
-import { AppHeaderSkeleton, ErrorBanner } from '../lib/components';
+import { HomeSkeleton, ErrorBanner } from '../lib/components';
 
 const initialViewer: Viewer = {
   id: null,
@@ -60,12 +60,12 @@ const App = () => {
 
   if (!viewer.didRequest && !error) {
     return (
-      <Layout className="app-skeleton">
-        <AppHeaderSkeleton />
-        <div className="app-skeleton__spin-section">
-          <Spin size="large" tip="Getting Set Up" />
+      <Router>
+        <div className="app-skeleton">
+          <AppHeader viewer={viewer} setViewer={setViewer} />
+          <HomeSkeleton />
         </div>
-      </Layout>
+      </Router>
     );
   }
 
@@ -77,12 +77,14 @@ const App = () => {
     <>
       <Router>
         <ScrollToTop />
-        <Layout id="app">
+        <div id="app">
           {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
+          {/* <MainHeader viewer={viewer} setViewer={setViewer} /> */}
+
           <Switch>
-            <Route exact path="/" component={ListingsHome} />
-            <Route exact path="/listings" component={ListingsHome} />
+            <Route exact path="/" component={AppHome} />
+            <Route exact path="/listings" component={StaysHome} />
             <Route exact path="/login">
               <Login setViewer={setViewer} />
             </Route>
@@ -99,12 +101,12 @@ const App = () => {
             <Route exact path="/stripe">
               <Stripe viewer={viewer} setViewer={setViewer} />
             </Route>
-            <Route exact path="/flights" component={Flights} />
-            <Route exact path="/experiences" component={Experiences} />
+            <Route exact path="/flights" component={FlightsHome} />
+            <Route exact path="/experiences" component={ExperiencesHome} />
             <Route component={NotFound} />
           </Switch>
           <AppFooter />
-        </Layout>
+        </div>
       </Router>
     </>
   );

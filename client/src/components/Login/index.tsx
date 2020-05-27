@@ -23,7 +23,6 @@ import {
 import { ErrorBanner } from '../../lib/components';
 
 import { Spin } from 'antd';
-import LoginBackground from '../../lib/assets/LoginBackground.jpg';
 import './style.css';
 interface IProps {
   setViewer: (viewer: Viewer) => void;
@@ -81,14 +80,11 @@ export const Login = ({ setViewer }: IProps) => {
   ) : null;
 
   return loading ? (
-    <div className="log-in">
+    <div className="log-in" style={{ justifyContent: 'center' }}>
       <Spin size="large" tip="Logging you in..." />
     </div>
   ) : (
-    <div
-      className="log-in"
-      style={{ backgroundImage: `url(${LoginBackground})` }}
-    >
+    <div className="log-in">
       {logInErrorBanner}
       <div className="log-in-card">
         <Link to="/">

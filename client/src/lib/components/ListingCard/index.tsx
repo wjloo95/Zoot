@@ -2,6 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { formatPrice } from '../../utils';
 
+import './style.css';
+
 import { UserOutlined, CompassOutlined, StarFilled } from '@ant-design/icons';
 
 interface IProps {
@@ -41,7 +43,7 @@ export const ListingCard = ({ listing, map }: IProps) => {
 
   return map ? (
     <>
-      <div className="listing-card-container">
+      <div className="map-card-container">
         <div
           style={{ backgroundImage: `url(${image})` }}
           className="map-card-cover-img"

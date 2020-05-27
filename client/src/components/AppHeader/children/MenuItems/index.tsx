@@ -79,7 +79,7 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
         <Item key="/listings">
           <Link to="/listings">
             <HomeOutlined />
-            Listings
+            Stays
           </Link>
         </Item>
         <Item key="/flights">
@@ -113,7 +113,7 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
         <Item key="/listings">
           <Link to="/listings">
             <HomeOutlined />
-            Listings
+            Stays
           </Link>
         </Item>
         <Item key="/flights">

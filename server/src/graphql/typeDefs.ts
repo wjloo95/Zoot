@@ -97,7 +97,7 @@ export const typeDefs = gql`
     minimum: Int!
     numOfGuests: Int!
     reviews: Int!
-    rating: Int!
+    rating: Int
     bookings(limit: Int!, page: Int!): Bookings
     bookingsIndex: String!
   }
@@ -111,6 +111,10 @@ export const typeDefs = gql`
   type Favorites {
     total: Int!
     result: [Listing!]!
+  }
+
+  type Locations {
+    result: [String!]!
   }
 
   type User {
@@ -145,6 +149,7 @@ export const typeDefs = gql`
       limit: Int!
       page: Int!
     ): Listings!
+    locations: Locations!
   }
 
   type Mutation {

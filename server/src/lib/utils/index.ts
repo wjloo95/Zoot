@@ -56,7 +56,7 @@ export const verifyHostListingInput = ({
     room !== RoomType.PrivateRoom &&
     room !== RoomType.SharedRoom
   ) {
-    throw new Error('Listing description must be under 5000 characters');
+    throw new Error('Your listing must have a room type');
   }
   if (
     property !== PropertyType.Apartment &&

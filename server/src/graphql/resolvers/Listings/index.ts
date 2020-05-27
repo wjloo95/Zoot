@@ -4,9 +4,11 @@ import {
   ListingsData,
   ListingsSort,
   ListingsQuery,
+  LocationsData,
 } from './types';
 import { Database } from '../../../lib/types';
 import { Google } from '../../../lib/api';
+import { miscLocations } from './locationData';
 
 export const listingsResolvers: IResolvers = {
   Query: {
@@ -67,6 +69,20 @@ export const listingsResolvers: IResolvers = {
         return data;
       } catch (error) {
         throw new Error(`Failed to query listings: ${error}`);
+      }
+    },
+    locations: async (
+      _root: undefined,
+      _args: {},
+      { db }: { db: Database }
+    ): Promise<LocationsData> => {
+      try {
+        let countries = await db.listings.distinct('country');
+
+        const locations = [...miscLocations, ...countries];
+        return { result: locations };
+      } catch (error) {
+        throw new Error(`Failed to get locations: ${error}`);
       }
     },
   },

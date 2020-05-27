@@ -42,49 +42,70 @@ export const listingResolvers: IResolvers = {
       _root: undefined,
       { input }: HostListingArgs,
       { db, req }: { db: Database; req: Request }
-    ): Promise<Listing> => {
-      verifyHostListingInput(input);
+    ): Promise<Listing | undefined> => {
+      try {
+        verifyHostListingInput(input);
 
-      const viewer = await authorize(db, req);
+        const viewer = await authorize(db, req);
 
-      if (!viewer) {
-        throw new Error('Viewer cannot be found');
+        if (!viewer) {
+          throw new Error('Viewer cannot be found');
+        }
+
+        const { country, state, city, lat, lng } = await Google.geocode(
+          input.street
+        );
+
+        if (!country || !state || !city) {
+          throw new Error('Invalid address input');
+        }
+
+        const imageUrl = input.image.length
+          ? await Cloudinary.upload(input.image)
+          : '';
+
+        const propertyType =
+          input.property === 'APARTMENT'
+            ? 'Apartment'
+            : input.property === 'HOUSE'
+            ? 'House'
+            : 'Other';
+
+        const roomType =
+          input.room === 'ENTIRE_HOME'
+            ? 'Entire Home/Apartment'
+            : input.room === 'PRIVATE_ROOM'
+            ? 'Private Room'
+            : 'Shared Room';
+
+        const insertedResult = await db.listings.insertOne({
+          ...input,
+          host: viewer._id,
+          image: imageUrl,
+          largeImage: imageUrl,
+          property: propertyType,
+          room: roomType,
+          bookings: [],
+          bookingsIndex: {},
+          latitude: lat,
+          longitude: lng,
+          country,
+          state,
+          city,
+          reviews: 0,
+        });
+
+        const newListing: Listing = insertedResult.ops[0];
+
+        await db.users.updateOne(
+          { _id: viewer._id },
+          { $push: { listings: newListing._id } }
+        );
+
+        return newListing;
+      } catch (error) {
+        console.log(`Failed to create a listing: ${error}`);
       }
-
-      const { country, state, city, lat, lng } = await Google.geocode(
-        input.street
-      );
-
-      if (!country || !state || !city) {
-        throw new Error('Invalid address input');
-      }
-
-      const imageUrl = await Cloudinary.upload(input.image);
-
-      const insertedResult = await db.listings.insertOne({
-        ...input,
-        _id: new ObjectID(),
-        host: viewer._id,
-        image: imageUrl,
-        largeImage: imageUrl,
-        bookings: [],
-        bookingsIndex: {},
-        latitude: lat,
-        longitude: lng,
-        country,
-        state,
-        city,
-        reviews: 0,
-      });
-
-      const newListing: Listing = insertedResult.ops[0];
-
-      await db.users.updateOne(
-        { _id: viewer._id },
-        { $push: { listings: newListing._id } }
-      );
-
-      return newListing;
     },
   },
   Listing: {

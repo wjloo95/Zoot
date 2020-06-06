@@ -93,7 +93,7 @@ export const Register = ({ setViewer }: IProps) => {
           </button>
         </form>
         <div className="login-divider">
-          -- or <Link to="register">login</Link> --
+          -- or <Link to="/login">login</Link> --
         </div>
       </div>
       <div className="log-in-overlay"></div>

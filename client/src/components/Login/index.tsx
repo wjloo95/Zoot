@@ -107,7 +107,7 @@ export const Login = ({ setViewer }: IProps) => {
           </button>
         </form>
         <div className="login-divider">
-          -- or <Link to="register">register now</Link> --
+          -- or <Link to="/register">register now</Link> --
         </div>
         <button className="log-in-card-button" onClick={handleAuthorize}>
           <img

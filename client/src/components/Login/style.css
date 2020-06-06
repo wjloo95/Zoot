@@ -43,12 +43,12 @@
 
 @media (max-width: 75em) {
   .log-in-card {
-    width: 50%;
+    width: 60%;
   }
 }
 @media (max-width: 62em) {
   .log-in-card {
-    width: 60%;
+    width: 80%;
     border-radius: 15px;
     height: auto;
   }
@@ -85,7 +85,7 @@
   border: none;
   display: flex;
   align-items: center;
-  padding: 1px;
+  padding: 5px;
   cursor: pointer;
   background-color: var(--primary-color);
   transition: background-color 0.25s ease-in;
@@ -110,4 +110,63 @@
   text-align: left;
   white-space: nowrap;
   padding: 5px 10px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-element {
+  width: 150%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-element label {
+  font-size: 1.5em;
+}
+
+.form-element input {
+  width: 100%;
+  background: none;
+  margin-bottom: 1em;
+  margin-top: 0.5em;
+  line-height: 2em;
+  color: var(--dark-font-color);
+  letter-spacing: 0.02em;
+  font-size: 1em;
+  border: 0;
+  border-bottom: 2px solid var(--dark-font-color);
+  border-radius: 5px;
+  padding: 0.1em 0.5em;
+  -webkit-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.form-element input:focus {
+  outline: none;
+}
+
+.local-login-button {
+  cursor: pointer;
+  width: 80%;
+  background: var(--dark-secondary-color);
+  color: var(--light-font-color);
+  padding: 10px 5px;
+  border: 0;
+  border-radius: 5px;
+  transition: all 0.25s ease-in;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.local-login-button:hover {
+  background: var(--dark-font-color);
+}
+
+.login-divider {
+  font-size: 20px;
+  margin-bottom: 20px;
 }

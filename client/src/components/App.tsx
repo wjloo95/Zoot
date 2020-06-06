@@ -7,6 +7,7 @@ import {
   NotFound,
   User,
   Login,
+  Register,
   Stripe,
   AppFooter,
   ScrollToTop,
@@ -85,6 +86,9 @@ const App = () => {
             <Route exact path="/listings" component={StaysHome} />
             <Route exact path="/login">
               <Login setViewer={setViewer} />
+            </Route>
+            <Route exact path="/register">
+              <Register setViewer={setViewer} />
             </Route>
             <Route exact path="/host">
               <Host viewer={viewer} />

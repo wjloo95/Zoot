@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Redirect, Link } from 'react-router-dom';
 
-import googleLogo from './assets/GoogleLogo.png';
 import Logo from '../../lib/assets/DarkLogo.png';
 
 import { Viewer } from '../../lib/types';
@@ -23,12 +22,11 @@ import {
 import { ErrorBanner } from '../../lib/components';
 
 import { Spin } from 'antd';
-import './style.css';
 interface IProps {
   setViewer: (viewer: Viewer) => void;
 }
 
-export const Login = ({ setViewer }: IProps) => {
+export const Register = ({ setViewer }: IProps) => {
   const client = useApolloClient();
   const [logIn, { data, loading, error }] = useMutation<
     LogInData,
@@ -59,29 +57,13 @@ export const Login = ({ setViewer }: IProps) => {
     }
   };
 
-  useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get('code');
-    if (code) {
-      logInRef.current({
-        variables: {
-          input: { code },
-        },
-      });
-    }
-  }, []);
-
-  if (data && data.logIn) {
-    const { id: viewerId } = data.logIn;
-    return <Redirect to={`/user/${viewerId}`} />;
-  }
-
   const logInErrorBanner = error ? (
     <ErrorBanner description="We weren't able to log you in. Please try again soon." />
   ) : null;
 
   return loading ? (
     <div className="log-in" style={{ justifyContent: 'center' }}>
-      <Spin size="large" tip="Logging you in..." />
+      <Spin size="large" tip="Creating your account..." />
     </div>
   ) : (
     <div className="log-in">
@@ -91,9 +73,13 @@ export const Login = ({ setViewer }: IProps) => {
           <img src={Logo} alt="Zoot" />
         </Link>
         <div className="log-in-card-intro">
-          <h1>Login to get started!</h1>
+          <h1>Create your Account!</h1>
         </div>
         <form>
+          <div className="form-element">
+            <label>Name</label>
+            <input type="text" name="name" required />
+          </div>
           <div className="form-element">
             <label>Email</label>
             <input type="email" name="email" required />
@@ -103,22 +89,12 @@ export const Login = ({ setViewer }: IProps) => {
             <input type="password" name="password" required />
           </div>
           <button type="submit" className="local-login-button">
-            Login
+            Register
           </button>
         </form>
         <div className="login-divider">
-          -- or <Link to="register">register now</Link> --
+          -- or <Link to="register">login</Link> --
         </div>
-        <button className="log-in-card-button" onClick={handleAuthorize}>
-          <img
-            src={googleLogo}
-            alt="Google Logo"
-            className="log-in-card-button-logo"
-          />
-          <span className="log-in-card-button-text ">Sign in with Google</span>
-        </button>
-        Note: By signing in, you will be redirected to sign in through Google's
-        portal.
       </div>
       <div className="log-in-overlay"></div>
     </div>

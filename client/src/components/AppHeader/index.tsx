@@ -17,6 +17,7 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
   if (
     location.pathname === '/' ||
     location.pathname === '/login' ||
+    location.pathname === '/register' ||
     location.pathname === '/flights' ||
     location.pathname === '/experiences'
   ) {

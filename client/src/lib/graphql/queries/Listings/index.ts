@@ -13,6 +13,7 @@ export const LISTINGS = gql`
       result {
         id
         name
+        thumbnailImage
         image
         street
         latitude

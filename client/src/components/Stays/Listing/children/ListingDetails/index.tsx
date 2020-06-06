@@ -35,7 +35,7 @@ export const ListingDetails = ({ listing }: IProps) => {
   } = listing;
 
   const starSection =
-    reviews > 0 ? (
+    reviews > 0 && rating ? (
       <>
         {((rating * 5) / 100).toFixed(2)} - {reviews} Reviews
       </>

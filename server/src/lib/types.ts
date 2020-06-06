@@ -32,6 +32,7 @@ export interface Listing {
   room: string;
   notes: string;
   rules: string;
+  thumbnailImage: string;
   image: string;
   largeImage: string;
   street: string;

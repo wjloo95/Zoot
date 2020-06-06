@@ -13,12 +13,13 @@ export interface Listings_listings_result {
   __typename: "Listing";
   id: string;
   name: string;
+  thumbnailImage: string;
   image: string;
   street: string;
   latitude: number;
   longitude: number;
   reviews: number;
-  rating: number;
+  rating: number | null;
   price: number;
   numOfGuests: number;
 }

@@ -83,6 +83,7 @@ export const typeDefs = gql`
     room: String!
     notes: String!
     rules: String!
+    thumbnailImage: String!
     image: String!
     largeImage: String!
     street: String!

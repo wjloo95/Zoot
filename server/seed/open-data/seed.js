@@ -7,7 +7,7 @@ const { MongoClient } = require('mongodb');
 const dbURL =
   'mongodb+srv://wjloo95:xdartDKxHHQzKyNn@cluster0-rdi5y.mongodb.net/zoot?retryWrites=true&w=majority';
 
-const extractFieldIndex = [4, 7, 10, 14, 17, 18, 34, 38, 39, 44, 47, 48];
+const extractFieldIndex = [4, 7, 10, 14, 15, 17, 18, 34, 38, 39, 44, 47, 48];
 
 const hostFieldsIndex = [19, 21, 22, 23, 24, 28];
 
@@ -35,7 +35,7 @@ const streamData = async () => {
         delimiter: ';',
         columns: true,
         on_record: (value, { records }) => {
-          return records < 200000 &&
+          return records <= 150000 &&
             (value['Number of Reviews'] >= 5 || value['Price'] >= 100)
             ? { ...value, bookings: [], bookingsIndex: {} }
             : null;
@@ -112,6 +112,7 @@ const fixNames = async () => {
         Description: 'description',
         Notes: 'notes',
         'House Rules': 'rules',
+        'Thumbnail Url': 'thumbnailImage',
         'Picture Url': 'image',
         'XL Picture Url': 'largeImage',
         Street: 'street',
@@ -145,6 +146,6 @@ const fixNames = async () => {
   return;
 };
 
-// streamData();
+streamData();
 // createUsers();
-fixNames();
+// fixNames();

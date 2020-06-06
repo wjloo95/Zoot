@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Menu, Avatar } from 'antd';
 import {
   HomeOutlined,
@@ -45,6 +45,11 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
     logOut();
   };
 
+  const history = useHistory();
+  const { location } = history;
+  const splitPath = location.pathname.split('/');
+  const isLanding = splitPath.length <= 2;
+
   const subMenuLogin =
     viewer.id && viewer.avatar ? (
       <SubMenu title={<Avatar size="large" src={viewer.avatar} />}>
@@ -76,16 +81,16 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
             Profile
           </Link>
         </Item>
-        <Item key="/listings">
-          <Link to="/listings">
-            <HomeOutlined />
-            Stays
-          </Link>
-        </Item>
         <Item key="/flights">
           <Link to="/flights">
             <RocketOutlined />
             Flights
+          </Link>
+        </Item>
+        <Item key="/listings">
+          <Link to="/listings">
+            <HomeOutlined />
+            Stays
           </Link>
         </Item>
         <Item key="/experiences">
@@ -110,24 +115,30 @@ export const MenuItems = ({ viewer, setViewer }: IProps) => {
   return (
     <>
       <Menu mode="horizontal" selectable={false} className="menu">
-        <Item key="/listings">
-          <Link to="/listings">
-            <HomeOutlined />
-            Stays
-          </Link>
-        </Item>
-        <Item key="/flights">
-          <Link to="/flights">
-            <RocketOutlined />
-            Flights
-          </Link>
-        </Item>
-        <Item key="/experiences">
-          <Link to="/experiences">
-            <TeamOutlined />
-            Experiences
-          </Link>
-        </Item>
+        {isLanding ? null : (
+          <Item key="/flights">
+            <Link to="/flights">
+              <RocketOutlined />
+              Flights
+            </Link>
+          </Item>
+        )}
+        {isLanding ? null : (
+          <Item key="/listings">
+            <Link to="/listings">
+              <HomeOutlined />
+              Stays
+            </Link>
+          </Item>
+        )}
+        {isLanding ? null : (
+          <Item key="/experiences">
+            <Link to="/experiences">
+              <TeamOutlined />
+              Experiences
+            </Link>
+          </Item>
+        )}
         {subMenuLogin}
       </Menu>
       <Menu mode="horizontal" selectable={false} className="menu-responsive">

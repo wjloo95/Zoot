@@ -14,7 +14,12 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
   const history = useHistory();
   const { location } = history;
 
-  if (location.pathname === '/' || location.pathname === '/login') {
+  if (
+    location.pathname === '/' ||
+    location.pathname === '/login' ||
+    location.pathname === '/flights' ||
+    location.pathname === '/experiences'
+  ) {
     return null;
   }
 

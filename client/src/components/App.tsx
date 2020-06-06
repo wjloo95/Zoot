@@ -13,7 +13,6 @@ import {
   AppHome,
   FlightsHome,
   ExperiencesHome,
-  MainHeader,
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -80,7 +79,6 @@ const App = () => {
         <div id="app">
           {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
-          {/* <MainHeader viewer={viewer} setViewer={setViewer} /> */}
 
           <Switch>
             <Route exact path="/" component={AppHome} />

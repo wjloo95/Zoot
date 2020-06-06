@@ -11,10 +11,11 @@ export interface UserBookings_user_bookings_result_listing {
   __typename: "Listing";
   id: string;
   name: string;
+  thumbnailImage: string;
   image: string;
   street: string;
   reviews: number;
-  rating: number;
+  rating: number | null;
   price: number;
   numOfGuests: number;
 }

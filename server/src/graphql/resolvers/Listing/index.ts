@@ -81,8 +81,9 @@ export const listingResolvers: IResolvers = {
         const insertedResult = await db.listings.insertOne({
           ...input,
           host: viewer._id,
+          thumbnailImage: '',
           image: imageUrl,
-          largeImage: imageUrl,
+          largeImage: '',
           property: propertyType,
           room: roomType,
           bookings: [],

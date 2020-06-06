@@ -20,6 +20,11 @@ export const typeDefs = gql`
     OTHER
   }
 
+  input RegisterInput {
+    name: String!
+    email: String!
+    password: String!
+  }
   input LogInInput {
     code: String!
   }
@@ -121,6 +126,8 @@ export const typeDefs = gql`
   type User {
     id: ID!
     name: String!
+    email: String
+    password: String
     avatar: String!
     about: String!
     location: String!
@@ -154,6 +161,7 @@ export const typeDefs = gql`
   }
 
   type Mutation {
+    register(input: RegisterInput): Viewer!
     logIn(input: LogInInput): Viewer!
     logOut: Viewer!
     connectStripe(input: ConnectStripeInput!): Viewer!

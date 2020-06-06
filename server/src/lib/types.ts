@@ -57,6 +57,8 @@ export interface User {
   _id: ObjectID;
   token: string;
   name: string;
+  email?: string;
+  password?: string;
   avatar: string;
   about: string;
   location: string;

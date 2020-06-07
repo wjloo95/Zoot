@@ -48,9 +48,11 @@ export const FavoriteToggle = ({ viewer }: IProps) => {
               return;
             }
           }
+          toggleFavorited(false);
         }
       }
     },
+    fetchPolicy: 'cache-and-network',
   });
 
   const [addFavorite] = useMutation<AddFavoriteData, AddFavoriteVariables>(

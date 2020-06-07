@@ -68,7 +68,6 @@ export const ListingCard = ({ listing, map }: IProps) => {
           src={`${image}`}
           alt="Listing Preview"
           className="listing-card-cover-img"
-          loading="lazy"
         />
         <div className="listing-card-details">
           <div className="listing-card-description">

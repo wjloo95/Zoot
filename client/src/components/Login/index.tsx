@@ -40,11 +40,17 @@ export const Login = ({ setViewer }: IProps) => {
   >(LOG_IN, {
     onCompleted: (data) => {
       if (data && data.logIn) {
-        setViewer(data.logIn);
-        if (data.logIn.token) {
-          sessionStorage.setItem('token', data.logIn.token);
+        if (data.logIn.token === 'wrong') {
+          displayErrorMessage(
+            'Sorry! Please try another password or try signing in with Google'
+          );
+        } else {
+          setViewer(data.logIn);
+          if (data.logIn.token) {
+            sessionStorage.setItem('token', data.logIn.token);
+          }
+          displaySuccessNotification("Login Successful! Let's Get Started 👋");
         }
-        displaySuccessNotification("Login Successful! Let's Get Started 👋");
       }
     },
   });
@@ -94,7 +100,9 @@ export const Login = ({ setViewer }: IProps) => {
 
   if (data && data.logIn) {
     const { id: viewerId } = data.logIn;
-    return <Redirect to={`/user/${viewerId}`} />;
+    if (viewerId !== null) {
+      return <Redirect to={`/user/${viewerId}`} />;
+    }
   }
 
   const logInErrorBanner = error ? (

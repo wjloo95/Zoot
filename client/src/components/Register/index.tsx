@@ -65,14 +65,16 @@ export const Register = ({ setViewer }: IProps) => {
       register({ variables: { input: formInputs } });
     } catch {
       displayErrorMessage(
-        "Sorry! We weren't able to log you in. Please try again later!"
+        "Sorry! We weren't able to create this account. Please try again later!"
       );
     }
   };
 
   if (data && data.register) {
     const { id: viewerId } = data.register;
-    return <Redirect to={`/user/${viewerId}`} />;
+    if (viewerId !== null) {
+      return <Redirect to={`/user/${viewerId}`} />;
+    }
   }
 
   const registerErrorBanner = error ? (
@@ -91,7 +93,7 @@ export const Register = ({ setViewer }: IProps) => {
           <img src={Logo} alt="Zoot" />
         </Link>
         <div className="log-in-card-intro">
-          <h1>Create your Account!</h1>
+          <h1>Create an Account!</h1>
         </div>
         <form onSubmit={handleSubmit}>
           <div className="form-element">

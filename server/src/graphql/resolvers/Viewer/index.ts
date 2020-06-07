@@ -53,7 +53,7 @@ export const viewerResolvers: IResolvers = {
           email,
           avatar: '',
           about: '',
-          location: '',
+          location: 'No Location Provided',
           since: sinceString,
           income: 0,
           bookings: [],

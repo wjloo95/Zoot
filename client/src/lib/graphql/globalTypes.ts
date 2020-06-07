@@ -53,6 +53,14 @@ export interface HostListingInput {
 
 export interface LogInInput {
   code: string;
+  email: string;
+  password: string;
+}
+
+export interface RegisterInput {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export interface RemoveFavoriteInput {

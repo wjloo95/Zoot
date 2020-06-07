@@ -27,6 +27,8 @@ export const typeDefs = gql`
   }
   input LogInInput {
     code: String!
+    email: String!
+    password: String!
   }
 
   input ConnectStripeInput {

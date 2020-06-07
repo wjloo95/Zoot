@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, ChangeEvent } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -30,6 +30,10 @@ interface IProps {
 
 export const Login = ({ setViewer }: IProps) => {
   const client = useApolloClient();
+  const [formInputs, setFormInputs] = useState({
+    email: '',
+    password: '',
+  });
   const [logIn, { data, loading, error }] = useMutation<
     LogInData,
     LogInVariables
@@ -59,12 +63,30 @@ export const Login = ({ setViewer }: IProps) => {
     }
   };
 
+  const handleSubmit = async () => {
+    try {
+      logIn({ variables: { input: { code: 'local', ...formInputs } } });
+    } catch {
+      displayErrorMessage(
+        "Sorry! We weren't able to log you in. Please try again later!"
+      );
+    }
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.persist();
+    setFormInputs((prevInputs) => ({
+      ...prevInputs,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     if (code) {
       logInRef.current({
         variables: {
-          input: { code },
+          input: { code, email: '', password: '' },
         },
       });
     }
@@ -93,14 +115,26 @@ export const Login = ({ setViewer }: IProps) => {
         <div className="log-in-card-intro">
           <h1>Login to get started!</h1>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-element">
             <label>Email</label>
-            <input type="email" name="email" required />
+            <input
+              type="email"
+              name="email"
+              required
+              onChange={handleInputChange}
+              value={formInputs.email}
+            />
           </div>
           <div className="form-element">
             <label>Password</label>
-            <input type="password" name="password" required />
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={handleInputChange}
+              value={formInputs.password}
+            />
           </div>
           <button type="submit" className="local-login-button">
             Login

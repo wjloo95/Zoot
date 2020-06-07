@@ -1,19 +1,16 @@
-import React, { useEffect, useRef } from 'react';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
+import React, { ChangeEvent, useState } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import { Redirect, Link } from 'react-router-dom';
 
 import Logo from '../../lib/assets/DarkLogo.png';
 
 import { Viewer } from '../../lib/types';
 
-import { AuthUrl as AuthUrlData } from '../../lib/graphql/queries/AuthUrl/__generated__/AuthUrl';
-import { AUTH_URL } from '../../lib/graphql/queries';
-
 import {
-  LogIn as LogInData,
-  LogInVariables,
-} from '../../lib/graphql/mutations/LogIn/__generated__/LogIn';
-import { LOG_IN } from '../../lib/graphql/mutations';
+  Register as RegisterData,
+  RegisterVariables,
+} from '../../lib/graphql/mutations/Register/__generated__/Register';
+import { REGISTER } from '../../lib/graphql/mutations';
 
 import {
   displayErrorMessage,
@@ -27,29 +24,45 @@ interface IProps {
 }
 
 export const Register = ({ setViewer }: IProps) => {
-  const client = useApolloClient();
-  const [logIn, { data, loading, error }] = useMutation<
-    LogInData,
-    LogInVariables
-  >(LOG_IN, {
+  const [formInputs, setFormInputs] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+  const [register, { data, loading, error }] = useMutation<
+    RegisterData,
+    RegisterVariables
+  >(REGISTER, {
     onCompleted: (data) => {
-      if (data && data.logIn) {
-        setViewer(data.logIn);
-        if (data.logIn.token) {
-          sessionStorage.setItem('token', data.logIn.token);
+      if (data && data.register) {
+        if (data.register.token === 'existing') {
+          displayErrorMessage(
+            'Sorry! This email already exists in our database. Please login or try another email.'
+          );
+        } else {
+          setViewer(data.register);
+          if (data.register.token) {
+            sessionStorage.setItem('token', data.register.token);
+          }
+          displaySuccessNotification(
+            "Registration Successful! Let's Get Started 👋"
+          );
         }
-        displaySuccessNotification("Login Successful! Let's Get Started 👋");
       }
     },
   });
-  const logInRef = useRef(logIn);
 
-  const handleAuthorize = async () => {
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.persist();
+    setFormInputs((prevInputs) => ({
+      ...prevInputs,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
+  const handleSubmit = async () => {
     try {
-      const { data } = await client.query<AuthUrlData>({
-        query: AUTH_URL,
-      });
-      window.location.href = data.authUrl;
+      register({ variables: { input: formInputs } });
     } catch {
       displayErrorMessage(
         "Sorry! We weren't able to log you in. Please try again later!"
@@ -57,8 +70,13 @@ export const Register = ({ setViewer }: IProps) => {
     }
   };
 
-  const logInErrorBanner = error ? (
-    <ErrorBanner description="We weren't able to log you in. Please try again soon." />
+  if (data && data.register) {
+    const { id: viewerId } = data.register;
+    return <Redirect to={`/user/${viewerId}`} />;
+  }
+
+  const registerErrorBanner = error ? (
+    <ErrorBanner description="We weren't able to create this account. Please try again soon." />
   ) : null;
 
   return loading ? (
@@ -67,7 +85,7 @@ export const Register = ({ setViewer }: IProps) => {
     </div>
   ) : (
     <div className="log-in">
-      {logInErrorBanner}
+      {registerErrorBanner}
       <div className="log-in-card">
         <Link to="/">
           <img src={Logo} alt="Zoot" />
@@ -75,18 +93,36 @@ export const Register = ({ setViewer }: IProps) => {
         <div className="log-in-card-intro">
           <h1>Create your Account!</h1>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="form-element">
             <label>Name</label>
-            <input type="text" name="name" required />
+            <input
+              type="text"
+              name="name"
+              required
+              onChange={handleInputChange}
+              value={formInputs.name}
+            />
           </div>
           <div className="form-element">
             <label>Email</label>
-            <input type="email" name="email" required />
+            <input
+              type="email"
+              name="email"
+              required
+              onChange={handleInputChange}
+              value={formInputs.email}
+            />
           </div>
           <div className="form-element">
             <label>Password</label>
-            <input type="password" name="password" required />
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={handleInputChange}
+              value={formInputs.password}
+            />
           </div>
           <button type="submit" className="local-login-button">
             Register

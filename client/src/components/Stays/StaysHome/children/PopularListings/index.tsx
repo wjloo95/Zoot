@@ -21,7 +21,7 @@ export const PopularListings = ({ listings }: IProps) => {
           gutter: 15,
           xs: 1,
           sm: 2,
-          lg: 4,
+          lg: 3,
         }}
         dataSource={listings}
         renderItem={(listing) => (

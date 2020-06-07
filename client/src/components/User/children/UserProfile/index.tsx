@@ -33,7 +33,7 @@ export const UserProfile = ({
   setViewer,
   handleRefetch,
 }: IProps) => {
-  const [avatarImage, setAvatarImage] = useState(user.avatar);
+  const [avatarImage, setAvatarImage] = useState(user.avatar || placeholder);
   const [disconnectStripe] = useMutation<DisconnectStripeData>(
     DISCONNECT_STRIPE,
     {

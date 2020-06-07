@@ -2,7 +2,6 @@ import { Database, User } from '../../../lib/types';
 import { Google } from '../../../lib/api';
 import { Response } from 'express';
 import { cookieOptions } from '../../../lib/utils';
-import { ObjectID } from 'mongodb';
 
 export const logInViaGoogle = async (
   code: string,
@@ -22,7 +21,7 @@ export const logInViaGoogle = async (
       ? user.emailAddresses
       : null;
 
-  const userName = userNamesList ? userNamesList[0].displayName : null;
+  const name = userNamesList ? userNamesList[0].displayName : null;
 
   let userId =
     userNamesList &&
@@ -31,47 +30,59 @@ export const logInViaGoogle = async (
       ? userNamesList[0].metadata.source.id
       : null;
 
-  const userAvatar =
+  const avatar =
     userPhotosList && userPhotosList[0].url ? userPhotosList[0].url : null;
 
   const userEmail =
     userEmailsList && userEmailsList[0].value ? userEmailsList[0].value : null;
 
-  if (!userId || !userName || !userAvatar || !userEmail) {
+  if (!userId || !name || !avatar || !userEmail) {
     throw new Error('Google login error');
   }
 
-  const updatedID = userId + 'ABC';
+  const email = userEmail.toLowerCase();
+  const currentUser = await db.users.findOne({ email });
+  let viewer;
 
-  const today = new Date();
-  const sinceString =
-    today.getFullYear() +
-    '-' +
-    ('0' + (today.getMonth() + 1)).slice(-2) +
-    '-' +
-    ('0' + today.getDate()).slice(-2);
-
-  const updateRes = await db.users.findOneAndUpdate(
-    { _id: new ObjectID(updatedID) },
-    {
-      $set: {
-        name: userName,
-        avatar: userAvatar,
-        about: `Google Sign-In User at ${userEmail}`,
-        since: sinceString,
-        location: 'No Location Provided',
-        bookings: [],
-        listings: [],
-        favoriteListings: [],
-        token,
+  if (currentUser) {
+    const updatedRes = await db.users.findOneAndUpdate(
+      { email },
+      {
+        $set: {
+          avatar,
+          token,
+        },
       },
-    },
-    { upsert: true, returnOriginal: false }
-  );
+      { upsert: true, returnOriginal: false }
+    );
+    viewer = updatedRes.value;
+  } else {
+    const today = new Date();
+    const sinceString =
+      today.getFullYear() +
+      '-' +
+      ('0' + (today.getMonth() + 1)).slice(-2) +
+      '-' +
+      ('0' + today.getDate()).slice(-2);
 
-  const viewer = updateRes.value;
+    const returnedViewer = await db.users.insertOne({
+      token,
+      name,
+      email,
+      avatar,
+      about: `Google Sign-In User at ${email}`,
+      location: 'No Location Provided',
+      since: sinceString,
+      income: 0,
+      bookings: [],
+      listings: [],
+      favoriteListings: [],
+    });
 
-  res.cookie('viewer', updatedID, {
+    viewer = returnedViewer.ops[0];
+  }
+
+  res.cookie('viewer', viewer?._id, {
     ...cookieOptions,
     maxAge: 365 * 24 * 60 * 60 * 1000,
   });

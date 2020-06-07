@@ -32,6 +32,7 @@ export interface Listing {
   room: string;
   notes: string;
   rules: string;
+  thumbnailImage: string;
   image: string;
   largeImage: string;
   street: string;
@@ -56,6 +57,8 @@ export interface User {
   _id: ObjectID;
   token: string;
   name: string;
+  email?: string;
+  password?: string;
   avatar: string;
   about: string;
   location: string;

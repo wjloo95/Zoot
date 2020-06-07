@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useMutation } from '@apollo/react-hooks';
-import { Layout, Spin } from 'antd';
+import { Spin } from 'antd';
 import { CONNECT_STRIPE } from '../../lib/graphql/mutations';
 import {
   ConnectStripe as ConnectStripeData,
@@ -9,8 +9,6 @@ import {
 import { Redirect, useHistory } from 'react-router-dom';
 import { Viewer } from '../../lib/types';
 import { displaySuccessNotification } from '../../lib/utils';
-
-const { Content } = Layout;
 
 interface IProps {
   viewer: Viewer;

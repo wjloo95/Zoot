@@ -70,18 +70,20 @@ export const HomeSkeleton = () => {
         </div>
       </div>
       <div className="listings-overlay"></div>
-      <div className="home-hero__search">
-        <div className={`landing-search-bar`}>
-          <input
-            type="text"
-            className={`landing-search-input`}
-            placeholder="Search 'San Francisco'"
-          ></input>
-          <div className={`landing-search-button`}>
-            <SearchOutlined className={`landing-search-icon`} />
+      {location.pathname === '/listings' ? (
+        <div className="home-hero__search">
+          <div className="landing-search-bar">
+            <input
+              type="text"
+              className="landing-search-input"
+              placeholder="Search 'San Francisco'"
+            ></input>
+            <div className="landing-search-button">
+              <SearchOutlined className="landing-search-icon" />
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
     </div>
   ) : (
     <div className="app-header">

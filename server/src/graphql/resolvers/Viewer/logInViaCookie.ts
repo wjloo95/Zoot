@@ -19,7 +19,7 @@ export const logInViaCookie = async (
 
   if (!viewer) {
     res.clearCookie('viewer', cookieOptions);
+  } else {
+    return viewer;
   }
-
-  return viewer;
 };

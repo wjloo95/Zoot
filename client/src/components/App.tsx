@@ -7,13 +7,13 @@ import {
   NotFound,
   User,
   Login,
+  Register,
   Stripe,
   AppFooter,
   ScrollToTop,
   AppHome,
   FlightsHome,
   ExperiencesHome,
-  MainHeader,
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -80,13 +80,15 @@ const App = () => {
         <div id="app">
           {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
-          {/* <MainHeader viewer={viewer} setViewer={setViewer} /> */}
 
           <Switch>
             <Route exact path="/" component={AppHome} />
             <Route exact path="/listings" component={StaysHome} />
             <Route exact path="/login">
               <Login setViewer={setViewer} />
+            </Route>
+            <Route exact path="/register">
+              <Register setViewer={setViewer} />
             </Route>
             <Route exact path="/host">
               <Host viewer={viewer} />

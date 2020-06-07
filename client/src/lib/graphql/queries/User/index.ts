@@ -26,6 +26,7 @@ export const USER_BOOKINGS = gql`
           listing {
             id
             name
+            thumbnailImage
             image
             street
             reviews
@@ -50,6 +51,7 @@ export const USER_LISTINGS = gql`
         result {
           id
           name
+          thumbnailImage
           image
           street
           reviews
@@ -71,6 +73,7 @@ export const USER_FAVORITES = gql`
         result {
           id
           name
+          thumbnailImage
           image
           street
           reviews

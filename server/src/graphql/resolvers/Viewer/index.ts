@@ -1,11 +1,13 @@
 import { IResolvers } from 'apollo-server-express';
 import { Google, Stripe } from '../../../lib/api';
-import { LogInArgs, ConnectStripeArgs } from './types';
+import { LogInArgs, ConnectStripeArgs, RegisterArgs } from './types';
 import { Database, Viewer, User } from '../../../lib/types';
 import { logInViaGoogle } from './logInViaGoogle';
 import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 import { Response, Request } from 'express';
 import { logInViaCookie } from './logInViaCookie';
+import { logInViaLocal } from './logInViaLocal';
 import { authorize, cookieOptions } from '../../../lib/utils';
 
 export const viewerResolvers: IResolvers = {
@@ -19,18 +21,81 @@ export const viewerResolvers: IResolvers = {
     },
   },
   Mutation: {
+    register: async (
+      _root: undefined,
+      { input }: RegisterArgs,
+      { db, res }: { db: Database; res: Response }
+    ): Promise<Viewer> => {
+      const { name, password } = input;
+      const email = input.email.toLowerCase();
+      const existingUser = await db.users.findOne({ email });
+      if (existingUser) {
+        return { token: 'existing', didRequest: true };
+      } else {
+        const SALT_ROUNDS = 10;
+
+        const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
+
+        const today = new Date();
+
+        const sinceString =
+          today.getFullYear() +
+          '-' +
+          ('0' + (today.getMonth() + 1)).slice(-2) +
+          '-' +
+          ('0' + today.getDate()).slice(-2);
+
+        const token = crypto.randomBytes(16).toString('hex');
+
+        const viewer = await db.users.insertOne({
+          token,
+          name,
+          email,
+          avatar: '',
+          about: '',
+          location: 'No Location Provided',
+          since: sinceString,
+          income: 0,
+          bookings: [],
+          listings: [],
+          favoriteListings: [],
+          password: hashedPassword,
+        });
+        const returnedViewer = viewer.ops[0];
+
+        res.cookie('viewer', returnedViewer._id, {
+          ...cookieOptions,
+          maxAge: 365 * 24 * 60 * 60 * 1000,
+        });
+
+        return {
+          _id: returnedViewer._id,
+          token: returnedViewer.token,
+          avatar: returnedViewer.avatar,
+          walletId: returnedViewer.walletId,
+          didRequest: true,
+        };
+      }
+    },
     logIn: async (
       _root: undefined,
       { input }: LogInArgs,
       { db, req, res }: { db: Database; req: Request; res: Response }
     ): Promise<Viewer> => {
-      const code = input ? input.code : null;
+      const code = input ? input.code : '';
+      const email = input ? input.email : '';
+      const password = input ? input.password : '';
+
       const token = crypto.randomBytes(16).toString('hex');
 
-      const viewer: User | undefined = code
-        ? await logInViaGoogle(code, token, db, res)
+      const viewer: User | null | undefined = input
+        ? code === 'local'
+          ? await logInViaLocal(email, password, db, res)
+          : await logInViaGoogle(code, token, db, res)
         : await logInViaCookie(token, db, req, res);
 
+      // Wrong Password or Account is connected to Google
+      if (viewer === null) return { token: 'wrong', didRequest: true };
       if (!viewer) return { didRequest: true };
 
       return {

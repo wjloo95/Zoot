@@ -46,6 +46,7 @@
   cursor: pointer;
   position: relative;
   color: var(--light-font-color);
+  background-color: var(--primary-color);
   font-size: 24px;
 }
 

@@ -58,7 +58,7 @@ export interface Listing_listing {
   bedrooms: number;
   bathrooms: number;
   minimum: number;
-  rating: number;
+  rating: number | null;
   reviews: number;
   numOfGuests: number;
 }

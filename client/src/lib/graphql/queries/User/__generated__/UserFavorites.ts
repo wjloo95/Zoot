@@ -11,10 +11,11 @@ export interface UserFavorites_user_favoriteListings_result {
   __typename: "Listing";
   id: string;
   name: string;
+  thumbnailImage: string;
   image: string;
   street: string;
   reviews: number;
-  rating: number;
+  rating: number | null;
   price: number;
   numOfGuests: number;
 }

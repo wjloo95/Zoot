@@ -1,0 +1,7 @@
+.home-body {
+  display: flex;
+  flex-direction: column;
+  margin-left: var(--main-left-margin);
+  margin-right: var(--main-right-margin);
+  padding-top: 20px;
+}

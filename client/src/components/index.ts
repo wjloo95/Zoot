@@ -3,6 +3,7 @@ export * from './Stays';
 export * from './NotFound';
 export * from './User';
 export * from './Login';
+export * from './Register';
 export * from './AppHeader';
 export * from './MainHeader';
 export * from './Stripe';

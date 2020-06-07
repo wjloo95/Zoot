@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState, ChangeEvent } from 'react';
 import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Redirect, Link } from 'react-router-dom';
 
@@ -30,17 +30,27 @@ interface IProps {
 
 export const Login = ({ setViewer }: IProps) => {
   const client = useApolloClient();
+  const [formInputs, setFormInputs] = useState({
+    email: '',
+    password: '',
+  });
   const [logIn, { data, loading, error }] = useMutation<
     LogInData,
     LogInVariables
   >(LOG_IN, {
     onCompleted: (data) => {
       if (data && data.logIn) {
-        setViewer(data.logIn);
-        if (data.logIn.token) {
-          sessionStorage.setItem('token', data.logIn.token);
+        if (data.logIn.token === 'wrong') {
+          displayErrorMessage(
+            'Sorry! Please try another password or try signing in with Google'
+          );
+        } else {
+          setViewer(data.logIn);
+          if (data.logIn.token) {
+            sessionStorage.setItem('token', data.logIn.token);
+          }
+          displaySuccessNotification("Login Successful! Let's Get Started 👋");
         }
-        displaySuccessNotification("Login Successful! Let's Get Started 👋");
       }
     },
   });
@@ -59,12 +69,30 @@ export const Login = ({ setViewer }: IProps) => {
     }
   };
 
+  const handleSubmit = async () => {
+    try {
+      logIn({ variables: { input: { code: 'local', ...formInputs } } });
+    } catch {
+      displayErrorMessage(
+        "Sorry! We weren't able to log you in. Please try again later!"
+      );
+    }
+  };
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+    event.persist();
+    setFormInputs((prevInputs) => ({
+      ...prevInputs,
+      [event.target.name]: event.target.value,
+    }));
+  };
+
   useEffect(() => {
     const code = new URL(window.location.href).searchParams.get('code');
     if (code) {
       logInRef.current({
         variables: {
-          input: { code },
+          input: { code, email: '', password: '' },
         },
       });
     }
@@ -72,7 +100,9 @@ export const Login = ({ setViewer }: IProps) => {
 
   if (data && data.logIn) {
     const { id: viewerId } = data.logIn;
-    return <Redirect to={`/user/${viewerId}`} />;
+    if (viewerId !== null) {
+      return <Redirect to={`/user/${viewerId}`} />;
+    }
   }
 
   const logInErrorBanner = error ? (
@@ -91,7 +121,35 @@ export const Login = ({ setViewer }: IProps) => {
           <img src={Logo} alt="Zoot" />
         </Link>
         <div className="log-in-card-intro">
-          <h1>Log in to get started!</h1>
+          <h1>Login to get started!</h1>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <div className="form-element">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              required
+              onChange={handleInputChange}
+              value={formInputs.email}
+            />
+          </div>
+          <div className="form-element">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              required
+              onChange={handleInputChange}
+              value={formInputs.password}
+            />
+          </div>
+          <button type="submit" className="local-login-button">
+            Login
+          </button>
+        </form>
+        <div className="login-divider">
+          -- or <Link to="/register">register now</Link> --
         </div>
         <button className="log-in-card-button" onClick={handleAuthorize}>
           <img

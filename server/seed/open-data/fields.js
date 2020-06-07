@@ -3,6 +3,7 @@ const extractFields = [
   'Description',
   'Notes',
   'House Rules',
+  'Thumbnail Url',
   'Picture Url',
   'XL Picture Url',
   'Street',

@@ -1,7 +1,190 @@
 .home-body {
   display: flex;
   flex-direction: column;
-  margin-left: var(--main-left-margin);
-  margin-right: var(--main-right-margin);
-  padding-top: 20px;
+  justify-content: space-between;
+  margin-left: 10%;
+  margin-right: 10%;
+  padding-top: 60px;
+  padding-bottom: 30px;
+}
+
+.home-body-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.home-body-section:nth-of-type(3) {
+  flex-direction: row-reverse;
+}
+
+.home-body-left {
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+  max-width: 450px;
+  border-radius: 5px;
+  flex: 1;
+  box-shadow: 0px 25px 30px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 800px) {
+  .home-body-left {
+    display: none;
+  }
+}
+
+.home-body-right {
+  background-color: var(--light-font-color);
+  color: rgb(61, 61, 61);
+  height: 220px;
+  width: 100%;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+}
+@media (max-width: 800px) {
+  .home-body-right {
+    height: 250px;
+  }
+}
+@media (max-width: 500px) {
+  .home-body-right {
+    height: 250px;
+  }
+}
+.home-body-section:nth-of-type(2) > .home-body-right {
+  border-right: 6px solid var(--light-secondary-color);
+}
+
+.home-body-section:nth-of-type(3) > .home-body-right {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  border-left: 6px solid var(--primary-color);
+}
+
+.home-body-section:nth-of-type(4) > .home-body-right {
+  border-right: 6px solid var(--dark-secondary-color);
+}
+
+.right-section-description {
+  font-size: 1.5em;
+}
+@media (max-width: 1200px) {
+  .right-section-description {
+    font-size: 1.3em;
+  }
+}
+@media (max-width: 800px) {
+  .right-section-description {
+    font-size: 1.5em;
+  }
+  .home-body-section:nth-of-type(2) > .home-body-right {
+    border: none;
+    border-top: 6px solid var(--light-secondary-color);
+    border-radius: 5px;
+  }
+
+  .home-body-section:nth-of-type(3) > .home-body-right {
+    border: none;
+    border-top: 6px solid var(--primary-color);
+    border-radius: 5px;
+  }
+
+  .home-body-section:nth-of-type(4) > .home-body-right {
+    border: none;
+    border-top: 6px solid var(--dark-secondary-color);
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 500px) {
+  .right-section-description {
+    font-size: 1.2em;
+  }
+}
+
+.right-section-button {
+  color: rgb(61, 61, 61);
+  background: var(--light-font-color);
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: all 0.25s ease-in;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  border: none;
+}
+
+@media (max-width: 1000px) {
+  .right-section-button {
+    font-size: 1em;
+  }
+}
+
+@media (max-width: 800px) {
+  .right-section-button {
+    font-size: 1.5em;
+  }
+}
+@media (max-width: 500px) {
+  .right-section-button {
+    font-size: 1.3em;
+  }
+}
+
+.right-login-button:hover {
+  color: var(--light-font-color);
+  background-color: var(--dark-font-color);
+  transform: translateY(-2px);
+  opacity: 80%;
+}
+.right-Flights-button:hover {
+  color: var(--light-font-color);
+  background-color: var(--light-secondary-color);
+  transform: translateY(-2px);
+  opacity: 90%;
+}
+.right-Stays-button:hover {
+  color: var(--light-font-color);
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  opacity: 90%;
+}
+.right-Experiences-button:hover {
+  color: var(--light-font-color);
+  background-color: var(--dark-secondary-color);
+  transform: translateY(-2px);
+  opacity: 90%;
+}
+
+.home-body-login {
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
+  color: var(--dark-font-color);
+  border: 8px double var(--dark-font-color);
+  border-radius: 5px;
+  margin-bottom: 80px;
+}
+
+.home-body-login img {
+  border-radius: 50%;
+}
+.home-body-login div {
+  margin: 20px 0;
+  font-size: 1.5em;
+  text-align: center;
 }

@@ -80,9 +80,10 @@ const App = () => {
         <div id="app">
           {logInErrorBannerElement}
           <AppHeader viewer={viewer} setViewer={setViewer} />
-
           <Switch>
-            <Route exact path="/" component={AppHome} />
+            <Route exact path="/">
+              <AppHome viewer={viewer} />
+            </Route>
             <Route exact path="/listings" component={StaysHome} />
             <Route exact path="/login">
               <Login setViewer={setViewer} />

@@ -15,7 +15,7 @@ interface IProps {
 export const LoginSection = ({ viewer }: IProps) => {
   const loggedInSection = (
     <div className="home-body-login">
-      <img src={viewer.avatar || placeholder} />
+      <img src={viewer.avatar || placeholder} alt="User Profile" />
       <div>Welcome back! We're happy to see you again </div>
       <Link
         to={`/user/${viewer.id}`}

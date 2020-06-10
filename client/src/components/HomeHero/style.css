@@ -2,13 +2,14 @@
 
 .listings-video-container {
   position: relative;
-  height: 55vh;
+  height: 45vh;
   width: 100%;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+  z-index: 99;
 }
 @media (max-width: 75em) {
   .listings-video-container {
@@ -18,7 +19,7 @@
 }
 @media (max-width: 36em) {
   .listings-video-container {
-    height: 60vh;
+    height: 55vh;
   }
 }
 
@@ -31,7 +32,7 @@
   z-index: 1;
 }
 .listings-header {
-  margin-top: 60px;
+  margin-top: 35px;
   z-index: 99;
   display: flex;
   flex-direction: column;
@@ -43,7 +44,7 @@
   }
 }
 .listings-header-nav {
-  margin-top: 50px;
+  margin-top: 30px;
   font-size: 20px;
   width: 550px;
   display: flex;

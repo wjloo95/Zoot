@@ -42,8 +42,7 @@ export const AppHeader = ({ viewer, setViewer }: IProps) => {
     <div
       className="app-header"
       style={{
-        boxShadow: `0 2px 8px ${headerColor}`,
-        borderBottom: `1px solid ${headerColor}`,
+        borderBottom: `5px solid ${headerColor}`,
       }}
     >
       <div className="app-header-search-section">

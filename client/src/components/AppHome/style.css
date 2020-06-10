@@ -145,25 +145,21 @@
   color: var(--light-font-color);
   background-color: var(--dark-font-color);
   transform: translateY(-2px);
-  opacity: 80%;
 }
 .right-Flights-button:hover {
   color: var(--light-font-color);
   background-color: var(--light-secondary-color);
   transform: translateY(-2px);
-  opacity: 90%;
 }
 .right-Stays-button:hover {
   color: var(--light-font-color);
   background-color: var(--primary-color);
   transform: translateY(-2px);
-  opacity: 90%;
 }
 .right-Experiences-button:hover {
   color: var(--light-font-color);
   background-color: var(--dark-secondary-color);
   transform: translateY(-2px);
-  opacity: 90%;
 }
 
 .home-body-login {

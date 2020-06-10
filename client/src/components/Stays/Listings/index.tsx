@@ -11,7 +11,7 @@ import {
 import { ListingsSort } from '../../../lib/graphql/globalTypes';
 import { LISTINGS } from '../../../lib/graphql/queries';
 
-import { List, Typography, Layout } from 'antd';
+import { List } from 'antd';
 import {
   ListingsSkeleton,
   ListingsPagination,
@@ -20,8 +20,6 @@ import {
   ListingsMap,
 } from './children';
 const { Item } = List;
-const { Title } = Typography;
-const { Content } = Layout;
 
 interface IParams {
   location: string;
@@ -123,9 +121,9 @@ export const Listings = () => {
 
   const listingsRegionElement =
     listings && listingsRegion ? (
-      <Title level={3} className="listings__title">
+      <div className="listings__title">
         {listings.total} Results for "{listingsRegion}"
-      </Title>
+      </div>
     ) : null;
 
   return loading ? (
@@ -133,7 +131,7 @@ export const Listings = () => {
       <ListingsSkeleton />
     </div>
   ) : (
-    <Content className="listings">
+    <div className="listings">
       <div className="listings-section">
         {listingsRegionElement}
         {listingsSectionElement}
@@ -143,6 +141,6 @@ export const Listings = () => {
         selectedListing={selectedListing}
         setSelectedListing={setSelectedListing}
       />
-    </Content>
+    </div>
   );
 };

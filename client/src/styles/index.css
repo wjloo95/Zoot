@@ -9,7 +9,12 @@
   --light-font-color: #f5f6f4;
   --dark-font-color: #455a5e;
   --dark-font-secondary-color: #455a5ea4;
-  --bg-color: #f5f6f4;
+
+  --dark-transparent-color: #455a5e18;
+  --red-transparent-color: #8a59611a;
+  --orange-transparent-color: #dd7f5b1a;
+  --primary-transparent-color: #668ca61a;
+  --light-transparent-color: #f5f6f4d8;
 
   --main-left-margin: 40px;
   --main-right-margin: 20px;
@@ -24,7 +29,7 @@ html {
 }
 #app {
   position: relative;
-  background: var(--bg-color);
+  background: var(--light-font-color);
   min-height: 100vh;
   display: flex;
   flex: auto;
@@ -78,7 +83,7 @@ body {
 
 .app-header {
   display: flex;
-  background: var(--bg-color);
+  background: var(--light-font-color);
   width: 100%;
   padding: 0;
   z-index: 99;
@@ -86,7 +91,7 @@ body {
 
 .app-header-menu-section {
   float: right;
-  background: var(--bg-color);
+  background: var(--light-font-color);
   padding-top: 5px;
 }
 @media (max-width: 52em) {
@@ -134,7 +139,7 @@ body {
 }
 
 .ant-menu {
-  background: var(--bg-color);
+  background: var(--light-font-color);
 }
 
 .error-banner {
@@ -444,7 +449,7 @@ body {
 }
 .listing-mark {
   background-color: var(--light-secondary-color);
-  color: var(--bg-color);
+  color: var(--light-font-color);
   padding: 3px;
 }
 
@@ -479,7 +484,7 @@ body {
 }
 .listings-filters {
   padding: 10px 0;
-  background: var(--bg-color);
+  background: var(--light-font-color);
 }
 .listings-filters
   .ant-select-selection--single
@@ -517,7 +522,6 @@ body {
 @media (max-width: 991px) {
   .listings {
     margin-left: var(--responsive-left-margin);
-    display: flex;
     flex-direction: column;
   }
 }
@@ -588,8 +592,10 @@ body {
 .listings__affix {
   padding: 10px 0;
 }
-.listings__title.ant-typography {
+.listings__title {
   color: var(--dark-font-color);
+  font-weight: bold;
+  font-size: 25px;
 }
 
 /* Not Found Page Styles */
@@ -642,7 +648,7 @@ body {
 
 .app-skeleton {
   height: 100%;
-  background: var(--bg-color);
+  background: var(--light-font-color);
   display: flex;
   flex: auto;
   flex-direction: column;

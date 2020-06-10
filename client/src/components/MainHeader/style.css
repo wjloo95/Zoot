@@ -1,6 +1,6 @@
 .main-header-container {
   display: flex;
-  background: var(--bg-color);
+  background: var(--light-font-color);
   width: 100%;
   height: 100%;
   padding: 0;

@@ -66,6 +66,7 @@ export const ListingsSkeleton = () => {
           backgroundImage: `url(${listingLoadingCardCover})`,
           width: '70%',
           marginLeft: '20px',
+          height: '800px',
         }}
         className="listings-skeleton__card-cover-img"
       ></div>

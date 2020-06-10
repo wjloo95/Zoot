@@ -27,8 +27,7 @@
   width: 100%;
   height: 100%;
   position: absolute;
-  background-color: var(--dark-font-color);
-  opacity: 30%;
+  background-color: var(--dark-transparent-color);
   z-index: 1;
 }
 .listings-header {

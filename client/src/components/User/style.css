@@ -98,7 +98,6 @@
 
 .user-profile-details-cta:hover {
   transform: translateY(-2px);
-  opacity: 90%;
 }
 .user-profile-details-cta-neg {
   cursor: pointer;
@@ -117,7 +116,6 @@
 
 .user-profile-details-cta-neg:hover {
   transform: translateY(-2px);
-  opacity: 90%;
 }
 
 .user-profile-additional > p {

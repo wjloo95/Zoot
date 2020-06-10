@@ -16,29 +16,38 @@ import './style.css';
 export const HomeHero = () => {
   const history = useHistory();
 
-  const currentVideo =
+  const pageConfig =
     history.location.pathname === '/flights'
-      ? FlightsVideo
+      ? {
+          video: FlightsVideo,
+          image: FlightsFrame,
+          overlayColor: 'var(--orange-transparent-color)',
+        }
       : history.location.pathname === '/experiences'
-      ? ExperiencesVideo
+      ? {
+          video: ExperiencesVideo,
+          image: ExperiencesFrame,
+          overlayColor: 'var(--red-transparent-color)',
+        }
       : history.location.pathname === '/listings'
-      ? StaysVideo
-      : MainVideo;
+      ? {
+          video: StaysVideo,
+          image: StaysFrame,
+          overlayColor: 'var(--primary-transparent-color)',
+        }
+      : {
+          video: MainVideo,
+          image: MainFrame,
+          overlayColor: 'var(--dark-transparent-color)',
+        };
 
-  const currentImage =
-    history.location.pathname === '/'
-      ? MainFrame
-      : history.location.pathname === '/flights'
-      ? FlightsFrame
-      : history.location.pathname === '/listings'
-      ? StaysFrame
-      : ExperiencesFrame;
+  const { video, image, overlayColor } = pageConfig;
 
   return (
     <div
       className="listings-video-container"
       style={{
-        backgroundImage: `url(${currentImage})`,
+        backgroundImage: `url(${image})`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
@@ -65,10 +74,13 @@ export const HomeHero = () => {
         loop
         muted
         playsInline
-        src={currentVideo}
+        src={video}
         className="listings-video"
       ></video>
-      <div className="listings-overlay"></div>
+      <div
+        className="listings-overlay"
+        style={{ backgroundColor: overlayColor }}
+      ></div>
       {history.location.pathname === '/listings' ? (
         <div className="home-hero__search">
           <SearchBar placeholder="Search 'San Francisco'" type="landing" />

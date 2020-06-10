@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Avatar, Button, Card, Divider, Tag, Typography } from 'antd';
+import { Tag } from 'antd';
 
 import { User as UserData } from '../../../../lib/graphql/queries/User/__generated__/User';
 import {
@@ -21,8 +21,6 @@ interface IProps {
   setViewer: (viewer: Viewer) => void;
   handleRefetch: () => void;
 }
-
-const { Paragraph, Text, Title } = Typography;
 
 const STRIPE_URL = `https://connect.stripe.com/oauth/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
 
@@ -61,49 +59,40 @@ export const UserProfile = ({
 
   const additionalDetails = user.hasWallet ? (
     <>
-      <Paragraph>
-        <Tag color="green">Stripe Registered</Tag>
-      </Paragraph>
-      <Paragraph>
+      <div className="stripe-registered">Stripe Registered</div>
+      <p>
         Income Earned:{' '}
-        <Text strong>{user.income ? formatPrice(user.income) : `$0`}</Text>
-      </Paragraph>
-      <Button
-        type="primary"
-        className="user-profile__details-cta"
+        <span>{user.income ? formatPrice(user.income) : `$0`}</span>
+      </p>
+      <div
+        className="user-profile-details-cta-neg"
         onClick={() => disconnectStripe()}
       >
         Disconnect Stripe
-      </Button>
-      <Paragraph type="secondary">
+      </div>
+      <p>
         By disconnecting, you won't be able to receive{' '}
-        <Text strong>any further payments</Text>. This will prevent users from
-        booking listings that you have created.
-      </Paragraph>
-      <Divider />
-      <Paragraph>
+        <span>any further payments</span>. This will prevent users from booking
+        listings that you have created.
+      </p>
+      <div className="user-profile-details-title">Host a Listing</div>
+      <p>
         Interested in listing a property? Complete our listings form to start
         earning money!
-      </Paragraph>
+      </p>
       <Link to={'/host'}>
-        <Button type="primary" className="user-profile__details-cta">
-          List a Property
-        </Button>
+        <div className="user-profile-details-cta">List a Property</div>
       </Link>
     </>
   ) : (
     <>
-      <Paragraph>
+      <div>
         Interested in becoming a host? Register with your Stripe account!
-      </Paragraph>
-      <Button
-        type="primary"
-        className="user-profile__details-cta"
-        onClick={sendToStripe}
-      >
+      </div>
+      <div className="user-profile-details-cta" onClick={sendToStripe}>
         Connect with Stripe
-      </Button>
-      <Paragraph type="secondary">
+      </div>
+      <div>
         <a
           href="https://stripe.com/en-US/connect"
           target="_blank"
@@ -112,15 +101,14 @@ export const UserProfile = ({
           Stripe
         </a>{' '}
         is used to help transfer your earnings in a secure and trusted manner.
-      </Paragraph>
+      </div>
     </>
   );
 
   const additionalDetailsSection = isViewer ? (
     <>
-      <Divider />
-      <div className="user-profile__details">
-        <Title level={4}>Additional Details</Title>
+      <div className="user-profile-additional">
+        <div className="user-profile-details-title">Payment Information</div>
         {additionalDetails}
       </div>
     </>
@@ -128,35 +116,30 @@ export const UserProfile = ({
 
   return (
     <div className="user-profile">
-      <Card className="user-profile__card">
-        <div className="user-profile__avatar">
-          <Avatar
-            size={100}
-            onError={() => {
-              setAvatarImage(placeholder);
-              return false;
-            }}
-            src={avatarImage}
-          />
-        </div>
-        <Divider />
-        <div className="user-profile__details">
-          <Title level={4}>Details</Title>
-          <Paragraph>
-            Name: <Text strong>{user.name}</Text>
-          </Paragraph>
-          <Paragraph>
-            Location: <Text strong>{user.location}</Text>
-          </Paragraph>
-          <Paragraph>
-            User Since: <Text strong>{user.since}</Text>
-          </Paragraph>
-          <Paragraph>
-            About: <Text strong>{user.about}</Text>
-          </Paragraph>
-        </div>
-        {additionalDetailsSection}
-      </Card>
+      <img
+        onError={() => {
+          setAvatarImage(placeholder);
+          return false;
+        }}
+        src={avatarImage}
+        className="user-profile-avatar"
+      />
+      <div className="user-profile-details">
+        <div className="user-profile-details-title">Details</div>
+        <p>
+          Name: <span>{user.name}</span>
+        </p>
+        <p>
+          Location: <span>{user.location}</span>
+        </p>
+        <p>
+          User Since: <span>{user.since}</span>
+        </p>
+        <p>
+          About: <span>{user.about}</span>
+        </p>
+      </div>
+      {additionalDetailsSection}
     </div>
   );
 };

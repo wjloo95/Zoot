@@ -1,6 +1,6 @@
 .landing-search-bar {
   position: absolute;
-  top: 70%;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
   max-width: 550px;
@@ -11,17 +11,7 @@
   z-index: 5;
 }
 
-@media (max-width: 36em) {
-  .landing-search-bar {
-    top: 85%;
-  }
-}
 @media (max-width: 48em) {
-  .landing-search-bar {
-    top: 85%;
-  }
-}
-@media (max-width: 36em) {
   .landing-search-bar {
     top: 85%;
   }

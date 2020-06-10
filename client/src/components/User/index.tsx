@@ -1,6 +1,6 @@
 import React from 'react';
 import { useQuery } from '@apollo/react-hooks';
-import { Col, Row, Tabs } from 'antd';
+import { Tabs } from 'antd';
 
 import { USER } from '../../lib/graphql/queries';
 import {
@@ -16,6 +16,8 @@ import {
 } from './children';
 import { Viewer } from '../../lib/types';
 import { ErrorBanner, PageSkeleton } from '../../lib/components';
+
+import './style.css';
 
 const { TabPane } = Tabs;
 
@@ -76,11 +78,11 @@ export const User = ({ viewer, setViewer }: IProps) => {
       <PageSkeleton />
     </main>
   ) : (
-    <main className="user">
+    <main>
       {stripeErrorBanner}
-      <Row gutter={12} justify="start">
-        <Col xs={24}>{userProfileElement}</Col>
-        <Col xs={24}>
+      <div className="user">
+        <>{userProfileElement}</>
+        <>
           <Tabs keyboard defaultActiveKey="1" size="large">
             <TabPane tab="Listings" key="1">
               <UserListings id={id} limit={PAGE_LIMIT} />
@@ -92,8 +94,8 @@ export const User = ({ viewer, setViewer }: IProps) => {
               <UserFavorites id={id} limit={PAGE_LIMIT} />
             </TabPane>
           </Tabs>
-        </Col>
-      </Row>
+        </>
+      </div>
     </main>
   );
 };

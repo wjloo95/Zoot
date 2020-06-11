@@ -18,7 +18,7 @@ import { LISTINGS } from '../../../lib/graphql/queries';
 import { ListingsSort } from '../../../lib/graphql/globalTypes';
 import { HomeHero } from '../../HomeHero';
 
-const PAGE_LIMIT = 6;
+const PAGE_LIMIT = 8;
 const PAGE_NUMBER = 1;
 
 export const StaysHome = () => {
@@ -34,7 +34,7 @@ export const StaysHome = () => {
     }
   );
 
-  const topListingsSection = loading ? (
+  const popularListingsSection = loading ? (
     <HomeListingsSkeleton />
   ) : data ? (
     <PopularListings listings={data.listings.result} />
@@ -58,7 +58,7 @@ export const StaysHome = () => {
             Highly Rated Listings in the United States
           </Link>
         </div>
-        {topListingsSection}
+        {popularListingsSection}
       </div>
     </>
   );

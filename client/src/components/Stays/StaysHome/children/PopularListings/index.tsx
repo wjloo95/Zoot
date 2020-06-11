@@ -17,11 +17,12 @@ export const PopularListings = ({ listings }: IProps) => {
       </Title>
       <List
         grid={{
-          column: 3,
+          column: 4,
           gutter: 15,
           xs: 1,
           sm: 2,
-          lg: 3,
+          md: 2,
+          lg: 4,
         }}
         dataSource={listings}
         renderItem={(listing) => (

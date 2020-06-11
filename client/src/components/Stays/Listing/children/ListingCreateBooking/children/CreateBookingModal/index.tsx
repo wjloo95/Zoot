@@ -1,28 +1,96 @@
 import React from 'react';
-import { Button, Divider, Modal, Typography } from 'antd';
+import { Modal } from 'antd';
 import moment, { Moment } from 'moment';
-import { formatPrice } from '../../../../../../../lib/utils';
+import {
+  formatPrice,
+  displayErrorMessage,
+  displaySuccessNotification,
+} from '../../../../../../../lib/utils';
 import { KeyOutlined } from '@ant-design/icons';
+import {
+  CardElement,
+  injectStripe,
+  ReactStripeElements,
+} from 'react-stripe-elements';
 
-const { Paragraph, Text, Title } = Typography;
+import { CREATE_BOOKING } from '../../../../../../../lib/graphql/mutations';
+import {
+  CreateBooking as CreateBookingData,
+  CreateBookingVariables,
+} from '../../../../../../../lib/graphql/mutations/CreateBooking/__generated__/CreateBooking';
+import { useMutation } from '@apollo/react-hooks';
 
 interface IProps {
+  id: string;
   price: number;
   modalVisible: boolean;
   checkInDate: Moment;
   checkOutDate: Moment;
   setModalVisible: (modalVisible: boolean) => void;
+  warningMessage: string | null;
+  resetBookingData: () => void;
+  handleListingRefetch: () => Promise<void>;
 }
 
 export const CreateBookingModal = ({
+  id,
   price,
   modalVisible,
   checkInDate,
   checkOutDate,
   setModalVisible,
-}: IProps) => {
+  warningMessage,
+  resetBookingData,
+  handleListingRefetch,
+  stripe,
+}: IProps & ReactStripeElements.InjectedStripeProps) => {
+  const [createBooking] = useMutation<
+    CreateBookingData,
+    CreateBookingVariables
+  >(CREATE_BOOKING, {
+    onCompleted: () => {
+      resetBookingData();
+      displaySuccessNotification(
+        "You've successfully booked the listing!",
+        'Booking history can always be found in your User page.'
+      );
+      handleListingRefetch();
+    },
+    onError: () => {
+      displayErrorMessage(
+        "Sorry! We weren't able to successfully book the listing. Please try again later!"
+      );
+    },
+  });
+
   const nightsBooked = checkOutDate.diff(checkInDate, 'days') + 1;
   const listingPrice = price * nightsBooked;
+
+  const handleCreateBooking = async () => {
+    if (!stripe) {
+      return displayErrorMessage("Sorry! We weren't able to connect to Stripe");
+    }
+
+    let { token: stripeToken, error } = await stripe.createToken();
+    if (stripeToken) {
+      createBooking({
+        variables: {
+          input: {
+            id,
+            source: stripeToken.id,
+            checkIn: moment(checkInDate).format('YYYY-MM-DD'),
+            checkOut: moment(checkOutDate).format('YYYY-MM-DD'),
+          },
+        },
+      });
+    } else {
+      displayErrorMessage(
+        error && error.message
+          ? error.message
+          : "Sorry! We weren't able to book the listing. Please try again later."
+      );
+    }
+  };
 
   return (
     <Modal
@@ -33,50 +101,53 @@ export const CreateBookingModal = ({
     >
       <div className="listing-booking-modal">
         <div className="listing-booking-modal__intro">
-          <Title className="listing-boooking-modal__intro-title">
+          <p className="listing-booking-modal__intro-title">
             <KeyOutlined />
-          </Title>
-          <Title level={3} className="listing-boooking-modal__intro-title">
+            <br />
             Book your trip
-          </Title>
-          <Paragraph>
+          </p>
+          <p className="listing-booking-modal__information">
             Enter your payment information to book the listing from the dates
             between{' '}
-            <Text mark strong>
+            <mark className="modal-mark">
               {moment(checkInDate).format('MMMM Do YYYY')}
-            </Text>{' '}
+            </mark>{' '}
             and{' '}
-            <Text mark strong>
+            <mark className="modal-mark">
               {moment(checkOutDate).format('MMMM Do YYYY')}
-            </Text>
+            </mark>
             , inclusive.
-          </Paragraph>
+          </p>
         </div>
-
-        <Divider />
 
         <div className="listing-booking-modal__charge-summary">
-          <Paragraph>
+          <p className="listing-booking-modal__information">
             {formatPrice(price)} * {nightsBooked} nights ={' '}
-            <Text strong>{formatPrice(listingPrice)}</Text>
-          </Paragraph>
-          <Paragraph className="listing-booking-modal__charge-summary-total">
-            Total = <Text mark>{formatPrice(listingPrice)}</Text>
-          </Paragraph>
+            {formatPrice(listingPrice)}
+          </p>
+          <p className="listing-booking-modal__charge-summary-total">
+            Total ={' '}
+            <mark className="modal-mark">{formatPrice(listingPrice)}</mark>
+          </p>
         </div>
-
-        <Divider />
 
         <div className="listing-booking-modal__stripe-card-section">
-          <Button
-            size="large"
-            type="primary"
-            className="listing-booking-modal__cta"
+          <CardElement
+            hidePostalCode
+            className="listing-booking-modal__stripe-card"
+          />
+          <button
+            className="listing-cta primary-button"
+            disabled={!!warningMessage}
+            onClick={handleCreateBooking}
           >
-            Book
-          </Button>
+            Complete your Booking
+          </button>
         </div>
+        <mark className="listing-mark">{warningMessage}</mark>
       </div>
     </Modal>
   );
 };
+
+export const WrappedCreateBookingModal = injectStripe(CreateBookingModal);

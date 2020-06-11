@@ -5,26 +5,39 @@ import { formatPrice, displayErrorMessage } from '../../../../../lib/utils';
 import { Viewer } from '../../../../../lib/types';
 import { Listing as ListingData } from '../../../../../lib/graphql/queries/Listing/__generated__/Listing';
 import { BookingsIndex } from './types';
-import { CreateBookingModal, FavoriteToggle } from './children';
+import {
+  WrappedCreateBookingModal as CreateBookingModal,
+  FavoriteToggle,
+} from './children';
 
 interface IProps {
+  id: string;
   price: number;
   minimum: number;
   viewer: Viewer;
   host: ListingData['listing']['host'];
   bookingsIndex: ListingData['listing']['bookingsIndex'];
+  handleListingRefetch: () => Promise<void>;
 }
 
 export const ListingCreateBooking = ({
+  id,
   price,
   minimum,
   viewer,
   host,
   bookingsIndex,
+  handleListingRefetch,
 }: IProps) => {
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
   const [modalVisible, setModalVisible] = useState(false);
+
+  const resetBookingData = () => {
+    setModalVisible(false);
+    setCheckInDate(null);
+    setCheckOutDate(null);
+  };
 
   const bookingsIndexJSON: BookingsIndex = JSON.parse(bookingsIndex);
 
@@ -103,26 +116,31 @@ export const ListingCreateBooking = ({
   const checkOutInputDisabled = !checkInDate;
   const buttonDisabled = !checkInDate || !checkOutDate;
   const isHost = viewer.id === host.id;
+  let warningMessage = null;
+  if (!viewer.id) {
+    warningMessage = 'You have to be signed in to book a listing!';
+  } else if (isHost) {
+    warningMessage = "You can't book your own listing!";
+  } else if (!host.hasWallet) {
+    warningMessage =
+      "The host has disconnected from Stripe and thus won't be able to receive payments.";
+  }
   const listingCreateBookingModalElement =
     price && checkInDate && checkOutDate ? (
       <CreateBookingModal
+        id={id}
         price={price}
         modalVisible={modalVisible}
         checkInDate={checkInDate}
         checkOutDate={checkOutDate}
         setModalVisible={setModalVisible}
+        warningMessage={warningMessage}
+        resetBookingData={resetBookingData}
+        handleListingRefetch={handleListingRefetch}
       />
     ) : null;
 
-  let buttonMessage = "You won't be charged yet";
-  if (!viewer.id) {
-    buttonMessage = 'You have to be signed in to book a listing!';
-  } else if (isHost) {
-    buttonMessage = "You can't book your own listing!";
-  } else if (!host.hasWallet) {
-    buttonMessage =
-      "The host has disconnected from Stripe and thus won't be able to receive payments.";
-  }
+  let checkPriceMessage = "You won't be charged yet";
 
   return (
     <div className="listing-section listing-booking">
@@ -172,13 +190,13 @@ export const ListingCreateBooking = ({
           </div>
         </div>
         <button
-          className="listing-booking__card-cta primary-button"
+          className="listing-cta primary-button"
           disabled={buttonDisabled}
           onClick={() => setModalVisible(true)}
         >
-          Request to book!
+          Check Price!
         </button>
-        <mark className="listing-mark">{buttonMessage}</mark>
+        <mark className="listing-mark">{checkPriceMessage}</mark>
       </div>
       {listingCreateBookingModalElement}
     </div>

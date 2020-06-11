@@ -6,3 +6,4 @@ export * from './LogOut';
 export * from './HostListing';
 export * from './AddFavorite';
 export * from './RemoveFavorite';
+export * from './CreateBooking';

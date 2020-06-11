@@ -17,6 +17,7 @@ import {
 } from './index';
 
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { StripeProvider, Elements } from 'react-stripe-elements';
 
 import { Viewer } from '../lib/types';
 import { AppHeader } from './AppHeader';
@@ -75,42 +76,48 @@ const App = () => {
 
   return (
     <>
-      <Router>
-        <ScrollToTop />
-        <div id="app">
-          {logInErrorBannerElement}
-          <AppHeader viewer={viewer} setViewer={setViewer} />
-          <Switch>
-            <Route exact path="/">
-              <AppHome viewer={viewer} />
-            </Route>
-            <Route exact path="/listings" component={StaysHome} />
-            <Route exact path="/login">
-              <Login setViewer={setViewer} />
-            </Route>
-            <Route exact path="/register">
-              <Register setViewer={setViewer} />
-            </Route>
-            <Route exact path="/host">
-              <Host viewer={viewer} />
-            </Route>
-            <Route exact path="/listing/:id">
-              <Listing viewer={viewer} />
-            </Route>
-            <Route exact path="/listings/:location?" component={Listings} />
-            <Route exact path="/user/:id">
-              <User viewer={viewer} setViewer={setViewer} />
-            </Route>
-            <Route exact path="/stripe">
-              <Stripe viewer={viewer} setViewer={setViewer} />
-            </Route>
-            <Route exact path="/flights" component={FlightsHome} />
-            <Route exact path="/experiences" component={ExperiencesHome} />
-            <Route component={NotFound} />
-          </Switch>
-          <AppFooter />
-        </div>
-      </Router>
+      <StripeProvider
+        apiKey={process.env.REACT_APP_S_PUBLISHABLE_KEY as string}
+      >
+        <Router>
+          <ScrollToTop />
+          <div id="app">
+            {logInErrorBannerElement}
+            <AppHeader viewer={viewer} setViewer={setViewer} />
+            <Switch>
+              <Route exact path="/">
+                <AppHome viewer={viewer} />
+              </Route>
+              <Route exact path="/listings" component={StaysHome} />
+              <Route exact path="/login">
+                <Login setViewer={setViewer} />
+              </Route>
+              <Route exact path="/register">
+                <Register setViewer={setViewer} />
+              </Route>
+              <Route exact path="/host">
+                <Host viewer={viewer} />
+              </Route>
+              <Route exact path="/listing/:id">
+                <Elements>
+                  <Listing viewer={viewer} />
+                </Elements>
+              </Route>
+              <Route exact path="/listings/:location?" component={Listings} />
+              <Route exact path="/user/:id">
+                <User viewer={viewer} setViewer={setViewer} />
+              </Route>
+              <Route exact path="/stripe">
+                <Stripe viewer={viewer} setViewer={setViewer} />
+              </Route>
+              <Route exact path="/flights" component={FlightsHome} />
+              <Route exact path="/experiences" component={ExperiencesHome} />
+              <Route component={NotFound} />
+            </Switch>
+            <AppFooter />
+          </div>
+        </Router>
+      </StripeProvider>
     </>
   );
 };
